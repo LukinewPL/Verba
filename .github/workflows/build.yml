@@ -16,7 +16,17 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
       
     - name: Clean & Build
-      run: xcodebuild clean build -project WordWise.xcodeproj -scheme WordWise -destination 'platform=macOS'
+      run: |
+        xcodebuild build \
+          -project WordWise.xcodeproj \
+          -scheme WordWise \
+          -destination 'platform=macOS,arch=arm64' \
+          -configuration Debug
       
     - name: Run Tests
-      run: xcodebuild test -project WordWise.xcodeproj -scheme WordWise -destination 'platform=macOS' -test-sdk macosx
+      run: |
+        xcodebuild test \
+          -project WordWise.xcodeproj \
+          -scheme WordWiseTests \
+          -destination 'platform=macOS,arch=arm64' \
+          -configuration Debug
