@@ -62,6 +62,8 @@ struct SettingsView: View {
             try ctx.delete(model: StudySession.self)
             try ctx.delete(model: Word.self)
             try ctx.save()
-        } catch {}
+        } catch {
+            print("WordWise: Save failed — \(error)")
+        }
     }
 }

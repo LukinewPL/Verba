@@ -14,10 +14,12 @@ struct StudySessionView: View {
     @Environment(\.modelContext) private var ctx
     
     var prompt: String {
-        get { set.translationDirectionRaw == 0 ? current?.polish ?? "" : current?.english ?? "" }
+        guard let current else { return "" }
+        return set.prompt(for: current)
     }
     var target: String {
-        get { set.translationDirectionRaw == 0 ? current?.english ?? "" : current?.polish ?? "" }
+        guard let current else { return "" }
+        return set.target(for: current)
     }
     
     @Environment(\.dismiss) private var dismiss
@@ -78,11 +80,11 @@ struct StudySessionView: View {
         nextWord()
     }
     
-    func checkAnswer() {
+    private func checkAnswer() {
+        attemptedCount += 1
         let isCorrect = match(answer, to: target)
         
         if isCorrect {
-            attemptedCount += 1
             correctCount += 1
             feedback = .green; AudioFeedback.shared.playCorrect()
             if let w = current { SM2Engine.rate(w, quality: 4) }
@@ -93,18 +95,15 @@ struct StudySessionView: View {
             feedback = .red; AudioFeedback.shared.playWrong()
             if let w = current { 
                 SM2Engine.rate(w, quality: 1) 
-                queue.append(w) // Move to end of queue
+                queue.append(w)
             }
-            // Note: attemptedCount increments only for correct or first time? 
-            // Usually attemptedCount in sessions counts total attempts. 
-            // But let's follow the logic of "keep in queue until right".
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 feedback = .clear; answer = ""; nextWord(); isFocused = true
             }
         }
     }
     
-    func match(_ input: String, to target: String) -> Bool {
+    private func match(_ input: String, to target: String) -> Bool {
         let separators = CharacterSet(charactersIn: ",/-")
         let parts = target.components(separatedBy: separators)
             .map { $0.trimmingCharacters(in: .whitespaces) }
@@ -114,7 +113,7 @@ struct StudySessionView: View {
         return parts.contains { normalize($0) == normalizedInput } || normalize(input) == normalize(target)
     }
     
-    func normalize(_ text: String) -> String {
+    private func normalize(_ text: String) -> String {
         return text
             .lowercased()
             .replacingOccurrences(of: "\u{00A0}", with: " ")
@@ -125,7 +124,7 @@ struct StudySessionView: View {
             .folding(options: .diacriticInsensitive, locale: .current)
     }
 
-    func nextWord() {
+    private func nextWord() {
         if queue.isEmpty {
             current = nil
             if attemptedCount > 0 && !hasSaved {
@@ -136,7 +135,7 @@ struct StudySessionView: View {
         }
     }
     
-    func saveSession() {
+    private func saveSession() {
         guard !hasSaved && attemptedCount > 0 else { return }
         let session = StudySession(wordSetID: set.id)
         session.wordsStudied = attemptedCount

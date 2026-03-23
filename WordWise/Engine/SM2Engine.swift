@@ -10,7 +10,7 @@ struct SM2Engine {
         }
         word.easeFactor += (0.1 - (5.0 - Double(quality)) * (0.08 + (5.0 - Double(quality)) * 0.02))
         word.easeFactor = max(1.3, word.easeFactor)
-        word.isMastered = word.repetitions >= 3
+        word.isMastered = word.repetitions >= 5
         word.nextReview = Calendar.current.date(byAdding: .day, value: word.interval, to: Date()) ?? Date()
     }
 }

@@ -16,7 +16,23 @@ enum TranslationDirection: Int, Codable {
     var bestScore: Int = 0
     var folder: Folder?
 
+    var translationDirection: TranslationDirection {
+        TranslationDirection(rawValue: translationDirectionRaw) ?? .polishToEnglish
+    }
+
+    func prompt(for word: Word) -> String {
+        translationDirection == .polishToEnglish ? word.polish : word.english
+    }
+
+    func target(for word: Word) -> String {
+        translationDirection == .polishToEnglish ? word.english : word.polish
+    }
+
     init(id: UUID = UUID(), name: String, createdAt: Date = Date(), words: [Word] = [], dir: Int = TranslationDirection.polishToEnglish.rawValue) {
-        self.id = id; self.name = name; self.createdAt = createdAt; self.words = words; self.translationDirectionRaw = dir
+        self.id = id
+        self.name = name
+        self.createdAt = createdAt
+        self.words = words
+        self.translationDirectionRaw = dir
     }
 }

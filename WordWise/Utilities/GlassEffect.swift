@@ -1,4 +1,5 @@
 import SwiftUI
+
 struct GlassEffect: ViewModifier {
     func body(content: Content) -> some View {
         content

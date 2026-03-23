@@ -26,10 +26,12 @@ struct SpeedRoundView: View {
     @Environment(\.dismiss) private var dismiss
     
     var prompt: String {
-        get { set.translationDirectionRaw == 0 ? current?.polish ?? "" : current?.english ?? "" }
+        guard let current else { return "" }
+        return set.prompt(for: current)
     }
     var target: String {
-        get { set.translationDirectionRaw == 0 ? current?.english ?? "" : current?.polish ?? "" }
+        guard let current else { return "" }
+        return set.target(for: current)
     }
     
     var body: some View {
@@ -124,7 +126,11 @@ struct SpeedRoundView: View {
         if correctCount > set.bestScore {
             set.bestScore = correctCount
             showRecordBlast = true
-            try? ctx.save()
+            do {
+                try ctx.save()
+            } catch {
+                print("WordWise: Save failed — \(error)")
+            }
         }
         
         if correctCount > 0 {

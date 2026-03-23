@@ -5,6 +5,14 @@
 	};
 	objectVersion = 77;
 	objects = {
+		A0000000000000000000003 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000002 /* AppCoordinator.swift */; };
+		A0000000000000000000006 /* WordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000005 /* WordRepository.swift */; };
+		A0000000000000000000008 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000007 /* TestViewModel.swift */; };
+		A0000000000000000000010 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000009 /* HomeViewModel.swift */; };
+		A0000000000000000000012 /* SetsLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000011 /* SetsLibraryViewModel.swift */; };
+		A0000000000000000000014 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000013 /* ErrorHandler.swift */; };
+		A0000000000000000000016 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000015 /* DesignSystem.swift */; };
+
 		06F7631D998648E6986FBECB /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE294B2308842E688BD22E4 /* Folder.swift */; };
 		3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 		9F1501F231E64B71A7CD5882 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */; };
@@ -72,6 +80,8 @@
 		96B0BE6369AA41769EDEC8D6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A0000000000000000000013 /* ErrorHandler.swift */,
+				A0000000000000000000015 /* DesignSystem.swift */,
 				B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */,
 				F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */,
 				E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */,
@@ -83,6 +93,9 @@
 		9D3B5337FF1F45F0A69CDA6F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				A0000000000000000000007 /* TestViewModel.swift */,
+				A0000000000000000000009 /* HomeViewModel.swift */,
+				A0000000000000000000011 /* SetsLibraryViewModel.swift */,
 
 			);
 			path = "ViewModels";
@@ -146,12 +159,22 @@
 		F8A641072F6F3C850022F040 /* WordWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WordWise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C1234567890ABCDEF111001 /* en.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		3C1234567890ABCDEF111003 /* pl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pl.json; sourceTree = "<group>"; };
+
+		A0000000000000000000002 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		A0000000000000000000005 /* WordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordRepository.swift; sourceTree = "<group>"; };
+		A0000000000000000000007 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
+		A0000000000000000000009 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A0000000000000000000011 /* SetsLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibraryViewModel.swift; sourceTree = "<group>"; };
+		A0000000000000000000013 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		A0000000000000000000015 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F8A641092F6F3C850022F040 /* WordWise */ = {
 			isa = PBXGroup;
 			children = (
+				A0000000000000000000001 /* Navigation */,
+				A0000000000000000000004 /* Repository */,
 				3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */,
 				664FF430EAF44817B53B5FCB /* Engine */,
 				0DE7F90AB9C74DED83948F59 /* Models */,
@@ -202,6 +225,23 @@
 				3C1234567890ABCDEF000003 /* ImportEngineTests.swift */,
 			);
 			path = WordWiseTests;
+			sourceTree = "<group>";
+		};
+
+		A0000000000000000000001 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				A0000000000000000000002 /* AppCoordinator.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		A0000000000000000000004 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				A0000000000000000000005 /* WordRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +373,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0000000000000000000003 /* AppCoordinator.swift in Sources */,
+				A0000000000000000000006 /* WordRepository.swift in Sources */,
+				A0000000000000000000008 /* TestViewModel.swift in Sources */,
+				A0000000000000000000010 /* HomeViewModel.swift in Sources */,
+				A0000000000000000000012 /* SetsLibraryViewModel.swift in Sources */,
+				A0000000000000000000014 /* ErrorHandler.swift in Sources */,
+				A0000000000000000000016 /* DesignSystem.swift in Sources */,
 				06F7631D998648E6986FBECB /* Folder.swift in Sources */,
 				98508A1F98F04BB9A730F309 /* ImportEngine.swift in Sources */,
 				3C1234567890ABCDEF444002 /* XLSXParser.swift in Sources */,

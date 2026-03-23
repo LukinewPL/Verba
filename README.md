@@ -35,13 +35,25 @@ WordWise is designed to help you build a consistent learning habit:
 
 ---
 
-## 🛠 Architecture
+## 🛠 Architecture & Design Patterns
 
-- **`WordWiseApp.swift`**: Main entry point and environment injection.
-- **`Models/`**: SwiftData models for `Word`, `WordSet`, and `StudySession`.
+WordWise follows a highly modular, professional architecture based on modern Swift practices:
+
+- **MVVM (Model-View-ViewModel)**: Decouples UI from business logic using the `@Observable` framework.
+- **Repository Pattern**: Abstrates data access through `WordRepository`, making the app independent of the underlying persistence layer (SwiftData).
+- **Coordinator Pattern**: Centralizes navigation logic in `AppCoordinator`, removing routing responsibility from individual views.
+- **Design System**: A centralized `DesignSystem` for colors, spacing, and animations, ensuring visual consistency.
+- **Error Handling**: A centralized `ErrorHandler` for uniform error presentation across the app.
+
+### 📂 Project Structure
+
+- **`Navigation/`**: `AppCoordinator` and screen definitions.
+- **`Repository/`**: `WordRepository` for SwiftData abstraction.
+- **`ViewModels/`**: Dedicated ViewModels for each major screen (`Home`, `Library`, `Test`).
+- **`Models/`**: SwiftData models for `Word`, `WordSet`, `StudySession`, and `Folder`.
+- **`Views/`**: SwiftUI views organized by feature.
 - **`Engine/`**: Core logic for SM-2 (`SM2Engine`) and data import (`ImportEngine`).
-- **`Utilities/`**: Design tokens, glass effects, and `LanguageManager`.
-- **`Views/`**: All UI components organized by feature.
+- **`Utilities/`**: `DesignSystem`, `ErrorHandler`, `GlassEffect`, and `LanguageManager`.
 - **`Resources/`**: Assets and localization JSON files.
 
 ---
