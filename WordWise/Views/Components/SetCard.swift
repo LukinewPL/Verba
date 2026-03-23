@@ -59,9 +59,9 @@ struct SetCard: View {
         .frame(minWidth: 300)
         .fixedSize(horizontal: false, vertical: true)
         .glassEffect()
-        .onAppear { withAnimation { appearing = true } } // Added this line
-        .transition(.scale(0.9).combined(with: .opacity)) // Added this line
-        .animation(.spring(bounce: 0.3), value: appearing) // Added this line
+        .onAppear { withAnimation { appearing = true } }
+        .transition(.scale(0.9).combined(with: .opacity))
+        .animation(.spring(bounce: 0.3), value: appearing)
         .draggable(set.id.uuidString) {
             ZStack {
                 // Base glass layer
@@ -116,9 +116,9 @@ struct SetCard: View {
             .frame(width: 280, height: 72)
             .environment(\.colorScheme, .dark)
             .shadow(color: .cyan.opacity(0.2), radius: 16, y: 8)
-            .compositingGroup() // Added this line
-            .clipShape(RoundedRectangle(cornerRadius: 16)) // Added this line
-            .clipped() // Added this line
+            .compositingGroup()
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .clipped()
         }
         .contextMenu {
             Button {
@@ -131,7 +131,11 @@ struct SetCard: View {
             Menu {
                 Button {
                     set.folder = nil
-                    try? ctx.save()
+                    do {
+                        try ctx.save()
+                    } catch {
+                        print("WordWise: Save failed — \(error)")
+                    }
                 } label: {
                     Label(lm.t("none"), systemImage: "xmark")
                 }
@@ -139,7 +143,11 @@ struct SetCard: View {
                 ForEach(folders) { f in
                     Button(f.name) {
                         set.folder = f
-                        try? ctx.save()
+                        do {
+                            try ctx.save()
+                        } catch {
+                            print("WordWise: Save failed — \(error)")
+                        }
                     }
                 }
             } label: {
@@ -159,7 +167,11 @@ struct SetCard: View {
             Button(lm.t("cancel"), role: .cancel) {}
             Button(lm.t("save")) {
                 set.name = newName
-                try? ctx.save()
+                do {
+                    try ctx.save()
+                } catch {
+                    print("WordWise: Save failed — \(error)")
+                }
             }
         }
         .navigationDestination(isPresented: $navigateStudy) { StudySessionView(set: set) }
@@ -181,9 +193,13 @@ struct SetCard: View {
         .buttonStyle(GlassButtonStyle())
     }
 
-    func deleteSet() {
+    private func deleteSet() {
         for word in set.words { ctx.delete(word) }
         ctx.delete(set)
-        try? ctx.save()
+        do {
+            try ctx.save()
+        } catch {
+            print("WordWise: Save failed — \(error)")
+        }
     }
 }
