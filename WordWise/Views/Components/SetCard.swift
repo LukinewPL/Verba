@@ -3,12 +3,9 @@ import SwiftData
 
 struct SetCard: View {
     @Environment(LanguageManager.self) private var lm
+    @Environment(AppCoordinator.self) private var coordinator
     @Bindable var set: WordSet
     @Environment(\.modelContext) private var ctx
-    @State private var navigateStudy = false
-    @State private var navigateSpeedRound = false
-    @State private var navigateTest = false
-    @State private var navigateFlashcards = false
     @State private var showDeleteConfirm = false
     @State private var showRenameAlert = false
     @State private var newName = ""
@@ -48,10 +45,6 @@ struct SetCard: View {
                 try? ctx.save()
             }
         }
-        .navigationDestination(isPresented: $navigateStudy) { StudySessionView(set: set) }
-        .navigationDestination(isPresented: $navigateFlashcards) { FlashcardsView(set: set) }
-        .navigationDestination(isPresented: $navigateSpeedRound) { SpeedRoundView(set: set) }
-        .navigationDestination(isPresented: $navigateTest) { TestView(set: set) }
         .alert(lm.t("delete_set_q"), isPresented: $showDeleteConfirm) {
             Button(lm.t("cancel"), role: .cancel) {}
             Button(lm.t("delete"), role: .destructive) { deleteSet() }
@@ -59,50 +52,65 @@ struct SetCard: View {
     }
     
     private var headerSection: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(set.name)
-                    .font(.headline.weight(.semibold))
-                    .foregroundColor(.white)
-                    .lineLimit(2)
+        Button(action: openSetDetails) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(set.name)
+                        .font(.headline.weight(.semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                    
+                    Text("\(totalCount) \(lm.t("words"))")
+                        .font(.subheadline.weight(.medium))
+                        .foregroundColor(Color.glassCyan.opacity(0.9))
+                }
                 
-                Text("\(totalCount) \(lm.t("words"))")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundColor(Color.glassCyan.opacity(0.9))
+                Spacer()
+                
+                HStack(spacing: 8) {
+                    ZStack {
+                        Circle()
+                            .stroke(Color.white.opacity(0.12), lineWidth: 4)
+                        Circle()
+                            .trim(from: 0, to: progress)
+                            .stroke(
+                                AngularGradient(colors: [.glassCyan, .blue, .glassCyan], center: .center),
+                                style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                            )
+                            .rotationEffect(.degrees(-90))
+                        Text("\(Int(progress * 100))%")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 38, height: 38)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.white.opacity(0.7))
+                        .padding(.top, 2)
+                }
             }
-            
-            Spacer()
-            
-            ZStack {
-                Circle()
-                    .stroke(Color.white.opacity(0.12), lineWidth: 4)
-                Circle()
-                    .trim(from: 0, to: progress)
-                    .stroke(
-                        AngularGradient(colors: [.glassCyan, .blue, .glassCyan], center: .center),
-                        style: StrokeStyle(lineWidth: 4, lineCap: .round)
-                    )
-                    .rotationEffect(.degrees(-90))
-                Text("\(Int(progress * 100))%")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundColor(.white)
-            }
-            .frame(width: 38, height: 38)
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
     }
     
     private var actionGrid: some View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
-                actionButton(lm.t("study"), icon: "book.fill") { navigateStudy = true }
-                actionButton(lm.t("flashcards"), icon: "rectangle.stack.fill") { navigateFlashcards = true }
+                actionButton(lm.t("study"), icon: "book.fill") { coordinator.navigate(to: .studySession(set)) }
+                actionButton(lm.t("flashcards"), icon: "rectangle.stack.fill") { coordinator.navigate(to: .flashcards(set)) }
             }
             
             HStack(spacing: 8) {
-                actionButton(lm.t("speed_round"), icon: "bolt.fill") { navigateSpeedRound = true }
-                actionButton(lm.t("test"), icon: "checkmark.circle.fill") { navigateTest = true }
+                actionButton(lm.t("speed_round"), icon: "bolt.fill") { coordinator.navigate(to: .speedRound(set)) }
+                actionButton(lm.t("test"), icon: "checkmark.circle.fill") { coordinator.navigate(to: .test(set)) }
             }
         }
+    }
+
+    private func openSetDetails() {
+        coordinator.navigate(to: .setDetail(set))
     }
     
     private var dragPreview: some View {

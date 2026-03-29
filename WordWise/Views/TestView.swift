@@ -7,6 +7,7 @@ struct TestView: View {
     @State private var vm: TestViewModel
     
     @Environment(WordRepository.self) private var repository
+    @Environment(AppCoordinator.self) private var coordinator
     @Environment(\.dismiss) private var dismiss
     @AppStorage("animationSpeed") var animationSpeed: Double = 1.0
     @State private var showExitConfirm = false
@@ -41,6 +42,7 @@ struct TestView: View {
                 .allowsHitTesting(false)
         }
         .onAppear {
+            coordinator.enterFocusedMode()
             vm.setup(repository: repository, dismiss: { dismiss() })
             vm.reset()
         }
@@ -54,6 +56,7 @@ struct TestView: View {
             requestOpenAnswerFocus()
         }
         .onDisappear {
+            coordinator.exitFocusedMode()
             isOpenAnswerFocused = false
             vm.abandonTest()
         }

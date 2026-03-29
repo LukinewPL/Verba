@@ -3,6 +3,7 @@ import SwiftUI
 struct SetDetailView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(AppCoordinator.self) private var coordinator
+    @Environment(\.dismiss) private var dismiss
     @Bindable var set: WordSet
     
     private var masteredCount: Int {
@@ -31,8 +32,18 @@ struct SetDetailView: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .navigationTitle(set.name)
-        .toolbarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 14, weight: .medium))
+                }
+            }
+        }
+        .toolbarBackground(.hidden, for: .windowToolbar)
     }
     
     private var headerCard: some View {

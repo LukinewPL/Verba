@@ -39,6 +39,7 @@ private extension View {
 struct StudySessionView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(WordRepository.self) private var repository
+    @Environment(AppCoordinator.self) private var coordinator
     @State private var vm: StudySessionViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.dismiss) private var dismiss
@@ -133,6 +134,7 @@ struct StudySessionView: View {
             capturedFrames = frames
         }
         .onAppear {
+            coordinator.enterFocusedMode()
             vm.setup(repository: repository)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isFocused = true
@@ -147,7 +149,10 @@ struct StudySessionView: View {
                 particlesOpacity = 0
             }
         }
-        .onDisappear { vm.saveSession() }
+        .onDisappear {
+            coordinator.exitFocusedMode()
+            vm.saveSession()
+        }
     }
     
     private var answerInput: some View {

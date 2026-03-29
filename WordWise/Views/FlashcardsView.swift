@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FlashcardsView: View {
     @Environment(LanguageManager.self) private var lm
+    @Environment(AppCoordinator.self) private var coordinator
     @State private var vm: FlashcardsViewModel
     @Environment(\.dismiss) private var dismiss
 
@@ -61,6 +62,12 @@ struct FlashcardsView: View {
         .navigationTitle(lm.t("flashcards"))
         .toolbarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .windowToolbar)
+        .onAppear {
+            coordinator.enterFocusedMode()
+        }
+        .onDisappear {
+            coordinator.exitFocusedMode()
+        }
     }
 
     private var backgroundAccent: some View {

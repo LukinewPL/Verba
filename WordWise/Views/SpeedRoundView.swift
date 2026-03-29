@@ -5,6 +5,7 @@ import Combine
 struct SpeedRoundView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(WordRepository.self) private var repository
+    @Environment(AppCoordinator.self) private var coordinator
     @State private var vm: SpeedRoundViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.dismiss) private var dismiss
@@ -42,9 +43,13 @@ struct SpeedRoundView: View {
             vm.tick()
         }
         .onAppear {
+            coordinator.enterFocusedMode()
             vm.setup(repository: repository)
         }
-        .onDisappear { vm.saveSession() }
+        .onDisappear {
+            coordinator.exitFocusedMode()
+            vm.saveSession()
+        }
         .navigationTitle(lm.t("speed_round"))
         .toolbarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .windowToolbar)

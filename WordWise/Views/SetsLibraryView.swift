@@ -271,10 +271,7 @@ private struct FolderSectionView: View {
             if isExpanded && !folder.sets.isEmpty {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 320), spacing: 12)], spacing: 12) {
                     ForEach(folder.sets.sorted(by: { $0.name < $1.name })) { s in
-                        NavigationLink(value: AppScreen.setDetail(s)) {
-                            SetCard(set: s)
-                        }
-                        .buttonStyle(.plain)
+                        SetCard(set: s)
                     }
                 }
                 .padding(.top, 6)
@@ -345,10 +342,7 @@ private struct UngroupedSectionView: View {
             
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 320), spacing: 12)], spacing: 12) {
                 ForEach(ungroupedSets) { s in
-                    NavigationLink(value: AppScreen.setDetail(s)) {
-                        SetCard(set: s)
-                    }
-                    .buttonStyle(.plain)
+                    SetCard(set: s)
                 }
             }
             .padding(.top, 6)

@@ -12,61 +12,22 @@ struct MainCoordinatorView: View {
         @Bindable var coordinator = coordinator
         @Bindable var eh = errorHandler
         
-        NavigationSplitView(columnVisibility: $sidebarVisibility) {
-            ZStack {
-                sidebarBackground
-                
-                VStack(alignment: .leading, spacing: 14) {
-                    sidebarHeader
-                    
-                    VStack(spacing: 10) {
-                        sidebarTabButton(tab: .home, title: lm.t("home"), icon: "house.fill")
-                        sidebarTabButton(tab: .library, title: lm.t("sets_library"), icon: "books.vertical.fill")
-                        sidebarTabButton(tab: .settings, title: lm.t("settings"), icon: "gearshape.fill")
-                    }
-                    .padding(10)
-                    .sidebarPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.15))
-                    
-                    Spacer()
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 14)
-            }
+        return NavigationSplitView(columnVisibility: $sidebarVisibility) {
+            sidebarContent
         } detail: {
-            ZStack {
-                LinearGradient(
-                    colors: [.deepNavy, .glassBack],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-
-                NavigationStack(path: $coordinator.path) {
-                    Group {
-                        switch coordinator.selectedTab {
-                        case .home:
-                            HomeView()
-                        case .library:
-                            SetsLibraryView()
-                        case .settings:
-                            SettingsView()
-                        }
-                    }
-                .navigationDestination(for: AppScreen.self) { screen in
-                    screenView(for: screen)
-                }
-                .toolbarBackground(.hidden, for: .windowToolbar)
-            }
-            .background(Color.clear)
+            detailContent
         }
         .navigationSplitViewStyle(.balanced)
         .onAppear {
-            updateSidebarVisibility(for: coordinator.path)
+            syncSidebarVisibility()
         }
-        .onChange(of: coordinator.path) { _, newPath in
-            updateSidebarVisibility(for: newPath)
+        .onChange(of: coordinator.isInFocusedMode) { _, _ in
+            syncSidebarVisibility()
         }
-    }
+        .onChange(of: coordinator.path) { _, _ in
+            syncSidebarVisibility()
+        }
+        .animation(.easeInOut(duration: 0.22), value: sidebarVisibility)
         .frame(minWidth: 700, minHeight: 500)
         .alert(lm.t("error_occurred"), isPresented: $eh.showErrorMessage) {
             Button(lm.t("ok"), role: .cancel) { eh.clear() }
@@ -91,8 +52,59 @@ struct MainCoordinatorView: View {
         }
     }
     
+    private var sidebarContent: some View {
+        ZStack {
+            sidebarBackground
+            
+            VStack(alignment: .leading, spacing: 14) {
+                sidebarHeader
+                
+                VStack(spacing: 10) {
+                    sidebarTabButton(tab: .home, title: lm.t("home"), icon: "house.fill")
+                    sidebarTabButton(tab: .library, title: lm.t("sets_library"), icon: "books.vertical.fill")
+                    sidebarTabButton(tab: .settings, title: lm.t("settings"), icon: "gearshape.fill")
+                }
+                .padding(10)
+                .sidebarPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.15))
+                
+                Spacer()
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 14)
+        }
+    }
+    
+    private var detailContent: some View {
+        ZStack {
+            LinearGradient(
+                colors: [.deepNavy, .glassBack],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            NavigationStack(path: pathBinding) {
+                Group {
+                    switch coordinator.selectedTab {
+                    case .home:
+                        HomeView()
+                    case .library:
+                        SetsLibraryView()
+                    case .settings:
+                        SettingsView()
+                    }
+                }
+            }
+            .navigationDestination(for: AppScreen.self) { screen in
+                screenView(for: screen)
+            }
+            .toolbarBackground(.hidden, for: .windowToolbar)
+        }
+        .background(Color.clear)
+    }
+    
     private var sidebarHeader: some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .center, spacing: 12) {
             Image(systemName: "text.book.closed.fill")
                 .font(.system(size: 20, weight: .medium))
                 .foregroundStyle(Color.glassCyan)
@@ -106,11 +118,12 @@ struct MainCoordinatorView: View {
                         )
                 )
             
-            VStack(alignment: .leading, spacing: 2) {
-                Text(lm.t("WordWise"))
-                    .font(.system(size: 26, weight: .medium, design: .default))
-                    .foregroundStyle(.white)
-            }
+            Text(lm.t("WordWise"))
+                .font(.system(size: 25, weight: .semibold, design: .default))
+                .tracking(0.2)
+                .lineLimit(1)
+                .foregroundStyle(.white)
+                .offset(y: -0.5)
             
             Spacer()
         }
@@ -187,15 +200,11 @@ struct MainCoordinatorView: View {
         }
     }
     
-    private func updateSidebarVisibility(for path: [AppScreen]) {
-        let shouldHideSidebar = path.last.map(isSidebarHiddenMode) ?? false
-        let targetVisibility: NavigationSplitViewVisibility = shouldHideSidebar ? .detailOnly : .all
-        
-        guard targetVisibility != sidebarVisibility else { return }
-        
-        withAnimation(.easeInOut(duration: 0.24)) {
-            sidebarVisibility = targetVisibility
-        }
+    private var pathBinding: Binding<[AppScreen]> {
+        Binding(
+            get: { coordinator.path },
+            set: { coordinator.path = $0 }
+        )
     }
     
     private func isSidebarHiddenMode(_ screen: AppScreen) -> Bool {
@@ -204,6 +213,17 @@ struct MainCoordinatorView: View {
             return true
         default:
             return false
+        }
+    }
+    
+    private func syncSidebarVisibility() {
+        let shouldHide = coordinator.isInFocusedMode || (coordinator.path.last.map(isSidebarHiddenMode) ?? false)
+        let target: NavigationSplitViewVisibility = shouldHide ? .detailOnly : .all
+        
+        guard sidebarVisibility != target else { return }
+        
+        withAnimation(.easeInOut(duration: 0.22)) {
+            sidebarVisibility = target
         }
     }
     

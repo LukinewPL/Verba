@@ -15,6 +15,11 @@ enum AppScreen: Hashable {
 @Observable @MainActor class AppCoordinator {
     var path: [AppScreen] = []
     var selectedTab: Tab = .home
+    private(set) var focusedModeDepth: Int = 0
+    
+    var isInFocusedMode: Bool {
+        focusedModeDepth > 0
+    }
     
     enum Tab: Int, Hashable {
         case home, library, settings
@@ -31,5 +36,13 @@ enum AppScreen: Hashable {
     
     func popToRoot() {
         path.removeAll()
+    }
+    
+    func enterFocusedMode() {
+        focusedModeDepth += 1
+    }
+    
+    func exitFocusedMode() {
+        focusedModeDepth = max(0, focusedModeDepth - 1)
     }
 }

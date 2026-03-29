@@ -105,24 +105,41 @@ struct HomeView: View {
     }
     
     private func statCard(icon: String, value: Int, label: String, iconColor: Color) -> some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.system(size: 22, weight: .medium))
-                .foregroundColor(iconColor)
-            
-            Text("\(value)")
-                .font(.system(size: 56, weight: .medium, design: .default))
-                .foregroundColor(.white)
-                .contentTransition(.numericText())
-                .animation(.spring(response: 0.32, dampingFraction: 0.82), value: value)
+        VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .center, spacing: 12) {
+                Image(systemName: icon)
+                        .font(.system(size: 34, weight: .semibold))
+                    .foregroundColor(iconColor)
+                        .frame(width: 62, height: 62)
+                    .background(
+                            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .fill(iconColor.opacity(0.16))
+                            .overlay(
+                                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                    .stroke(iconColor.opacity(0.42), lineWidth: 1)
+                            )
+                    )
+                
+                Text("\(value)")
+                        .font(.system(size: 108, weight: .medium, design: .default).leading(.tight))
+                    .foregroundColor(.white)
+                    .contentTransition(.numericText())
+                    .animation(.spring(response: 0.32, dampingFraction: 0.82), value: value)
+                    .lineLimit(1)
+                        .minimumScaleFactor(0.55)
+                
+                Spacer(minLength: 0)
+            }
             
             Text(label)
-                .font(.headline.weight(.semibold))
-                .foregroundColor(.white.opacity(0.7))
+                    .font(.system(size: 56, weight: .semibold, design: .default).leading(.tight))
+                    .minimumScaleFactor(0.45)
+                .lineLimit(1)
+                .foregroundColor(.white.opacity(0.74))
         }
-        .frame(maxWidth: .infinity)
-        .frame(minHeight: 170)
-        .padding(.vertical, 4)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 10)
         .homePanel(cornerRadius: 20)
     }
     
