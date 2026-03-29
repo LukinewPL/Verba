@@ -13,7 +13,7 @@ enum AppScreen: Hashable {
 }
 
 @Observable @MainActor class AppCoordinator {
-    var path = NavigationPath()
+    var path: [AppScreen] = []
     var selectedTab: Tab = .home
     
     enum Tab: Int, Hashable {
@@ -25,10 +25,11 @@ enum AppScreen: Hashable {
     }
     
     func pop() {
+        guard !path.isEmpty else { return }
         path.removeLast()
     }
     
     func popToRoot() {
-        path = NavigationPath()
+        path.removeAll()
     }
 }
