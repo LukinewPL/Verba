@@ -46,16 +46,24 @@ import Observation
         let promptKey = normalize(prompt)
         let matchedTranslation = matchedAvailableTranslation(input: answer, promptKey: promptKey)
         let isCorrect = matchedTranslation != nil
+        let usedHint = !hint.isEmpty
         
         if isCorrect {
-            if let matchedTranslation {
+            if !usedHint, let matchedTranslation {
                 usedPromptAnswers[promptKey, default: []].insert(matchedTranslation)
             }
-            correctCount += 1
+            if !usedHint {
+                correctCount += 1
+            }
             feedback = .green
             AudioFeedback.shared.playCorrect()
             if let w = current {
-                sm2Service.rate(w, quality: 4)
+                if usedHint {
+                    sm2Service.rate(w, quality: 2)
+                    queue.append(w)
+                } else {
+                    sm2Service.rate(w, quality: 4)
+                }
             }
             onSuccess()
         } else {

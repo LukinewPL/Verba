@@ -43,3 +43,46 @@ final class SM2EngineTests: XCTestCase {
     }
 }
 
+@MainActor
+final class StudySessionViewModelHintBehaviorTests: XCTestCase {
+    func testCorrectAnswerWithHintRequeuesWordAndDoesNotIncreaseScore() {
+        let vm = makeSessionViewModel()
+        vm.provideHint()
+        vm.answer = "dog"
+
+        var successCalled = false
+        var failureCalled = false
+
+        vm.checkAnswer(
+            onSuccess: { successCalled = true },
+            onFailure: { failureCalled = true }
+        )
+
+        XCTAssertTrue(successCalled)
+        XCTAssertFalse(failureCalled)
+        XCTAssertEqual(vm.attemptedCount, 1)
+        XCTAssertEqual(vm.correctCount, 0)
+        XCTAssertEqual(vm.queue.count, 1)
+
+        vm.nextWord()
+        XCTAssertEqual(vm.prompt, "pies")
+    }
+
+    func testCorrectAnswerWithoutHintIncreasesScoreAndDoesNotRequeueWord() {
+        let vm = makeSessionViewModel()
+        vm.answer = "dog"
+
+        vm.checkAnswer(onSuccess: {}, onFailure: {})
+
+        XCTAssertEqual(vm.attemptedCount, 1)
+        XCTAssertEqual(vm.correctCount, 1)
+        XCTAssertEqual(vm.queue.count, 0)
+    }
+
+    private func makeSessionViewModel() -> StudySessionViewModel {
+        let set = WordSet(name: "Hint behavior", words: [Word(polish: "pies", english: "dog")])
+        let vm = StudySessionViewModel(set: set)
+        vm.resetSession()
+        return vm
+    }
+}
