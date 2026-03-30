@@ -9,17 +9,17 @@ struct SpeedRoundView: View {
     @State private var vm: SpeedRoundViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.dismiss) private var dismiss
-    
+
     private let timerPublisher = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
+
     init(set: WordSet) {
         _vm = State(initialValue: SpeedRoundViewModel(set: set))
     }
-    
+
     var body: some View {
         ZStack {
             speedBackground
-            
+
             Group {
                 if !vm.isStarted {
                     startView
@@ -54,11 +54,11 @@ struct SpeedRoundView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .windowToolbar)
     }
-    
+
     private var startView: some View {
         VStack {
             Spacer(minLength: 0)
-            
+
             VStack(spacing: 14) {
                 ZStack {
                     Circle()
@@ -71,7 +71,7 @@ struct SpeedRoundView: View {
                             )
                         )
                         .frame(width: 120, height: 120)
-                    
+
                     Circle()
                         .fill(Color.white.opacity(0.1))
                         .frame(width: 66, height: 66)
@@ -79,12 +79,12 @@ struct SpeedRoundView: View {
                             Circle()
                                 .stroke(Color.glassCyan.opacity(0.45), lineWidth: 1.2)
                         )
-                    
+
                     Image(systemName: "bolt.fill")
                         .font(.system(size: 26, weight: .medium))
                         .foregroundStyle(Color.glassCyan)
                 }
-                
+
                 VStack(spacing: 8) {
                     Text(lm.t("speed_round"))
                         .font(.system(size: 30, weight: .medium, design: .default))
@@ -95,14 +95,14 @@ struct SpeedRoundView: View {
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                 }
-                
+
                 HStack(spacing: 8) {
                     pill(icon: "trophy.fill", label: "\(lm.t("record")): \(vm.set.bestScore)")
                     pill(icon: "timer", label: "60s")
                     pill(icon: "text.book.closed.fill", label: "\(vm.set.words.count) \(lm.t("words"))")
                 }
                 .frame(maxWidth: .infinity)
-                
+
                 Button {
                     vm.startGame()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) { isFocused = true }
@@ -133,44 +133,44 @@ struct SpeedRoundView: View {
                 .pressAnimation()
             }
             .padding(18)
-            .speedPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
+            .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
             .frame(maxWidth: 760)
-            
+
             Spacer(minLength: 0)
         }
     }
-    
+
     private var finishedView: some View {
         VStack {
             Spacer(minLength: 0)
-            
+
             VStack(spacing: 10) {
                 Text(lm.t("time_up"))
                     .font(.system(size: 30, weight: .medium, design: .default))
                     .foregroundColor(.white)
-                
+
                 if vm.showRecordBlast {
                     Text("🏆 \(lm.t("new_record"))!")
                         .font(.title.weight(.semibold))
                         .foregroundColor(.orange)
                         .transition(.scale.combined(with: .opacity))
                 }
-                
+
                 Text("\(lm.t("score")): \(vm.correctCount)")
                     .font(.system(size: 24, weight: .medium, design: .default))
                     .foregroundColor(.glassCyan)
-                
+
                 Button(lm.t("done")) { dismiss() }
                     .buttonStyle(GlassButtonStyle())
             }
             .padding(16)
-            .speedPanel(cornerRadius: 18)
+            .glassPanel(cornerRadius: 18)
             .frame(maxWidth: 620)
-            
+
             Spacer(minLength: 0)
         }
     }
-    
+
     private var gameView: some View {
         VStack(spacing: 12) {
             HStack(alignment: .top) {
@@ -178,9 +178,9 @@ struct SpeedRoundView: View {
                 Spacer()
                 timerBadge
             }
-            
+
             Spacer(minLength: 4)
-            
+
             if let _ = vm.current {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 8) {
@@ -190,7 +190,7 @@ struct SpeedRoundView: View {
                             .font(.subheadline.weight(.semibold))
                             .foregroundColor(.white.opacity(0.62))
                     }
-                    
+
                     Text(vm.prompt)
                         .font(.system(size: 44, weight: .medium, design: .default))
                         .minimumScaleFactor(0.34)
@@ -201,8 +201,8 @@ struct SpeedRoundView: View {
                 }
                 .padding(.vertical, 16)
                 .padding(.horizontal, 14)
-                .speedPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.16))
-                
+                .glassPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.16))
+
                 if vm.showWrongAnswer {
                     HStack(spacing: 10) {
                         Image(systemName: "xmark.circle.fill")
@@ -213,14 +213,14 @@ struct SpeedRoundView: View {
                     }
                     .padding(.horizontal, 22)
                     .padding(.vertical, 11)
-                    .speedPanel(cornerRadius: 14, edgeHighlight: Color.red.opacity(0.35))
+                    .glassPanel(cornerRadius: 14, edgeHighlight: Color.red.opacity(0.35))
                     .frame(maxWidth: 700)
                 } else {
                     HStack(spacing: 10) {
                         Image(systemName: "keyboard.fill")
                             .font(.title3.weight(.semibold))
                             .foregroundStyle(Color.glassCyan)
-                        
+
                         TextField(lm.t("enter_answer"), text: $vm.answer)
                             .textFieldStyle(.plain)
                             .font(.system(size: 25, weight: .medium, design: .default))
@@ -230,20 +230,20 @@ struct SpeedRoundView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 11)
-                    .speedPanel(cornerRadius: 16)
+                    .glassPanel(cornerRadius: 16)
                     .frame(maxWidth: 700)
                 }
             }
-            
+
             Spacer(minLength: 0)
         }
     }
-    
+
     private var timerBadge: some View {
         ZStack {
             Circle()
                 .stroke(Color.white.opacity(0.14), lineWidth: 6)
-            
+
             Circle()
                 .trim(from: 0, to: CGFloat(vm.timeLeft) / 60.0)
                 .stroke(
@@ -253,7 +253,7 @@ struct SpeedRoundView: View {
                 .rotationEffect(.degrees(-90))
                 .shadow(color: Color.glassCyan.opacity(0.35), radius: 8, x: 0, y: 4)
                 .animation(.linear(duration: 1), value: vm.timeLeft)
-            
+
             VStack(spacing: 2) {
                 Text("\(vm.timeLeft)")
                     .font(.headline.weight(.semibold))
@@ -265,9 +265,9 @@ struct SpeedRoundView: View {
         }
         .frame(width: 78, height: 78)
         .padding(6)
-        .speedPanel(cornerRadius: 16, edgeHighlight: Color.glassCyan.opacity(0.24))
+        .glassPanel(cornerRadius: 16, edgeHighlight: Color.glassCyan.opacity(0.24))
     }
-    
+
     private func pill(icon: String, label: String) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
@@ -286,7 +286,7 @@ struct SpeedRoundView: View {
                 .overlay(Capsule().stroke(Color.white.opacity(0.14), lineWidth: 1))
         )
     }
-    
+
     private var speedBackground: some View {
         ZStack {
             LinearGradient(
@@ -298,7 +298,7 @@ struct SpeedRoundView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.glassCyan.opacity(0.18), .clear],
                 center: .top,
@@ -306,7 +306,7 @@ struct SpeedRoundView: View {
                 endRadius: 500
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.blue.opacity(0.16), .clear],
                 center: .bottomTrailing,
@@ -316,7 +316,7 @@ struct SpeedRoundView: View {
             .ignoresSafeArea()
         }
     }
-    
+
     private func checkAnswer() {
         vm.checkAnswer(
             onSuccess: {
@@ -336,34 +336,5 @@ struct SpeedRoundView: View {
                 }
             }
         )
-    }
-}
-
-private extension View {
-    func speedPanel(cornerRadius: CGFloat = 16, edgeHighlight: Color = Color.glassCyan.opacity(0.16)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.05)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.14), lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 8)
-            )
     }
 }

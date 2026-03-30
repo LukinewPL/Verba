@@ -61,8 +61,7 @@ import Observation
         do {
             try modelContext.save()
         } catch {
-            print("WordWise: Database save failed — \(error)")
+            ErrorHandler.shared.handle(error)
         }
     }
 }
-

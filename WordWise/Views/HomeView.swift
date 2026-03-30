@@ -6,27 +6,27 @@ struct HomeView: View {
     @Environment(WordRepository.self) private var repository
     @State private var vm = HomeViewModel()
     @State private var animateCircles = false
-    
+
     var body: some View {
         ZStack {
             homeBackground
-            
+
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 14) {
                     headerCard
-                    
+
                     ViewThatFits(in: .horizontal) {
                         HStack(spacing: 12) {
                             statCard(icon: "flame.fill", value: vm.streak, label: lm.t("streak"), iconColor: vm.streak > 0 ? .orange : .white.opacity(0.4))
                             statCard(icon: "checkmark.circle.fill", value: vm.todayWords, label: lm.t("words_today"), iconColor: .glassCyan)
                         }
-                        
+
                         VStack(spacing: 10) {
                             statCard(icon: "flame.fill", value: vm.streak, label: lm.t("streak"), iconColor: vm.streak > 0 ? .orange : .white.opacity(0.4))
                             statCard(icon: "checkmark.circle.fill", value: vm.todayWords, label: lm.t("words_today"), iconColor: .glassCyan)
                         }
                     }
-                    
+
                     activityCard
                 }
                 .padding(.horizontal, 18)
@@ -41,14 +41,14 @@ struct HomeView: View {
             animateCircles = true
         }
     }
-    
+
     private var headerCard: some View {
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(lm.t("welcome_back"))
                     .font(.headline.weight(.semibold))
                     .foregroundColor(.white.opacity(0.62))
-                
+
                 Text(lm.t(vm.greeting))
                     .font(.system(size: 46, weight: .medium, design: .default))
                     .minimumScaleFactor(0.5)
@@ -60,9 +60,9 @@ struct HomeView: View {
                         )
                     )
             }
-            
+
             Spacer(minLength: 12)
-            
+
             HStack(spacing: 8) {
                 Image(systemName: "calendar")
                     .foregroundStyle(Color.glassCyan)
@@ -79,9 +79,9 @@ struct HomeView: View {
             )
         }
         .padding(16)
-        .homePanel(cornerRadius: 22)
+        .glassPanel(cornerRadius: 22)
     }
-    
+
     private var activityCard: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -90,20 +90,20 @@ struct HomeView: View {
                     .foregroundStyle(.white)
                 Spacer()
             }
-            
+
             HStack {
                 Spacer()
                 HeatmapView(sessions: vm.sessions)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 8)
-                    .homePanel(cornerRadius: 16, edgeHighlight: Color.white.opacity(0.12))
+                    .glassPanel(cornerRadius: 16, edgeHighlight: Color.white.opacity(0.12))
                 Spacer()
             }
         }
         .padding(16)
-        .homePanel(cornerRadius: 22)
+        .glassPanel(cornerRadius: 22)
     }
-    
+
     private func statCard(icon: String, value: Int, label: String, iconColor: Color) -> some View {
         VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .center, spacing: 12) {
@@ -119,7 +119,7 @@ struct HomeView: View {
                                     .stroke(iconColor.opacity(0.42), lineWidth: 1)
                             )
                     )
-                
+
                 Text("\(value)")
                         .font(.system(size: 108, weight: .medium, design: .default).leading(.tight))
                     .foregroundColor(.white)
@@ -127,10 +127,10 @@ struct HomeView: View {
                     .animation(.spring(response: 0.32, dampingFraction: 0.82), value: value)
                     .lineLimit(1)
                         .minimumScaleFactor(0.55)
-                
+
                 Spacer(minLength: 0)
             }
-            
+
             Text(label)
                     .font(.system(size: 56, weight: .semibold, design: .default).leading(.tight))
                     .minimumScaleFactor(0.45)
@@ -140,9 +140,9 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(.horizontal, 24)
         .padding(.vertical, 10)
-        .homePanel(cornerRadius: 20)
+        .glassPanel(cornerRadius: 20)
     }
-    
+
     private var homeBackground: some View {
         ZStack {
             LinearGradient(
@@ -154,13 +154,13 @@ struct HomeView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             Circle()
                 .fill(Color.glassCyan.opacity(0.16))
                 .frame(width: 420)
                 .offset(x: animateCircles ? 160 : -40, y: animateCircles ? -140 : 100)
                 .blur(radius: 80)
-            
+
             Circle()
                 .fill(Color.blue.opacity(0.14))
                 .frame(width: 360)
@@ -168,34 +168,5 @@ struct HomeView: View {
                 .blur(radius: 80)
         }
         .animation(.easeInOut(duration: 18).repeatForever(autoreverses: true), value: animateCircles)
-    }
-}
-
-private extension View {
-    func homePanel(cornerRadius: CGFloat = 20, edgeHighlight: Color = Color.glassCyan.opacity(0.16)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.05)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.14), lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.2), radius: 14, x: 0, y: 8)
-            )
     }
 }

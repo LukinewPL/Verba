@@ -5,19 +5,19 @@ struct SetDetailView: View {
     @Environment(AppCoordinator.self) private var coordinator
     @Environment(\.dismiss) private var dismiss
     @Bindable var set: WordSet
-    
+
     private var masteredCount: Int {
         get { set.words.filter(\.isMastered).count }
     }
-    
+
     private var progress: Double {
         get { Double(masteredCount) / Double(max(1, set.words.count)) }
     }
-    
+
     var body: some View {
         ZStack {
             detailBackground
-            
+
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 12) {
                     headerCard
@@ -45,7 +45,7 @@ struct SetDetailView: View {
         }
         .toolbarBackground(.hidden, for: .windowToolbar)
     }
-    
+
     private var headerCard: some View {
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading, spacing: 6) {
@@ -53,15 +53,15 @@ struct SetDetailView: View {
                     .font(.system(size: 28, weight: .medium, design: .default))
                     .foregroundColor(.white)
                     .lineLimit(2)
-                
+
                 HStack(spacing: 8) {
                     statPill(icon: "text.book.closed.fill", text: "\(set.words.count) \(lm.t("words"))")
                     statPill(icon: "star.fill", text: "\(masteredCount)")
                 }
             }
-            
+
             Spacer()
-            
+
             ZStack {
                 Circle()
                     .stroke(Color.white.opacity(0.12), lineWidth: 6)
@@ -80,9 +80,9 @@ struct SetDetailView: View {
             .frame(width: 60, height: 60)
         }
         .padding(14)
-        .detailPanel(cornerRadius: 20)
+        .glassPanel(cornerRadius: 20)
     }
-    
+
     private var modeButtons: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 10)], spacing: 10) {
             modeButton(title: lm.t("study"), icon: "book.fill") {
@@ -99,13 +99,13 @@ struct SetDetailView: View {
             }
         }
     }
-    
+
     private var translationDirectionCard: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label(lm.t("translation"), systemImage: "arrow.left.arrow.right")
                 .font(.subheadline.weight(.medium))
                 .foregroundColor(.white.opacity(0.82))
-            
+
             HStack(spacing: 10) {
                 directionButton(label: "PL → EN", selected: set.translationDirectionRaw == 0) {
                     withAnimation(.easeInOut(duration: 0.18)) {
@@ -121,9 +121,9 @@ struct SetDetailView: View {
             }
         }
         .padding(12)
-        .detailPanel(cornerRadius: 16)
+        .glassPanel(cornerRadius: 16)
     }
-    
+
     private var wordsCard: some View {
         VStack(spacing: 0) {
             HStack {
@@ -137,21 +137,21 @@ struct SetDetailView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            
+
             LazyVStack(spacing: 0) {
                 ForEach(set.words) { w in
                     HStack(spacing: 12) {
                         Text(set.translationDirectionRaw == 0 ? w.polish : w.english)
                             .foregroundColor(.white.opacity(0.95))
                             .lineLimit(2)
-                        
+
                         Spacer(minLength: 20)
-                        
+
                         Text(set.translationDirectionRaw == 0 ? w.english : w.polish)
                             .foregroundColor(.white.opacity(0.86))
                             .lineLimit(2)
                             .multilineTextAlignment(.trailing)
-                        
+
                         if w.isMastered {
                             Image(systemName: "star.fill")
                                 .foregroundStyle(.yellow)
@@ -160,16 +160,16 @@ struct SetDetailView: View {
                     .font(.system(size: 19, weight: .medium, design: .default))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 7)
-                    
+
                     Divider()
                         .overlay(Color.white.opacity(0.1))
                 }
             }
         }
         .padding(.bottom, 6)
-        .detailPanel(cornerRadius: 18)
+        .glassPanel(cornerRadius: 18)
     }
-    
+
     private func modeButton(title: String, icon: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: 8) {
@@ -194,7 +194,7 @@ struct SetDetailView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     private func directionButton(label: String, selected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(label)
@@ -217,7 +217,7 @@ struct SetDetailView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     private func statPill(icon: String, text: String) -> some View {
         HStack(spacing: 6) {
             Image(systemName: icon)
@@ -234,7 +234,7 @@ struct SetDetailView: View {
                 .overlay(Capsule().stroke(Color.white.opacity(0.16), lineWidth: 1))
         )
     }
-    
+
     private var detailBackground: some View {
         ZStack {
             LinearGradient(
@@ -246,7 +246,7 @@ struct SetDetailView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.glassCyan.opacity(0.16), .clear],
                 center: .topTrailing,
@@ -254,7 +254,7 @@ struct SetDetailView: View {
                 endRadius: 520
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.blue.opacity(0.14), .clear],
                 center: .bottomLeading,
@@ -263,34 +263,5 @@ struct SetDetailView: View {
             )
             .ignoresSafeArea()
         }
-    }
-}
-
-private extension View {
-    func detailPanel(cornerRadius: CGFloat = 18, edgeHighlight: Color = Color.glassCyan.opacity(0.16)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.04)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.14), lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 8)
-            )
     }
 }

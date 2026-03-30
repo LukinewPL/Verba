@@ -5,23 +5,23 @@ struct TestView: View {
     @Environment(LanguageManager.self) private var lm
     @Bindable var set: WordSet
     @State private var vm: TestViewModel
-    
+
     @Environment(WordRepository.self) private var repository
     @Environment(AppCoordinator.self) private var coordinator
     @Environment(\.dismiss) private var dismiss
     @AppStorage("animationSpeed") var animationSpeed: Double = 1.0
     @State private var showExitConfirm = false
     @FocusState private var isOpenAnswerFocused: Bool
-    
+
     init(set: WordSet) {
         self.set = set
         _vm = State(initialValue: TestViewModel(set: set))
     }
-    
+
     var body: some View {
         ZStack {
             testBackground
-            
+
             Group {
                 if vm.isSetup {
                     setupView
@@ -73,7 +73,7 @@ struct TestView: View {
         .toolbarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .windowToolbar)
     }
-    
+
     private var setupView: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 14) {
@@ -86,7 +86,7 @@ struct TestView: View {
                             .foregroundStyle(.white, Color.glassCyan)
                     }
                         .frame(width: 46, height: 46)
-                    
+
                     VStack(alignment: .leading, spacing: 4) {
                         Text(lm.t("test_setup"))
                             .font(.system(size: 26, weight: .medium, design: .default))
@@ -96,14 +96,14 @@ struct TestView: View {
                             .foregroundColor(.white.opacity(0.62))
                             .lineLimit(1)
                     }
-                    
+
                     Spacer()
-                    
+
                     statChip(icon: "text.book.closed.fill", label: "\(set.words.count) \(lm.t("words"))")
                 }
                 .padding(14)
-                .testPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
-                
+                .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
+
                 VStack(spacing: 12) {
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
@@ -122,10 +122,10 @@ struct TestView: View {
                                         .overlay(Capsule().stroke(Color.glassCyan.opacity(0.45), lineWidth: 1))
                                 )
                         }
-                        
+
                         Slider(value: $vm.questionCount, in: 5...50, step: 5)
                             .tint(.glassCyan)
-                        
+
                         HStack {
                             Text("5")
                             Spacer()
@@ -137,13 +137,13 @@ struct TestView: View {
                         .foregroundColor(.white.opacity(0.55))
                     }
                     .padding(12)
-                    .testPanel(cornerRadius: 14, edgeHighlight: Color.white.opacity(0.14))
-                    
+                    .glassPanel(cornerRadius: 14, edgeHighlight: Color.white.opacity(0.14))
+
                     VStack(alignment: .leading, spacing: 12) {
                         Text(lm.t("multiple_choice"))
                             .font(.system(size: 15, weight: .medium, design: .default))
                             .foregroundColor(.white.opacity(0.86))
-                        
+
                         HStack(spacing: 8) {
                             modeButton(
                                 title: lm.t("multiple_choice"),
@@ -151,7 +151,7 @@ struct TestView: View {
                                 isSelected: vm.isMultipleChoice,
                                 action: { vm.isMultipleChoice = true }
                             )
-                            
+
                             modeButton(
                                 title: lm.t("translation"),
                                 icon: "keyboard.fill",
@@ -162,8 +162,8 @@ struct TestView: View {
                     }
                 }
                 .padding(14)
-                .testPanel(cornerRadius: 20)
-                
+                .glassPanel(cornerRadius: 20)
+
                 Button {
                     withAnimation(.spring(response: 0.38, dampingFraction: 0.82)) {
                         vm.startTest()
@@ -199,37 +199,37 @@ struct TestView: View {
             .padding(.bottom, 18)
         }
     }
-    
+
     private var resultsView: some View {
         VStack(spacing: 14) {
             let percentage = Double(vm.score) / Double(max(1, vm.queue.count))
-            
+
             VStack(spacing: 10) {
                 Image(systemName: percentage >= 0.7 ? "trophy.fill" : "checkmark.seal.fill")
                     .font(.system(size: 36, weight: .medium))
                     .foregroundStyle(percentage >= 0.7 ? .yellow : .glassCyan)
-                
+
                 Text(lm.t("test_results"))
                     .font(.system(size: 30, weight: .medium, design: .default))
                     .foregroundColor(.white)
-                
+
                 Text("\(vm.score) / \(vm.queue.count)")
                     .font(.title2.weight(.semibold))
                     .foregroundColor(.white.opacity(0.72))
             }
             .padding(16)
-            .testPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
-            
+            .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
+
             Text("\(Int(percentage * 100))%")
                 .font(.system(size: 70, weight: .medium, design: .default))
                 .foregroundColor(percentage >= 0.7 ? .green : (percentage >= 0.5 ? .orange : .red))
-            
+
             if !vm.wrongAnswers.isEmpty {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(lm.t("review_wrong"))
                         .font(.headline)
                         .foregroundColor(.glassCyan)
-                    
+
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 10) {
                             ForEach(0..<vm.wrongAnswers.count, id: \.self) { i in
@@ -243,24 +243,24 @@ struct TestView: View {
                                 }
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 12)
-                                .testPanel(cornerRadius: 14, edgeHighlight: Color.white.opacity(0.12))
+                                .glassPanel(cornerRadius: 14, edgeHighlight: Color.white.opacity(0.12))
                             }
                         }
                     }
                     .frame(maxHeight: 250)
                 }
                 .padding(14)
-                .testPanel(cornerRadius: 16)
+                .glassPanel(cornerRadius: 16)
                 .frame(maxWidth: 700)
             }
-            
+
             Button(lm.t("finish")) { vm.finishTestAndSave() }
                 .buttonStyle(GlassButtonStyle())
                 .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
+
     private var questionView: some View {
         VStack(spacing: 12) {
             HStack(spacing: 12) {
@@ -276,20 +276,20 @@ struct TestView: View {
                         )
                 }
                 .buttonStyle(.plain)
-                
+
                 Spacer()
-                
+
                     Text("\(vm.currentIdx + 1) / \(max(1, vm.queue.count))")
                         .font(.subheadline.weight(.semibold))
                         .foregroundColor(.white.opacity(0.75))
-                
+
                 Spacer()
-                
+
                 statChip(icon: "bolt.fill", label: "\(lm.t("score")): \(vm.score)")
             }
-            
+
             progressTrack
-            
+
             if let _ = vm.current {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 8) {
@@ -299,7 +299,7 @@ struct TestView: View {
                             .font(.subheadline.weight(.semibold))
                             .foregroundColor(.white.opacity(0.62))
                     }
-                    
+
                     Text(vm.prompt)
                         .font(.system(size: 42, weight: .medium, design: .default))
                         .minimumScaleFactor(0.35)
@@ -310,9 +310,9 @@ struct TestView: View {
                 }
                 .padding(.vertical, 16)
                 .padding(.horizontal, 14)
-                .testPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.16))
+                .glassPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.16))
                 .padding(.top, 2)
-                
+
                 if vm.isMultipleChoice {
                     VStack(spacing: 8) {
                         ForEach(Array(vm.mcOptions.enumerated()), id: \.element) { index, opt in
@@ -322,7 +322,7 @@ struct TestView: View {
                                         .font(.headline.weight(.semibold))
                                         .foregroundColor(.white.opacity(0.65))
                                         .frame(width: 34, alignment: .leading)
-                                    
+
                                     Text(opt)
                                         .font(.headline.weight(.semibold))
                                         .foregroundColor(.white)
@@ -351,7 +351,7 @@ struct TestView: View {
                         Image(systemName: "keyboard.fill")
                             .font(.title3.weight(.semibold))
                             .foregroundStyle(Color.glassCyan)
-                        
+
                         TextField(lm.t("enter_answer"), text: $vm.answer)
                             .textFieldStyle(.plain)
                             .font(.system(size: 25, weight: .medium, design: .default))
@@ -362,9 +362,9 @@ struct TestView: View {
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 11)
-                    .testPanel(cornerRadius: 16)
+                    .glassPanel(cornerRadius: 16)
                     .frame(maxWidth: 820)
-                    
+
                     if vm.showCorrectAnswer {
                         HStack(spacing: 10) {
                             Image(systemName: "exclamationmark.circle.fill")
@@ -379,7 +379,7 @@ struct TestView: View {
                     }
                 }
             }
-            
+
             Spacer(minLength: 0)
         }
         .padding(.top, 10)
@@ -387,17 +387,17 @@ struct TestView: View {
             requestOpenAnswerFocus()
         }
     }
-    
+
     private var progressTrack: some View {
         GeometryReader { proxy in
             let total = max(1, vm.queue.count)
             let progress = CGFloat(vm.currentIdx + 1) / CGFloat(total)
             let filled = max(8, proxy.size.width * progress)
-            
+
             ZStack(alignment: .leading) {
                 Capsule()
                     .fill(Color.white.opacity(0.12))
-                
+
                 Capsule()
                     .fill(
                         LinearGradient(
@@ -413,7 +413,7 @@ struct TestView: View {
         .frame(height: 6)
         .animation(.easeInOut(duration: 0.26), value: vm.currentIdx)
     }
-    
+
     private func modeButton(title: String, icon: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: 8) {
@@ -441,7 +441,7 @@ struct TestView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     private func statChip(icon: String, label: String) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
@@ -459,7 +459,7 @@ struct TestView: View {
                 .overlay(Capsule().stroke(Color.white.opacity(0.15), lineWidth: 1))
         )
     }
-    
+
     private func optionBackground(for opt: String) -> some ShapeStyle {
         if let selected = vm.selectedOption {
             if opt == vm.target {
@@ -469,26 +469,26 @@ struct TestView: View {
                 return LinearGradient(colors: [Color.red.opacity(0.6), Color.red.opacity(0.35)], startPoint: .topLeading, endPoint: .bottomTrailing)
             }
         }
-        
+
         return LinearGradient(
             colors: [Color.white.opacity(0.11), Color.white.opacity(0.06)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
-    
+
     private func requestOpenAnswerFocus() {
         guard !vm.isSetup, !vm.isFinished, !vm.isMultipleChoice else {
             isOpenAnswerFocused = false
             return
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             guard !vm.isSetup, !vm.isFinished, !vm.isMultipleChoice, vm.selectedOption == nil else { return }
             isOpenAnswerFocused = true
         }
     }
-    
+
     private var testBackground: some View {
         ZStack {
             LinearGradient(
@@ -500,7 +500,7 @@ struct TestView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.glassCyan.opacity(0.2), .clear],
                 center: .topTrailing,
@@ -508,7 +508,7 @@ struct TestView: View {
                 endRadius: 520
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.blue.opacity(0.18), .clear],
                 center: .bottomLeading,
@@ -517,34 +517,5 @@ struct TestView: View {
             )
             .ignoresSafeArea()
         }
-    }
-}
-
-private extension View {
-    func testPanel(cornerRadius: CGFloat = 16, edgeHighlight: Color = Color.glassCyan.opacity(0.16)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.04)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.14), lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 8)
-            )
     }
 }

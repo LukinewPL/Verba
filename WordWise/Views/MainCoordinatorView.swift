@@ -11,7 +11,7 @@ struct MainCoordinatorView: View {
     var body: some View {
         @Bindable var coordinator = coordinator
         @Bindable var eh = errorHandler
-        
+
         return NavigationSplitView(columnVisibility: $sidebarVisibility) {
             sidebarContent
         } detail: {
@@ -27,7 +27,6 @@ struct MainCoordinatorView: View {
         .onChange(of: coordinator.path) { _, _ in
             syncSidebarVisibility()
         }
-        .animation(.easeInOut(duration: 0.22), value: sidebarVisibility)
         .frame(minWidth: 700, minHeight: 500)
         .alert(lm.t("error_occurred"), isPresented: $eh.showErrorMessage) {
             Button(lm.t("ok"), role: .cancel) { eh.clear() }
@@ -37,7 +36,7 @@ struct MainCoordinatorView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func screenView(for screen: AppScreen) -> some View {
         switch screen {
@@ -51,29 +50,29 @@ struct MainCoordinatorView: View {
         case .settings: SettingsView()
         }
     }
-    
+
     private var sidebarContent: some View {
         ZStack {
             sidebarBackground
-            
+
             VStack(alignment: .leading, spacing: 14) {
                 sidebarHeader
-                
+
                 VStack(spacing: 10) {
                     sidebarTabButton(tab: .home, title: lm.t("home"), icon: "house.fill")
                     sidebarTabButton(tab: .library, title: lm.t("sets_library"), icon: "books.vertical.fill")
                     sidebarTabButton(tab: .settings, title: lm.t("settings"), icon: "gearshape.fill")
                 }
                 .padding(10)
-                .sidebarPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.15))
-                
+                .glassPanel(cornerRadius: 20, edgeHighlight: Color.white.opacity(0.15), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 20, shadowY: 10)
+
                 Spacer()
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 14)
         }
     }
-    
+
     private var detailContent: some View {
         ZStack {
             LinearGradient(
@@ -102,7 +101,7 @@ struct MainCoordinatorView: View {
         }
         .background(Color.clear)
     }
-    
+
     private var sidebarHeader: some View {
         HStack(alignment: .center, spacing: 12) {
             Image(systemName: "text.book.closed.fill")
@@ -117,23 +116,23 @@ struct MainCoordinatorView: View {
                                 .stroke(Color.glassCyan.opacity(0.4), lineWidth: 1)
                         )
                 )
-            
+
             Text(lm.t("WordWise"))
                 .font(.system(size: 25, weight: .semibold, design: .default))
                 .tracking(0.2)
                 .lineLimit(1)
                 .foregroundStyle(.white)
                 .offset(y: -0.5)
-            
+
             Spacer()
         }
         .padding(14)
-        .sidebarPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
+        .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 20, shadowY: 10)
     }
-    
+
     private func sidebarTabButton(tab: AppCoordinator.Tab, title: String, icon: String) -> some View {
         let isSelected = coordinator.selectedTab == tab
-        
+
         return Button {
             select(tab: tab)
         } label: {
@@ -146,13 +145,13 @@ struct MainCoordinatorView: View {
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
                             .fill(isSelected ? Color.glassCyan.opacity(0.18) : Color.white.opacity(0.08))
                     )
-                
+
                 Text(title)
                     .font(.system(size: 20, weight: .medium, design: .default))
                     .foregroundStyle(.white.opacity(0.95))
-                
+
                 Spacer()
-                
+
                 if isSelected {
                     Image(systemName: "chevron.right")
                         .font(.caption.weight(.semibold))
@@ -189,24 +188,18 @@ struct MainCoordinatorView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     private func select(tab: AppCoordinator.Tab) {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            coordinator.selectedTab = tab
-        }
-        
-        if !coordinator.path.isEmpty {
-            coordinator.popToRoot()
-        }
+        coordinator.selectTab(tab)
     }
-    
+
     private var pathBinding: Binding<[AppScreen]> {
         Binding(
             get: { coordinator.path },
             set: { coordinator.path = $0 }
         )
     }
-    
+
     private func isSidebarHiddenMode(_ screen: AppScreen) -> Bool {
         switch screen {
         case .studySession, .speedRound, .test, .flashcards:
@@ -215,18 +208,18 @@ struct MainCoordinatorView: View {
             return false
         }
     }
-    
+
     private func syncSidebarVisibility() {
         let shouldHide = coordinator.isInFocusedMode || (coordinator.path.last.map(isSidebarHiddenMode) ?? false)
         let target: NavigationSplitViewVisibility = shouldHide ? .detailOnly : .all
-        
+
         guard sidebarVisibility != target else { return }
-        
+
         withAnimation(.easeInOut(duration: 0.22)) {
             sidebarVisibility = target
         }
     }
-    
+
     private var sidebarBackground: some View {
         ZStack {
             LinearGradient(
@@ -238,7 +231,7 @@ struct MainCoordinatorView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.glassCyan.opacity(0.16), .clear],
                 center: .topTrailing,
@@ -246,7 +239,7 @@ struct MainCoordinatorView: View {
                 endRadius: 420
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.blue.opacity(0.16), .clear],
                 center: .bottomLeading,
@@ -255,35 +248,5 @@ struct MainCoordinatorView: View {
             )
             .ignoresSafeArea()
         }
-    }
-}
-
-private extension View {
-    func sidebarPanel(cornerRadius: CGFloat = 20, edgeHighlight: Color = Color.glassCyan.opacity(0.18)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.05)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1.1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.18), lineWidth: 1)
-                            .blur(radius: 0.2)
-                    )
-                    .shadow(color: .black.opacity(0.24), radius: 20, x: 0, y: 10)
-            )
     }
 }

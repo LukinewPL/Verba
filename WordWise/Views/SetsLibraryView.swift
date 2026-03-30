@@ -6,14 +6,14 @@ struct SetsLibraryView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(WordRepository.self) private var repository
     @State private var vm = SetsLibraryViewModel()
-    
+
     var body: some View {
         ZStack {
             libraryBackground
-            
+
             VStack(spacing: 12) {
                 headerCard
-                
+
                 if vm.allSets.isEmpty && vm.folders.isEmpty {
                     DropZoneView(showFilePicker: $vm.showFilePicker)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -27,7 +27,7 @@ struct SetsLibraryView: View {
                                     onDrop: { ids in vm.handleDrop(ids: ids, to: folder) }
                                 )
                             }
-                            
+
                             UngroupedSectionView(
                                 ungroupedSets: vm.ungroupedSets,
                                 dragOverUnfiled: $vm.dragOverUnfiled,
@@ -72,7 +72,7 @@ struct SetsLibraryView: View {
             vm.setup(repository: repository)
         }
     }
-    
+
     private var headerCard: some View {
         HStack(spacing: 10) {
             HStack(spacing: 8) {
@@ -88,7 +88,7 @@ struct SetsLibraryView: View {
                                     .stroke(Color.glassCyan.opacity(0.36), lineWidth: 1)
                             )
                     )
-                
+
                 VStack(alignment: .leading, spacing: 3) {
                     Text(lm.t("sets_library"))
                         .font(.system(size: 24, weight: .medium, design: .default))
@@ -101,9 +101,9 @@ struct SetsLibraryView: View {
                     .foregroundColor(.white.opacity(0.62))
                 }
             }
-            
+
             Spacer(minLength: 12)
-            
+
             HStack(spacing: 8) {
                 actionPillButton(title: lm.t("new_folder"), icon: "folder.badge.plus") {
                     vm.showNewFolderAlert = true
@@ -114,9 +114,9 @@ struct SetsLibraryView: View {
             }
         }
         .padding(14)
-        .libraryPanel(cornerRadius: 20)
+        .glassPanel(cornerRadius: 20)
     }
-    
+
     private func actionPillButton(title: String, icon: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: 8) {
@@ -135,7 +135,7 @@ struct SetsLibraryView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     private var libraryBackground: some View {
         ZStack {
             LinearGradient(
@@ -147,7 +147,7 @@ struct SetsLibraryView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.glassCyan.opacity(0.16), .clear],
                 center: .topTrailing,
@@ -155,7 +155,7 @@ struct SetsLibraryView: View {
                 endRadius: 560
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.blue.opacity(0.14), .clear],
                 center: .bottomLeading,
@@ -170,18 +170,18 @@ struct SetsLibraryView: View {
 private struct DropZoneView: View {
     @Binding var showFilePicker: Bool
     @Environment(LanguageManager.self) private var lm
-    
+
     var body: some View {
         VStack(spacing: 18) {
             Image(systemName: "tray.and.arrow.down.fill")
                 .font(.system(size: 42, weight: .medium))
                 .foregroundStyle(Color.glassCyan)
-            
+
             Text(lm.t("no_sets_yet"))
                 .font(.system(size: 26, weight: .medium, design: .default))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-            
+
             Button(lm.t("import_file")) {
                 showFilePicker = true
             }
@@ -189,7 +189,7 @@ private struct DropZoneView: View {
         }
         .padding(22)
         .frame(maxWidth: 560)
-        .libraryPanel(cornerRadius: 22)
+        .glassPanel(cornerRadius: 22)
     }
 }
 
@@ -197,12 +197,12 @@ private struct FolderSectionView: View {
     let folder: Folder
     @Bindable var vm: SetsLibraryViewModel
     let onDrop: ([String]) -> Bool
-    
+
     @Environment(LanguageManager.self) private var lm
 
     var body: some View {
         let isExpanded = !vm.expandedFolders.contains(folder.id)
-        
+
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 Image(systemName: "chevron.right")
@@ -210,7 +210,7 @@ private struct FolderSectionView: View {
                     .rotationEffect(.degrees(isExpanded ? 90 : 0))
                     .foregroundColor(.white.opacity(0.7))
                     .animation(.spring(response: 0.28, dampingFraction: 0.84), value: isExpanded)
-                
+
                 if vm.renamingFolderID == folder.id {
                     TextField("", text: $vm.folderRenameText)
                         .textFieldStyle(.plain)
@@ -229,9 +229,9 @@ private struct FolderSectionView: View {
                             vm.renamingFolderID = folder.id
                         }
                 }
-                
+
                 Spacer()
-                
+
                 Text("\(folder.sets.count)")
                     .font(.subheadline.weight(.medium))
                     .foregroundColor(.white.opacity(0.82))
@@ -241,7 +241,7 @@ private struct FolderSectionView: View {
                         Capsule()
                             .fill(Color.white.opacity(0.12))
                     )
-                
+
                 if vm.dragOverFolderID == folder.id {
                     Image(systemName: "plus.circle.fill")
                         .foregroundColor(.glassCyan)
@@ -267,7 +267,7 @@ private struct FolderSectionView: View {
                     }
                 }
             }
-            
+
             if isExpanded && !folder.sets.isEmpty {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 320), spacing: 12)], spacing: 12) {
                     ForEach(folder.sets.sorted(by: { $0.name < $1.name })) { s in
@@ -279,7 +279,7 @@ private struct FolderSectionView: View {
             }
         }
         .padding(12)
-        .libraryPanel(cornerRadius: 18)
+        .glassPanel(cornerRadius: 18)
         .contextMenu {
             Button(lm.t("rename")) {
                 vm.folderRenameText = folder.name
@@ -339,7 +339,7 @@ private struct UngroupedSectionView: View {
             } isTargeted: { targeted in
                 dragOverUnfiled = targeted
             }
-            
+
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 320), spacing: 12)], spacing: 12) {
                 ForEach(ungroupedSets) { s in
                     SetCard(set: s)
@@ -348,35 +348,6 @@ private struct UngroupedSectionView: View {
             .padding(.top, 6)
         }
         .padding(12)
-        .libraryPanel(cornerRadius: 18)
-    }
-}
-
-private extension View {
-    func libraryPanel(cornerRadius: CGFloat = 18, edgeHighlight: Color = Color.glassCyan.opacity(0.16)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.04)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.14), lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 8)
-            )
+        .glassPanel(cornerRadius: 18)
     }
 }

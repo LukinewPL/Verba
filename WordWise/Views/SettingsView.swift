@@ -5,34 +5,35 @@ struct SettingsView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(\.modelContext) private var ctx
     @AppStorage("animationSpeed") var animationSpeed: Double = 1.0
+    @State private var errorHandler = ErrorHandler.shared
     @State private var showResetAlert = false
-    
+
     private let legendColumns = [
         GridItem(.flexible(minimum: 140), spacing: 12),
         GridItem(.flexible(minimum: 140), spacing: 12)
     ]
-    
+
     var body: some View {
         ZStack {
             settingsBackground
-            
+
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 22) {
                     headerCard
                     languageCard
-                    
+
                     ViewThatFits(in: .horizontal) {
                         HStack(alignment: .top, spacing: 16) {
                             legendCard.frame(maxWidth: .infinity)
                             animationCard.frame(maxWidth: .infinity)
                         }
-                        
+
                         VStack(spacing: 16) {
                             legendCard
                             animationCard
                         }
                     }
-                    
+
                     resetCard
                 }
                 .padding(.horizontal, 24)
@@ -49,7 +50,7 @@ struct SettingsView: View {
             Text(lm.t("undone_msg"))
         }
     }
-    
+
     private var headerCard: some View {
         HStack(spacing: 14) {
             Image(systemName: "slider.horizontal.3")
@@ -64,7 +65,7 @@ struct SettingsView: View {
                                 .stroke(Color.glassCyan.opacity(0.38), lineWidth: 1)
                         )
                 )
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(lm.t("settings"))
                     .font(.system(size: 34, weight: .medium, design: .default))
@@ -73,17 +74,17 @@ struct SettingsView: View {
                     .font(.headline)
                     .foregroundColor(.white.opacity(0.6))
             }
-            
+
             Spacer()
         }
         .padding(22)
-        .settingsPanel(cornerRadius: 28, edgeHighlight: Color.glassCyan.opacity(0.22))
+        .glassPanel(cornerRadius: 28, edgeHighlight: Color.glassCyan.opacity(0.22), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 22, shadowY: 10)
     }
-    
+
     private var languageCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             sectionTitle(lm.t("app_language"), icon: "globe")
-            
+
             VStack(spacing: 10) {
                 ForEach(lm.availableLanguages) { lang in
                     languageOptionRow(for: lang)
@@ -91,12 +92,12 @@ struct SettingsView: View {
             }
         }
         .padding(20)
-        .settingsPanel()
+        .glassPanel(cornerRadius: 22, edgeHighlight: Color.glassCyan.opacity(0.18), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 22, shadowY: 10)
     }
-    
+
     private func languageOptionRow(for lang: LanguageInfo) -> some View {
         let selected = lm.selectedCode == lang.language_code
-        
+
         return Button {
             withAnimation(.easeInOut(duration: 0.18)) {
                 lm.selectedCode = lang.language_code
@@ -106,9 +107,9 @@ struct SettingsView: View {
                 Text(lang.language_name)
                     .font(.system(size: 22, weight: .medium, design: .default))
                     .foregroundColor(.white)
-                
+
                 Spacer()
-                
+
                 if selected {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 20, weight: .medium))
@@ -145,11 +146,11 @@ struct SettingsView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     private var legendCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             sectionTitle(lm.t("legend"), icon: "sparkles")
-            
+
             LazyVGrid(columns: legendColumns, spacing: 12) {
                 legendTile(icon: "book.fill", label: lm.t("study"), tint: .glassCyan)
                 legendTile(icon: "rectangle.stack.fill", label: lm.t("flashcards"), tint: Color(red: 0.5, green: 0.8, blue: 1.0))
@@ -158,9 +159,9 @@ struct SettingsView: View {
             }
         }
         .padding(20)
-        .settingsPanel()
+        .glassPanel(cornerRadius: 22, edgeHighlight: Color.glassCyan.opacity(0.18), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 22, shadowY: 10)
     }
-    
+
     private func legendTile(icon: String, label: String, tint: Color) -> some View {
         HStack(spacing: 10) {
             Image(systemName: icon)
@@ -171,7 +172,7 @@ struct SettingsView: View {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(tint.opacity(0.15))
                 )
-            
+
             Text(label)
                 .font(.system(size: 20, weight: .medium, design: .default))
                 .foregroundColor(.white.opacity(0.95))
@@ -193,7 +194,7 @@ struct SettingsView: View {
                 )
         )
     }
-    
+
     private var animationCard: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -213,11 +214,11 @@ struct SettingsView: View {
                             )
                     )
             }
-            
+
             VStack(spacing: 10) {
                 Slider(value: $animationSpeed, in: 0.0...2.0, step: 0.5)
                     .tint(.glassCyan)
-                
+
                 HStack {
                     Text("0x").foregroundColor(.white.opacity(0.55))
                     Spacer()
@@ -243,9 +244,9 @@ struct SettingsView: View {
             )
         }
         .padding(20)
-        .settingsPanel()
+        .glassPanel(cornerRadius: 22, edgeHighlight: Color.glassCyan.opacity(0.18), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 22, shadowY: 10)
     }
-    
+
     private var resetCard: some View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(spacing: 10) {
@@ -255,7 +256,7 @@ struct SettingsView: View {
                     .font(.system(size: 20, weight: .medium, design: .default))
                     .foregroundColor(.white)
             }
-            
+
             Button(role: .destructive, action: { showResetAlert = true }) {
                 Text(lm.t("reset_all_data"))
                     .font(.headline)
@@ -274,9 +275,9 @@ struct SettingsView: View {
             .buttonStyle(.plain)
         }
         .padding(20)
-        .settingsPanel(edgeHighlight: Color.red.opacity(0.22))
+        .glassPanel(cornerRadius: 22, edgeHighlight: Color.red.opacity(0.22), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 22, shadowY: 10)
     }
-    
+
     private func sectionTitle(_ text: String, icon: String) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
@@ -287,7 +288,7 @@ struct SettingsView: View {
                 .foregroundColor(.white)
         }
     }
-    
+
     private var settingsBackground: some View {
         ZStack {
             LinearGradient(
@@ -299,7 +300,7 @@ struct SettingsView: View {
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.glassCyan.opacity(0.18), .clear],
                 center: .topTrailing,
@@ -307,7 +308,7 @@ struct SettingsView: View {
                 endRadius: 520
             )
             .ignoresSafeArea()
-            
+
             RadialGradient(
                 colors: [Color.blue.opacity(0.18), .clear],
                 center: .bottomLeading,
@@ -317,7 +318,7 @@ struct SettingsView: View {
             .ignoresSafeArea()
         }
     }
-    
+
     private func resetAll() {
         do {
             try ctx.delete(model: WordSet.self)
@@ -325,37 +326,7 @@ struct SettingsView: View {
             try ctx.delete(model: Word.self)
             try ctx.save()
         } catch {
-            print("WordWise: Save failed — \(error)")
+            errorHandler.handle(error)
         }
-    }
-}
-
-private extension View {
-    func settingsPanel(cornerRadius: CGFloat = 22, edgeHighlight: Color = Color.glassCyan.opacity(0.18)) -> some View {
-        self
-            .background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .fill(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.1), Color.white.opacity(0.05)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(edgeHighlight, lineWidth: 1.1)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                            .stroke(Color.white.opacity(0.18), lineWidth: 1)
-                            .blur(radius: 0.2)
-                    )
-                    .shadow(color: .black.opacity(0.24), radius: 22, x: 0, y: 10)
-            )
     }
 }
