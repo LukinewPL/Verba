@@ -17,4 +17,27 @@ final class WordSetTests: XCTestCase {
         XCTAssertEqual(set.prompt(for: word), "apple")
         XCTAssertEqual(set.target(for: word), "jabłko")
     }
+
+    func testTranslationDirectionFallsBackToDefaultForInvalidRawValue() {
+        let set = WordSet(name: "Fallback")
+        set.translationDirectionRaw = 999
+
+        XCTAssertEqual(set.translationDirection, .polishToEnglish)
+    }
+
+    func testInitializerSetsLanguagesAndWords() {
+        let word = Word(polish: "dom", english: "house")
+        let set = WordSet(
+            name: "Langs",
+            words: [word],
+            dir: TranslationDirection.englishToPolish.rawValue,
+            source: "en",
+            target: "pl"
+        )
+
+        XCTAssertEqual(set.words.count, 1)
+        XCTAssertEqual(set.sourceLanguage, "en")
+        XCTAssertEqual(set.targetLanguage, "pl")
+        XCTAssertEqual(set.translationDirection, .englishToPolish)
+    }
 }
