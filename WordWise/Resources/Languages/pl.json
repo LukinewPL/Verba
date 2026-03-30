@@ -3,7 +3,7 @@
   "language_code": "pl",
   "translations": {
     "home": "Główna",
-    "sets_library": "Biblioteka zestawów",
+    "sets_library": "Biblioteka",
     "settings": "Ustawienia",
     "streak": "Seria",
     "words_today": "Słowa dziś",
@@ -11,6 +11,7 @@
     "study": "Nauka",
     "speed_round": "Szybka runda",
     "test": "Test",
+    "next": "Następna",
     "import_file": "Importuj plik",
     "no_sets_yet": "Brak zestawów słówek",
     "import_error": "Błąd importu",
@@ -58,6 +59,20 @@
     "import": "Importuj",
     "unfiled": "Bez folderu",
     "welcome_back": "Witaj ponownie",
-    "legend": "Legenda ikon"
+    "legend": "Legenda ikon",
+    "enter_answer": "Wpisz odpowiedź...",
+    "flashcards": "Fiszki",
+    "flip": "Obróć",
+    "show_hint": "Pokaż podpowiedź",
+    "first_column": "Pierwsza kolumna",
+    "second_column": "Druga kolumna",
+    "detected": "Wykryto",
+    "not_detected": "Nie wykryto automatycznie",
+    "choose_language": "Wybierz język",
+    "flip_columns": "Zamień kolumny",
+    "import_language_detection_info": "Języki są wykrywane automatycznie na podstawie zawartości kolumn. W razie potrzeby możesz je zmienić ręcznie.",
+    "import_direction": "Kierunek importu",
+    "flashcards_swipe_hint": "Przeciągnij kartę w bok, aby przejść dalej",
+    "flashcards_completed_subtitle": "Znasz już wszystkie słówka z tego zestawu."
   }
 }

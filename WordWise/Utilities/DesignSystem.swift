@@ -60,7 +60,7 @@ extension View {
     }
     
     func vibrantTitle() -> some View {
-        self.font(.system(size: 32, weight: .bold, design: .rounded))
+        self.font(.system(size: 32, weight: .medium, design: .default))
             .foregroundColor(.white)
             .shadow(color: .black.opacity(0.3), radius: 2)
     }

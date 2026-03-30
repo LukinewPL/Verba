@@ -15,6 +15,8 @@ enum TranslationDirection: Int, Codable {
     var translationDirectionRaw: Int = TranslationDirection.polishToEnglish.rawValue
     var bestScore: Int = 0
     var folder: Folder?
+    var sourceLanguage: String = "en"
+    var targetLanguage: String = "pl"
 
     var translationDirection: TranslationDirection {
         TranslationDirection(rawValue: translationDirectionRaw) ?? .polishToEnglish
@@ -28,11 +30,13 @@ enum TranslationDirection: Int, Codable {
         translationDirection == .polishToEnglish ? word.english : word.polish
     }
 
-    init(id: UUID = UUID(), name: String, createdAt: Date = Date(), words: [Word] = [], dir: Int = TranslationDirection.polishToEnglish.rawValue) {
+    init(id: UUID = UUID(), name: String, createdAt: Date = Date(), words: [Word] = [], dir: Int = TranslationDirection.polishToEnglish.rawValue, source: String = "en", target: String = "pl") {
         self.id = id
         self.name = name
         self.createdAt = createdAt
         self.words = words
         self.translationDirectionRaw = dir
+        self.sourceLanguage = source
+        self.targetLanguage = target
     }
 }

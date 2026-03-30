@@ -11,6 +11,7 @@
     "study": "Study",
     "speed_round": "Speed Round",
     "test": "Test",
+    "next": "Next",
     "import_file": "Import File",
     "no_sets_yet": "No word sets yet",
     "import_error": "Import Error",
@@ -58,6 +59,20 @@
     "import": "Import",
     "unfiled": "Unfiled",
     "welcome_back": "Welcome back",
-    "legend": "Icon Legend"
+    "legend": "Icon Legend",
+    "enter_answer": "Enter answer...",
+    "flashcards": "Flashcards",
+    "flip": "Flip",
+    "show_hint": "Show hint",
+    "first_column": "First column",
+    "second_column": "Second column",
+    "detected": "Detected",
+    "not_detected": "Not detected automatically",
+    "choose_language": "Choose language",
+    "flip_columns": "Flip columns",
+    "import_language_detection_info": "Languages are detected automatically from the column content. You can adjust them manually if needed.",
+    "import_direction": "Import direction",
+    "flashcards_swipe_hint": "Swipe the card sideways to go to the next one",
+    "flashcards_completed_subtitle": "You already know all words from this set."
   }
 }

@@ -5,6 +5,29 @@
 	};
 	objectVersion = 77;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		06F7631D998648E6986FBECB /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE294B2308842E688BD22E4 /* Folder.swift */; };
+		0B2E7312F18B41A8B727D230 /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1036204412B4C70A0146952 /* SetDetailView.swift */; };
+		31F97CF1FCE54AC0ACEDA486 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */; };
+		3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000001 /* SM2EngineTests.swift */; };
+		3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000003 /* ImportEngineTests.swift */; };
+		3C1234567890ABCDEF111002 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF111001 /* en.json */; };
+		3C1234567890ABCDEF111004 /* pl.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF111003 /* pl.json */; };
+		3C1234567890ABCDEF222002 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF222001 /* LanguageManager.swift */; };
+		3C1234567890ABCDEF333002 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF333001 /* SetCard.swift */; };
+		3C1234567890ABCDEF444002 /* XLSXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF444001 /* XLSXParser.swift */; };
+		3EB72CA2DCE14923AB42E609 /* Color+LiquidGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */; };
+		4079C13A9DEF4B9FB113C0B3 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F29549DCA349EEB2C47EBA /* Word.swift */; };
+		42C2A06F0951495092165EC1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06358FC08BC4532AE2B5B24 /* HomeView.swift */; };
+		486705FBBC2442508DA5DAAE /* MainCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96337D46F34EB09A90A4D1 /* MainCoordinatorView.swift */; };
+		543A805B889945CBADBBABFA /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B7A61D976E4BCBB2A12094 /* StudySession.swift */; };
+		5C969F08BC2749AEA78B8BD4 /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */; };
+		6F10406924F5487CA5717698 /* SM2Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */; };
+		86D918299DC84699A7C1E752 /* WordWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0031E50228CE4AE5AC1EDE58 /* WordWiseApp.swift */; };
+		8CBFB607A00C418392969260 /* WordSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40889DFD05404283B0245B0E /* WordSet.swift */; };
+		98508A1F98F04BB9A730F309 /* ImportEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */; };
+		9F1501F231E64B71A7CD5882 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */; };
 		A0000000000000000000003 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000002 /* AppCoordinator.swift */; };
 		A0000000000000000000006 /* WordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000005 /* WordRepository.swift */; };
 		A0000000000000000000008 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000007 /* TestViewModel.swift */; };
@@ -15,189 +38,82 @@
 		A0000000000000000000018 /* WordRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000017 /* WordRepositoryProtocol.swift */; };
 		A0000000000000000000020 /* StudySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000019 /* StudySessionViewModel.swift */; };
 		A0000000000000000000022 /* SpeedRoundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000021 /* SpeedRoundViewModel.swift */; };
-
-		06F7631D998648E6986FBECB /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE294B2308842E688BD22E4 /* Folder.swift */; };
-		3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
-		9F1501F231E64B71A7CD5882 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */; };
-		E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */ = {isa = PBXFileReference; path = "ImportEngine.swift"; sourceTree = "<group>"; };
-		98508A1F98F04BB9A730F309 /* ImportEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */; };
-		3C1234567890ABCDEF444002 /* XLSXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF444001 /* XLSXParser.swift */; };
-		E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */ = {isa = PBXFileReference; path = "SM2Engine.swift"; sourceTree = "<group>"; };
-		6F10406924F5487CA5717698 /* SM2Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */; };
-		3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000001 /* SM2EngineTests.swift */; };
-		3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000003 /* ImportEngineTests.swift */; };
-		664FF430EAF44817B53B5FCB /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */,
-				E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */,
-				3C1234567890ABCDEF444001 /* XLSXParser.swift */,
-			);
-			path = "Engine";
-			sourceTree = "<group>";
-		};
-		62B7A61D976E4BCBB2A12094 /* StudySession.swift */ = {isa = PBXFileReference; path = "StudySession.swift"; sourceTree = "<group>"; };
-		543A805B889945CBADBBABFA /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B7A61D976E4BCBB2A12094 /* StudySession.swift */; };
-		70F29549DCA349EEB2C47EBA /* Word.swift */ = {isa = PBXFileReference; path = "Word.swift"; sourceTree = "<group>"; };
-		4079C13A9DEF4B9FB113C0B3 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F29549DCA349EEB2C47EBA /* Word.swift */; };
-		40889DFD05404283B0245B0E /* WordSet.swift */ = {isa = PBXFileReference; path = "WordSet.swift"; sourceTree = "<group>"; };
-		8CBFB607A00C418392969260 /* WordSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40889DFD05404283B0245B0E /* WordSet.swift */; };
-		0DE7F90AB9C74DED83948F59 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				0AE294B2308842E688BD22E4 /* Folder.swift */,
-				62B7A61D976E4BCBB2A12094 /* StudySession.swift */,
-				70F29549DCA349EEB2C47EBA /* Word.swift */,
-				40889DFD05404283B0245B0E /* WordSet.swift */,
-			);
-			path = "Models";
-			sourceTree = "<group>";
-		};
-		53C9F38935954B44A7A3B87B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */; };
-		3C1234567890ABCDEF111002 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF111001 /* en.json */; };
-		3C1234567890ABCDEF111004 /* pl.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF111003 /* pl.json */; };
-		2E67C9CA973E4EE38A155228 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3C1234567890ABCDEF111005 /* Languages */,
-			);
-			path = "Resources";
-			sourceTree = "<group>";
-		};
-		3C1234567890ABCDEF111005 /* Languages */ = {
-			isa = PBXGroup;
-			children = (
-				3C1234567890ABCDEF111001 /* en.json */,
-				3C1234567890ABCDEF111003 /* pl.json */,
-			);
-			path = Languages;
-			sourceTree = "<group>";
-		};
-		B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */ = {isa = PBXFileReference; path = "AudioFeedback.swift"; sourceTree = "<group>"; };
-		5C969F08BC2749AEA78B8BD4 /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */; };
-		F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */ = {isa = PBXFileReference; path = "Color+LiquidGlass.swift"; sourceTree = "<group>"; };
-		3EB72CA2DCE14923AB42E609 /* Color+LiquidGlass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */; };
-		E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */ = {isa = PBXFileReference; path = "GlassEffect.swift"; sourceTree = "<group>"; };
 		A774F82EC3CA41DB936604F1 /* GlassEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */; };
-		3C1234567890ABCDEF222002 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF222001 /* LanguageManager.swift */; };
-		96B0BE6369AA41769EDEC8D6 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				A0000000000000000000013 /* ErrorHandler.swift */,
-				A0000000000000000000015 /* DesignSystem.swift */,
-				B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */,
-				F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */,
-				E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */,
-				3C1234567890ABCDEF222001 /* LanguageManager.swift */,
-			);
-			path = "Utilities";
-			sourceTree = "<group>";
-		};
-		9D3B5337FF1F45F0A69CDA6F /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				A0000000000000000000007 /* TestViewModel.swift */,
-				A0000000000000000000009 /* HomeViewModel.swift */,
-				A0000000000000000000011 /* SetsLibraryViewModel.swift */,
-				A0000000000000000000019 /* StudySessionViewModel.swift */,
-				A0000000000000000000021 /* SpeedRoundViewModel.swift */,
-
-			);
-			path = "ViewModels";
-			sourceTree = "<group>";
-		};
-		BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */ = {isa = PBXFileReference; path = "HeatmapView.swift"; sourceTree = "<group>"; };
-		31F97CF1FCE54AC0ACEDA486 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */; };
-		3C1234567890ABCDEF333002 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF333001 /* SetCard.swift */; };
-		3C1234567890ABCDEF333001 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
-		83606108D556462FBD142DD9 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */,
-				3C1234567890ABCDEF333001 /* SetCard.swift */,
-			);
-			path = "Components";
-			sourceTree = "<group>";
-		};
-		B06358FC08BC4532AE2B5B24 /* HomeView.swift */ = {isa = PBXFileReference; path = "HomeView.swift"; sourceTree = "<group>"; };
-		42C2A06F0951495092165EC1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06358FC08BC4532AE2B5B24 /* HomeView.swift */; };
-		5C96337D46F34EB09A90A4D1 /* MainCoordinatorView.swift */ = {isa = PBXFileReference; path = "MainCoordinatorView.swift"; sourceTree = "<group>"; };
-		486705FBBC2442508DA5DAAE /* MainCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C96337D46F34EB09A90A4D1 /* MainCoordinatorView.swift */; };
-		E1036204412B4C70A0146952 /* SetDetailView.swift */ = {isa = PBXFileReference; path = "SetDetailView.swift"; sourceTree = "<group>"; };
-		0B2E7312F18B41A8B727D230 /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1036204412B4C70A0146952 /* SetDetailView.swift */; };
-		4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */ = {isa = PBXFileReference; path = "SetsLibraryView.swift"; sourceTree = "<group>"; };
-		DD2343E937E84120BF4A1678 /* SetsLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */; };
-		B4C02EF87567476A92303ABC /* StudySessionView.swift */ = {isa = PBXFileReference; path = "StudySessionView.swift"; sourceTree = "<group>"; };
+		B00000000000000000000011 /* WordWise/Views/FlashcardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000001 /* WordWise/Views/FlashcardsView.swift */; };
+		B00000000000000000000012 /* WordWise/ViewModels/FlashcardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000002 /* WordWise/ViewModels/FlashcardsViewModel.swift */; };
+		B00000000000000000000013 /* WordWise/Views/ImportConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* WordWise/Views/ImportConfirmationView.swift */; };
+		B00000000000000000000014 /* WordWise/Models/ImportConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* WordWise/Models/ImportConfiguration.swift */; };
 		B1F47017F3934F5DB27459CD /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C02EF87567476A92303ABC /* StudySessionView.swift */; };
-		CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */ = {isa = PBXFileReference; path = "SpeedRoundView.swift"; sourceTree = "<group>"; };
 		CB0B7312F18B41A8B727D230 /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */; };
-		DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */ = {isa = PBXFileReference; path = "TestView.swift"; sourceTree = "<group>"; };
 		DB0B7312F18B41A8B727D230 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */; };
-		C9E167D8C8CB47F48FD56399 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				83606108D556462FBD142DD9 /* Components */,
-				B06358FC08BC4532AE2B5B24 /* HomeView.swift */,
-				5C96337D46F34EB09A90A4D1 /* MainCoordinatorView.swift */,
-				E1036204412B4C70A0146952 /* SetDetailView.swift */,
-				4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */,
-				EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */,
-				B4C02EF87567476A92303ABC /* StudySessionView.swift */,
-				CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */,
-				DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */,
-			);
-			path = "Views";
-			sourceTree = "<group>";
-		};
-		EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */ = {isa = PBXFileReference; path = "SettingsView.swift"; sourceTree = "<group>"; };
+		DD2343E937E84120BF4A1678 /* SetsLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */; };
 		FA0B7312F18B41A8B727D230 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */; };
-		0031E50228CE4AE5AC1EDE58 /* WordWiseApp.swift */ = {isa = PBXFileReference; path = "WordWiseApp.swift"; sourceTree = "<group>"; };
-		86D918299DC84699A7C1E752 /* WordWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0031E50228CE4AE5AC1EDE58 /* WordWiseApp.swift */; };
-		3C1234567890ABCDEF222001 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3C1234567890ABCDEF00000F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8A640FF2F6F3C850022F040 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8A641062F6F3C850022F040;
+			remoteInfo = WordWise;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0031E50228CE4AE5AC1EDE58 /* WordWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWiseApp.swift; sourceTree = "<group>"; };
+		0AE294B2308842E688BD22E4 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		3C1234567890ABCDEF000001 /* SM2EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SM2EngineTests.swift; sourceTree = "<group>"; };
 		3C1234567890ABCDEF000003 /* ImportEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportEngineTests.swift; sourceTree = "<group>"; };
 		3C1234567890ABCDEF000005 /* WordWiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordWiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-
-		3C1234567890ABCDEF444001 /* XLSXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLSXParser.swift; sourceTree = "<group>"; };
-/* Begin PBXFileReference section */
-		0AE294B2308842E688BD22E4 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		F8A641072F6F3C850022F040 /* WordWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WordWise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C1234567890ABCDEF111001 /* en.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		3C1234567890ABCDEF111003 /* pl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pl.json; sourceTree = "<group>"; };
-
+		3C1234567890ABCDEF222001 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		3C1234567890ABCDEF333001 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
+		3C1234567890ABCDEF444001 /* XLSXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLSXParser.swift; sourceTree = "<group>"; };
+		3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40889DFD05404283B0245B0E /* WordSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSet.swift; sourceTree = "<group>"; };
+		4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibraryView.swift; sourceTree = "<group>"; };
+		5C96337D46F34EB09A90A4D1 /* MainCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorView.swift; sourceTree = "<group>"; };
+		62B7A61D976E4BCBB2A12094 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
+		70F29549DCA349EEB2C47EBA /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		A0000000000000000000002 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		A0000000000000000000005 /* WordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordRepository.swift; sourceTree = "<group>"; };
-		A0000000000000000000007 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
+		A0000000000000000000007 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/ViewModels/TestViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A0000000000000000000009 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A0000000000000000000011 /* SetsLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibraryViewModel.swift; sourceTree = "<group>"; };
 		A0000000000000000000013 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		A0000000000000000000015 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		A0000000000000000000017 /* WordRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordRepositoryProtocol.swift; sourceTree = "<group>"; };
-		A0000000000000000000019 /* StudySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionViewModel.swift; sourceTree = "<group>"; };
+		A0000000000000000000019 /* StudySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/ViewModels/StudySessionViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A0000000000000000000021 /* SpeedRoundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundViewModel.swift; sourceTree = "<group>"; };
+		B00000000000000000000001 /* WordWise/Views/FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/Views/FlashcardsView.swift; sourceTree = SOURCE_ROOT; };
+		B00000000000000000000002 /* WordWise/ViewModels/FlashcardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/ViewModels/FlashcardsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		B00000000000000000000003 /* WordWise/Views/ImportConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/Views/ImportConfirmationView.swift; sourceTree = SOURCE_ROOT; };
+		B00000000000000000000004 /* WordWise/Models/ImportConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/Models/ImportConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		B06358FC08BC4532AE2B5B24 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B4C02EF87567476A92303ABC /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/Views/StudySessionView.swift; sourceTree = SOURCE_ROOT; };
+		B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFeedback.swift; sourceTree = "<group>"; };
+		BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapView.swift; sourceTree = "<group>"; };
+		CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundView.swift; sourceTree = "<group>"; };
+		DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordWise/Views/TestView.swift; sourceTree = SOURCE_ROOT; };
+		E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportEngine.swift; sourceTree = "<group>"; };
+		E1036204412B4C70A0146952 /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
+		E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SM2Engine.swift; sourceTree = "<group>"; };
+		E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassEffect.swift; sourceTree = "<group>"; };
+		EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+			F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+LiquidGlass.swift"; sourceTree = "<group>"; };
+			F8A641072F6F3C850022F040 /* WordWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F8A641092F6F3C850022F040 /* WordWise */ = {
-			isa = PBXGroup;
-			children = (
-				A0000000000000000000001 /* Navigation */,
-				A0000000000000000000004 /* Repository */,
-				3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */,
-				664FF430EAF44817B53B5FCB /* Engine */,
-				0DE7F90AB9C74DED83948F59 /* Models */,
-				2E67C9CA973E4EE38A155228 /* Resources */,
-				96B0BE6369AA41769EDEC8D6 /* Utilities */,
-				9D3B5337FF1F45F0A69CDA6F /* ViewModels */,
-				C9E167D8C8CB47F48FD56399 /* Views */,
-				0031E50228CE4AE5AC1EDE58 /* WordWiseApp.swift */,
-			);
-			path = "WordWise";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
+		3C1234567890ABCDEF000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8A641042F6F3C850022F040 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -208,22 +124,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F8A640FE2F6F3C850022F040 = {
+		0DE7F90AB9C74DED83948F59 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F8A641092F6F3C850022F040 /* WordWise */,
-				3C1234567890ABCDEF00000D /* WordWiseTests */,
-				F8A641082F6F3C850022F040 /* Products */,
+				0AE294B2308842E688BD22E4 /* Folder.swift */,
+				62B7A61D976E4BCBB2A12094 /* StudySession.swift */,
+				70F29549DCA349EEB2C47EBA /* Word.swift */,
+				40889DFD05404283B0245B0E /* WordSet.swift */,
+				B00000000000000000000004 /* WordWise/Models/ImportConfiguration.swift */,
 			);
+			path = Models;
 			sourceTree = "<group>";
 		};
-		F8A641082F6F3C850022F040 /* Products */ = {
+		2E67C9CA973E4EE38A155228 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F8A641072F6F3C850022F040 /* WordWise.app */,
-				3C1234567890ABCDEF000005 /* WordWiseTests.xctest */,
+				3C1234567890ABCDEF111005 /* Languages */,
 			);
-			name = Products;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		3C1234567890ABCDEF00000D /* WordWiseTests */ = {
@@ -235,7 +153,60 @@
 			path = WordWiseTests;
 			sourceTree = "<group>";
 		};
-
+		3C1234567890ABCDEF111005 /* Languages */ = {
+			isa = PBXGroup;
+			children = (
+				3C1234567890ABCDEF111001 /* en.json */,
+				3C1234567890ABCDEF111003 /* pl.json */,
+			);
+			path = Languages;
+			sourceTree = "<group>";
+		};
+		664FF430EAF44817B53B5FCB /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */,
+				E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */,
+				3C1234567890ABCDEF444001 /* XLSXParser.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		83606108D556462FBD142DD9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */,
+				3C1234567890ABCDEF333001 /* SetCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		96B0BE6369AA41769EDEC8D6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A0000000000000000000013 /* ErrorHandler.swift */,
+				A0000000000000000000015 /* DesignSystem.swift */,
+				B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */,
+				F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */,
+				E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */,
+				3C1234567890ABCDEF222001 /* LanguageManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		9D3B5337FF1F45F0A69CDA6F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A0000000000000000000007 /* TestViewModel.swift */,
+				A0000000000000000000009 /* HomeViewModel.swift */,
+				A0000000000000000000011 /* SetsLibraryViewModel.swift */,
+				A0000000000000000000019 /* StudySessionViewModel.swift */,
+				A0000000000000000000021 /* SpeedRoundViewModel.swift */,
+				B00000000000000000000002 /* WordWise/ViewModels/FlashcardsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		A0000000000000000000001 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,29 +224,62 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		C9E167D8C8CB47F48FD56399 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				83606108D556462FBD142DD9 /* Components */,
+				B06358FC08BC4532AE2B5B24 /* HomeView.swift */,
+				5C96337D46F34EB09A90A4D1 /* MainCoordinatorView.swift */,
+				E1036204412B4C70A0146952 /* SetDetailView.swift */,
+				4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */,
+				EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */,
+				B4C02EF87567476A92303ABC /* StudySessionView.swift */,
+				CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */,
+				DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */,
+				B00000000000000000000001 /* WordWise/Views/FlashcardsView.swift */,
+				B00000000000000000000003 /* WordWise/Views/ImportConfirmationView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F8A640FE2F6F3C850022F040 = {
+			isa = PBXGroup;
+			children = (
+				F8A641092F6F3C850022F040 /* WordWise */,
+				3C1234567890ABCDEF00000D /* WordWiseTests */,
+				F8A641082F6F3C850022F040 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F8A641082F6F3C850022F040 /* Products */ = {
+			isa = PBXGroup;
+				children = (
+					F8A641072F6F3C850022F040 /* WordWise.app */,
+				3C1234567890ABCDEF000005 /* WordWiseTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8A641092F6F3C850022F040 /* WordWise */ = {
+			isa = PBXGroup;
+			children = (
+				A0000000000000000000001 /* Navigation */,
+				A0000000000000000000004 /* Repository */,
+				3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */,
+				664FF430EAF44817B53B5FCB /* Engine */,
+				0DE7F90AB9C74DED83948F59 /* Models */,
+				2E67C9CA973E4EE38A155228 /* Resources */,
+				96B0BE6369AA41769EDEC8D6 /* Utilities */,
+				9D3B5337FF1F45F0A69CDA6F /* ViewModels */,
+				C9E167D8C8CB47F48FD56399 /* Views */,
+				0031E50228CE4AE5AC1EDE58 /* WordWiseApp.swift */,
+			);
+			path = WordWise;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F8A641062F6F3C850022F040 /* WordWise */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F8A641122F6F3C860022F040 /* Build configuration list for PBXNativeTarget "WordWise" */;
-			buildPhases = (
-				F8A641032F6F3C850022F040 /* Sources */,
-				F8A641042F6F3C850022F040 /* Frameworks */,
-				F8A641052F6F3C850022F040 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			
-			name = WordWise;
-			packageProductDependencies = (
-			);
-			productName = WordWise;
-			productReference = F8A641072F6F3C850022F040 /* WordWise.app */;
-			productType = "com.apple.product-type.application";
-		};
 		3C1234567890ABCDEF000006 /* WordWiseTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C1234567890ABCDEF00000A /* Build configuration list for PBXNativeTarget "WordWiseTests" */;
@@ -294,40 +298,24 @@
 			productReference = 3C1234567890ABCDEF000005 /* WordWiseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3C1234567890ABCDEF000007 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */,
-				3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */,
+		F8A641062F6F3C850022F040 /* WordWise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8A641122F6F3C860022F040 /* Build configuration list for PBXNativeTarget "WordWise" */;
+			buildPhases = (
+				F8A641032F6F3C850022F040 /* Sources */,
+				F8A641042F6F3C850022F040 /* Frameworks */,
+				F8A641052F6F3C850022F040 /* Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3C1234567890ABCDEF000008 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			buildRules = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3C1234567890ABCDEF000009 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			dependencies = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3C1234567890ABCDEF00000E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F8A641062F6F3C850022F040 /* WordWise */;
-			targetProxy = 3C1234567890ABCDEF00000F /* PBXContainerItemProxy */;
-		};
-		3C1234567890ABCDEF00000F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F8A640FF2F6F3C850022F040 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F8A641062F6F3C850022F040;
-			remoteInfo = WordWise;
+			name = WordWise;
+			packageProductDependencies = (
+			);
+				productName = WordWise;
+				productReference = F8A641072F6F3C850022F040 /* WordWise.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -337,7 +325,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2630;
-				LastUpgradeCheck = 2630;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					F8A641062F6F3C850022F040 = {
 						CreatedOnToolsVersion = 26.3;
@@ -365,6 +353,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3C1234567890ABCDEF000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8A641052F6F3C850022F040 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +373,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3C1234567890ABCDEF000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */,
+				3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8A641032F6F3C850022F040 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -414,12 +418,56 @@
 				DB0B7312F18B41A8B727D230 /* TestView.swift in Sources */,
 				3C1234567890ABCDEF333002 /* SetCard.swift in Sources */,
 				86D918299DC84699A7C1E752 /* WordWiseApp.swift in Sources */,
+				B00000000000000000000011 /* WordWise/Views/FlashcardsView.swift in Sources */,
+				B00000000000000000000012 /* WordWise/ViewModels/FlashcardsViewModel.swift in Sources */,
+				B00000000000000000000013 /* WordWise/Views/ImportConfirmationView.swift in Sources */,
+				B00000000000000000000014 /* WordWise/Models/ImportConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3C1234567890ABCDEF00000E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8A641062F6F3C850022F040 /* WordWise */;
+			targetProxy = 3C1234567890ABCDEF00000F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		3C1234567890ABCDEF00000B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.WordWiseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordWise.app/Contents/MacOS/WordWise";
+			};
+			name = Debug;
+		};
+		3C1234567890ABCDEF00000C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.WordWiseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordWise.app/Contents/MacOS/WordWise";
+			};
+			name = Release;
+		};
 		F8A641102F6F3C860022F040 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -454,6 +502,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -478,6 +527,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -517,6 +567,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -534,6 +585,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -546,6 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -555,10 +608,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.WordWise;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
+					MARKETING_VERSION = 1.0;
+					PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.WordWise.dev;
+					PRODUCT_NAME = "$(TARGET_NAME)";
+					REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -576,6 +629,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -601,6 +655,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3C1234567890ABCDEF00000A /* Build configuration list for PBXNativeTarget "WordWiseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C1234567890ABCDEF00000B /* Debug */,
+				3C1234567890ABCDEF00000C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F8A641022F6F3C850022F040 /* Build configuration list for PBXProject "WordWise" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -618,45 +681,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		3C1234567890ABCDEF00000A /* Build configuration list for PBXNativeTarget "WordWiseTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3C1234567890ABCDEF00000B /* Debug */,
-				3C1234567890ABCDEF00000C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3C1234567890ABCDEF00000B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.WordWiseTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordWise.app/Contents/MacOS/WordWise";
-			};
-			name = Debug;
-		};
-		3C1234567890ABCDEF00000C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.WordWiseTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WordWise.app/Contents/MacOS/WordWise";
-			};
-			name = Release;
 		};
 /* End XCConfigurationList section */
 	};
