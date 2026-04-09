@@ -42,7 +42,9 @@ struct SetCard: View {
             TextField(lm.t("new_name"), text: $newName)
             Button(lm.t("cancel"), role: .cancel) {}
             Button(lm.t("save")) {
-                set.name = newName
+                let sanitized = sanitizeSetName(newName)
+                guard !sanitized.isEmpty else { return }
+                set.name = sanitized
                 saveContext()
             }
         }
@@ -201,5 +203,13 @@ struct SetCard: View {
         } catch {
             errorHandler.handle(error)
         }
+    }
+
+    private func sanitizeSetName(_ name: String) -> String {
+        name
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: .whitespacesAndNewlines)
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
     }
 }

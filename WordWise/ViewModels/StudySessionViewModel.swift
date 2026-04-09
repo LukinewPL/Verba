@@ -15,12 +15,22 @@ import Observation
     
     // Dependencies
     private var repository: (any WordRepositoryProtocol)?
-    private var sm2Service = SM2Service()
+    private let sm2Service: SM2Service
+    private let normalizer: any AnswerNormalizing
+    private let audioFeedback: any AudioFeedbackPlaying
     private var promptAnswerPool: [String: Set<String>] = [:]
     private var usedPromptAnswers: [String: Set<String>] = [:]
     
-    init(set: WordSet) {
+    init(
+        set: WordSet,
+        sm2Service: SM2Service? = nil,
+        normalizer: (any AnswerNormalizing)? = nil,
+        audioFeedback: (any AudioFeedbackPlaying)? = nil
+    ) {
         self.set = set
+        self.sm2Service = sm2Service ?? SM2Service()
+        self.normalizer = normalizer ?? AnswerNormalizer()
+        self.audioFeedback = audioFeedback ?? AudioFeedback.shared
     }
     
     func setup(repository: any WordRepositoryProtocol) {
@@ -43,7 +53,7 @@ import Observation
     
     func checkAnswer(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
         attemptedCount += 1
-        let promptKey = normalize(prompt)
+        let promptKey = normalizer.normalize(prompt)
         let matchedTranslation = matchedAvailableTranslation(input: answer, promptKey: promptKey)
         let isCorrect = matchedTranslation != nil
         let usedHint = !hint.isEmpty
@@ -56,7 +66,7 @@ import Observation
                 correctCount += 1
             }
             feedback = .green
-            AudioFeedback.shared.playCorrect()
+            audioFeedback.playCorrect()
             if let w = current {
                 if usedHint {
                     sm2Service.rate(w, quality: 2)
@@ -68,7 +78,7 @@ import Observation
             onSuccess()
         } else {
             feedback = .red
-            AudioFeedback.shared.playWrong()
+            audioFeedback.playWrong()
             if let w = current {
                 sm2Service.rate(w, quality: 1)
                 queue.append(w)
@@ -81,7 +91,7 @@ import Observation
         if queue.isEmpty {
             current = nil
             if attemptedCount > 0 && !hasSaved {
-                NSSound(named: "Glass")?.play()
+                audioFeedback.playCompletion(success: correctCount > 0)
             }
         } else {
             current = queue.removeFirst()
@@ -95,6 +105,14 @@ import Observation
         if !targetFirstLetter.isEmpty {
             hint = targetFirstLetter
         }
+    }
+
+    func playHintRevealFeedback() {
+        audioFeedback.playHintReveal()
+    }
+
+    func playHintVaporFeedback() {
+        audioFeedback.playHintVapor()
     }
     
     func saveSession() {
@@ -127,7 +145,7 @@ import Observation
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedAnswer.isEmpty, !targetFirstLetter.isEmpty else { return false }
         guard let firstAnswer = trimmedAnswer.first else { return false }
-        return normalize(String(firstAnswer)) == normalize(targetFirstLetter)
+        return normalizer.normalize(String(firstAnswer)) == normalizer.normalize(targetFirstLetter)
     }
     
     var shouldShowInlineHint: Bool {
@@ -135,7 +153,7 @@ import Observation
     }
     
     private var hintCandidate: String {
-        let promptKey = normalize(prompt)
+        let promptKey = normalizer.normalize(prompt)
         guard !promptKey.isEmpty else { return target }
         guard let allAnswers = promptAnswerPool[promptKey], !allAnswers.isEmpty else { return target }
         
@@ -145,7 +163,7 @@ import Observation
             availableAnswers = allAnswers
         }
         
-        let normalizedCurrentTarget = normalize(target)
+        let normalizedCurrentTarget = normalizer.normalize(target)
         if availableAnswers.contains(normalizedCurrentTarget) {
             return normalizedCurrentTarget
         }
@@ -154,10 +172,10 @@ import Observation
     }
     
     private func matchedAvailableTranslation(input: String, promptKey: String) -> String? {
-        let normalizedInput = normalize(input)
+        let normalizedInput = normalizer.normalize(input)
         guard !normalizedInput.isEmpty else { return nil }
         
-        let allAnswers = promptAnswerPool[promptKey] ?? targetVariants(for: target)
+        let allAnswers = promptAnswerPool[promptKey] ?? normalizer.variants(for: target)
         guard !allAnswers.isEmpty else { return nil }
         
         let usedAnswers = usedPromptAnswers[promptKey] ?? []
@@ -173,41 +191,14 @@ import Observation
         promptAnswerPool = [:]
         
         for word in set.words {
-            let promptKey = normalize(set.prompt(for: word))
+            let promptKey = normalizer.normalize(set.prompt(for: word))
             guard !promptKey.isEmpty else { continue }
             
-            let variants = targetVariants(for: set.target(for: word))
+            let variants = normalizer.variants(for: set.target(for: word))
             guard !variants.isEmpty else { continue }
             
             promptAnswerPool[promptKey, default: []].formUnion(variants)
         }
     }
     
-    private func targetVariants(for target: String) -> Set<String> {
-        let separators = CharacterSet(charactersIn: ",/-;")
-        var variants = Set(
-            target
-                .components(separatedBy: separators)
-                .map { normalize($0) }
-                .filter { !$0.isEmpty }
-        )
-        
-        let normalizedWhole = normalize(target)
-        if !normalizedWhole.isEmpty {
-            variants.insert(normalizedWhole)
-        }
-        
-        return variants
-    }
-    
-    private func normalize(_ text: String) -> String {
-        return text
-            .lowercased()
-            .replacingOccurrences(of: "\u{00A0}", with: " ")
-            .replacingOccurrences(of: "\u{200B}", with: "")
-            .replacingOccurrences(of: "\u{FEFF}", with: "")
-            .replacingOccurrences(of: "\u{2019}", with: "'")
-            .components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.joined(separator: " ")
-            .folding(options: .diacriticInsensitive, locale: .current)
-    }
 }

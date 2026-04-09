@@ -21,12 +21,25 @@ import Observation
 
     // Dependencies
     private var repository: (any WordRepositoryProtocol)?
-    private var sm2Service = SM2Service()
+    private let sm2Service: SM2Service
+    private let normalizer: any AnswerNormalizing
+    private let audioFeedback: any AudioFeedbackPlaying
+    private let scheduler: any TestAdvanceScheduling
     private var dismissAction: (() -> Void)?
     private var pendingAdvanceWorkItem: DispatchWorkItem?
 
-    init(set: WordSet) {
+    init(
+        set: WordSet,
+        sm2Service: SM2Service? = nil,
+        normalizer: (any AnswerNormalizing)? = nil,
+        audioFeedback: (any AudioFeedbackPlaying)? = nil,
+        scheduler: (any TestAdvanceScheduling)? = nil
+    ) {
         self.set = set
+        self.sm2Service = sm2Service ?? SM2Service()
+        self.normalizer = normalizer ?? AnswerNormalizer()
+        self.audioFeedback = audioFeedback ?? AudioFeedback.shared
+        self.scheduler = scheduler ?? MainQueueTestAdvanceScheduler()
     }
 
     func setup(repository: any WordRepositoryProtocol, dismiss: @escaping () -> Void) {
@@ -103,14 +116,15 @@ import Observation
     func submitMC(_ option: String) {
         guard let current else { return }
         selectedOption = option
-        if normalize(option) == normalize(set.target(for: current)) {
+        showCorrectAnswer = false
+        if isMatchingAnswer(option, target: set.target(for: current)) {
             score += 1
             feedbackColor = .green
-            AudioFeedback.shared.playCorrect()
+            audioFeedback.playCorrect()
             wordQualities[current.id] = 4
         } else {
             feedbackColor = .red
-            AudioFeedback.shared.playWrong()
+            audioFeedback.playWrong()
             wrongAnswers.append((prompt, target))
             wordQualities[current.id] = 1
         }
@@ -120,14 +134,15 @@ import Observation
     func submitOpen() {
         guard let current else { return }
         selectedOption = answer
-        if normalize(answer) == normalize(set.target(for: current)) {
+        showCorrectAnswer = false
+        if isMatchingAnswer(answer, target: set.target(for: current)) {
             score += 1
             feedbackColor = .green
-            AudioFeedback.shared.playCorrect()
+            audioFeedback.playCorrect()
             wordQualities[current.id] = 4
         } else {
             feedbackColor = .red
-            AudioFeedback.shared.playWrong()
+            audioFeedback.playWrong()
             wrongAnswers.append((prompt, target))
             wordQualities[current.id] = 1
             showCorrectAnswer = true
@@ -136,11 +151,11 @@ import Observation
     }
 
     private func nextStep() {
-        showCorrectAnswer = false
         pendingAdvanceWorkItem?.cancel()
-        let workItem = DispatchWorkItem { [weak self] in
+        let workItem = scheduler.schedule(after: 0.8) { [weak self] in
             guard let self else { return }
             withAnimation {
+                self.showCorrectAnswer = false
                 self.feedbackColor = .clear
                 self.answer = ""
                 self.currentIdx += 1
@@ -149,14 +164,13 @@ import Observation
             }
         }
         pendingAdvanceWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: workItem)
     }
 
     private func finishTest() {
         pendingAdvanceWorkItem?.cancel()
         pendingAdvanceWorkItem = nil
         isFinished = true
-        NSSound(named: "Glass")?.play()
+        audioFeedback.playCompletion(success: score > 0)
         for w in queue {
             let quality = wordQualities[w.id] ?? 3
             sm2Service.rate(w, quality: quality)
@@ -175,15 +189,7 @@ import Observation
         dismissAction?()
     }
 
-    private func normalize(_ text: String) -> String {
-        text
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .lowercased()
-            .replacingOccurrences(of: "\u{2019}", with: "'")
-            .replacingOccurrences(of: "\u{00A0}", with: " ")
-            .components(separatedBy: .whitespacesAndNewlines)
-            .filter { !$0.isEmpty }
-            .joined(separator: " ")
-            .folding(options: .diacriticInsensitive, locale: .current)
+    private func isMatchingAnswer(_ answer: String, target: String) -> Bool {
+        normalizer.normalize(answer) == normalizer.normalize(target)
     }
 }

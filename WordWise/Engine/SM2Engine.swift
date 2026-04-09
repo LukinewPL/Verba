@@ -1,10 +1,12 @@
 import Foundation
 class SM2Service {
     func rate(_ word: Word, quality: Int) {
+        let clampedQuality = min(5, max(0, quality))
+
         word.lastReviewed = Date()
-        word.difficultyRating = quality
+        word.difficultyRating = clampedQuality
         
-        if quality < 3 {
+        if clampedQuality < 3 {
             word.repetitions = 0
             word.interval = 1
         } else {
@@ -18,7 +20,7 @@ class SM2Service {
             word.repetitions += 1
         }
         
-        let difficultyAdjustment = 0.1 - (5.0 - Double(quality)) * (0.08 + (5.0 - Double(quality)) * 0.02)
+        let difficultyAdjustment = 0.1 - (5.0 - Double(clampedQuality)) * (0.08 + (5.0 - Double(clampedQuality)) * 0.02)
         word.easeFactor += difficultyAdjustment
         word.easeFactor = max(1.3, word.easeFactor)
         
@@ -26,4 +28,3 @@ class SM2Service {
         word.nextReview = Calendar.current.date(byAdding: .day, value: word.interval, to: Date()) ?? Date()
     }
 }
-

@@ -20,10 +20,20 @@ import Observation
 
     // Dependencies
     private var repository: (any WordRepositoryProtocol)?
-    private var sm2Service = SM2Service()
+    private let sm2Service: SM2Service
+    private let normalizer: any AnswerNormalizing
+    private let audioFeedback: any AudioFeedbackPlaying
 
-    init(set: WordSet) {
+    init(
+        set: WordSet,
+        sm2Service: SM2Service? = nil,
+        normalizer: (any AnswerNormalizing)? = nil,
+        audioFeedback: (any AudioFeedbackPlaying)? = nil
+    ) {
         self.set = set
+        self.sm2Service = sm2Service ?? SM2Service()
+        self.normalizer = normalizer ?? AnswerNormalizer()
+        self.audioFeedback = audioFeedback ?? AudioFeedback.shared
     }
 
     func setup(repository: any WordRepositoryProtocol) {
@@ -72,31 +82,27 @@ import Observation
             repository?.save()
         }
 
-        if correctCount > 0 {
-            NSSound(named: "Glass")?.play()
-        } else {
-            NSSound(named: "Basso")?.play()
-        }
+        audioFeedback.playCompletion(success: correctCount > 0)
     }
 
     func checkAnswer(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
         guard let current else { return }
-        let cleanAns = normalize(answer)
-        let cleanTar = normalize(set.target(for: current))
+        let cleanAns = normalizer.normalize(answer)
+        let cleanTar = normalizer.normalize(set.target(for: current))
         attemptedCount += 1
 
         if cleanAns == cleanTar {
             correctCount += 1
             sm2Service.rate(current, quality: 4)
             feedbackColor = .green
-            AudioFeedback.shared.playCorrect()
+            audioFeedback.playCorrect()
             answer = ""
             showWrongAnswer = false
             onSuccess()
         } else {
             sm2Service.rate(current, quality: 1)
             feedbackColor = .red
-            AudioFeedback.shared.playWrong()
+            audioFeedback.playWrong()
             showWrongAnswer = true
             onFailure()
         }
@@ -122,15 +128,4 @@ import Observation
         return set.target(for: current)
     }
 
-    private func normalize(_ text: String) -> String {
-        text
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .lowercased()
-            .replacingOccurrences(of: "\u{2019}", with: "'")
-            .replacingOccurrences(of: "\u{00A0}", with: " ")
-            .components(separatedBy: .whitespacesAndNewlines)
-            .filter { !$0.isEmpty }
-            .joined(separator: " ")
-            .folding(options: .diacriticInsensitive, locale: .current)
-    }
 }

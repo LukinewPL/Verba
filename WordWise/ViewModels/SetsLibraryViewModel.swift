@@ -14,7 +14,7 @@ import Observation
     var dragOverFolderID: UUID? = nil
     var dragOverUnfiled = false
     var newFolderName: String = ""
-    var expandedFolders: Set<UUID> = []
+    var collapsedFolderIDs: Set<UUID> = []
     var renamingFolderID: UUID? = nil
     var folderRenameText: String = ""
     var importConfig: ImportConfiguration? = nil

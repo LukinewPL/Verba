@@ -1,5 +1,16 @@
 import AppKit
-class AudioFeedback {
+
+@MainActor
+protocol AudioFeedbackPlaying: AnyObject {
+    func playCorrect()
+    func playWrong()
+    func playHintReveal()
+    func playHintVapor()
+    func playCompletion(success: Bool)
+}
+
+@MainActor
+class AudioFeedback: AudioFeedbackPlaying {
     static let shared = AudioFeedback()
     func playCorrect() { NSSound(named: "Glass")?.play() }
     func playWrong() { NSSound(named: "Basso")?.play() }
@@ -17,5 +28,10 @@ class AudioFeedback {
             ?? NSSound(named: "Glass")
         sound?.volume = 0.45
         sound?.play()
+    }
+
+    func playCompletion(success: Bool) {
+        let soundName = success ? "Glass" : "Basso"
+        NSSound(named: soundName)?.play()
     }
 }

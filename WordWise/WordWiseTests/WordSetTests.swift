@@ -41,3 +41,72 @@ final class WordSetTests: XCTestCase {
         XCTAssertEqual(set.translationDirection, .englishToPolish)
     }
 }
+
+@MainActor
+final class FlashcardsViewModelTests: XCTestCase {
+    func testResetLoadsCurrentWordAndClearsFlipState() {
+        let set = WordSet(name: "flash", words: [Word(polish: "pies", english: "dog")])
+        let vm = FlashcardsViewModel(set: set)
+        vm.isFlipped = true
+
+        vm.reset()
+
+        XCTAssertNotNil(vm.current)
+        XCTAssertFalse(vm.isFlipped)
+    }
+
+    func testFlipTogglesState() {
+        let set = WordSet(name: "flash", words: [Word(polish: "pies", english: "dog")])
+        let vm = FlashcardsViewModel(set: set)
+
+        vm.flip()
+        XCTAssertTrue(vm.isFlipped)
+        vm.flip()
+        XCTAssertFalse(vm.isFlipped)
+    }
+
+    func testNextWordEventuallyEndsSession() {
+        let set = WordSet(name: "flash", words: [Word(polish: "pies", english: "dog")])
+        let vm = FlashcardsViewModel(set: set)
+
+        vm.nextWord()
+
+        XCTAssertNil(vm.current)
+    }
+
+    func testProgressReflectsCurrentPosition() {
+        let set = WordSet(name: "flash", words: [
+            Word(polish: "pies", english: "dog"),
+            Word(polish: "kot", english: "cat")
+        ])
+        let vm = FlashcardsViewModel(set: set)
+
+        XCTAssertEqual(vm.totalCount, 2)
+        XCTAssertGreaterThan(vm.progress, 0)
+    }
+
+    func testFrontBackTextFollowDirection() {
+        let word = Word(polish: "pies", english: "dog")
+        let set = WordSet(name: "flash", words: [word], dir: TranslationDirection.polishToEnglish.rawValue)
+        let vm = FlashcardsViewModel(set: set)
+
+        XCTAssertEqual(vm.frontText, "pies")
+        XCTAssertEqual(vm.backText, "dog")
+
+        set.translationDirectionRaw = TranslationDirection.englishToPolish.rawValue
+        XCTAssertEqual(vm.frontText, "dog")
+        XCTAssertEqual(vm.backText, "pies")
+    }
+
+    func testLanguageCodesFollowDirection() {
+        let set = WordSet(name: "flash", words: [Word(polish: "pies", english: "dog")])
+        let vm = FlashcardsViewModel(set: set)
+
+        XCTAssertEqual(vm.frontLanguageCode, "pl")
+        XCTAssertEqual(vm.backLanguageCode, "en")
+
+        set.translationDirectionRaw = TranslationDirection.englishToPolish.rawValue
+        XCTAssertEqual(vm.frontLanguageCode, "en")
+        XCTAssertEqual(vm.backLanguageCode, "pl")
+    }
+}

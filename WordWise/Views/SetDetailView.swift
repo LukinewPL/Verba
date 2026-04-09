@@ -14,6 +14,18 @@ struct SetDetailView: View {
         get { Double(masteredCount) / Double(max(1, set.words.count)) }
     }
 
+    private var isSourceToTarget: Bool {
+        get { self.set.translationDirectionRaw == TranslationDirection.polishToEnglish.rawValue }
+    }
+
+    private var sourceLanguageCode: String {
+        get { self.set.sourceLanguage.uppercased() }
+    }
+
+    private var targetLanguageCode: String {
+        get { self.set.targetLanguage.uppercased() }
+    }
+
     var body: some View {
         ZStack {
             detailBackground
@@ -107,14 +119,20 @@ struct SetDetailView: View {
                 .foregroundColor(.white.opacity(0.82))
 
             HStack(spacing: 10) {
-                directionButton(label: "PL → EN", selected: set.translationDirectionRaw == 0) {
+                directionButton(
+                    label: "\(sourceLanguageCode) → \(targetLanguageCode)",
+                    selected: isSourceToTarget
+                ) {
                     withAnimation(.easeInOut(duration: 0.18)) {
-                        set.translationDirectionRaw = 0
+                        set.translationDirectionRaw = TranslationDirection.polishToEnglish.rawValue
                     }
                 }
-                directionButton(label: "EN → PL", selected: set.translationDirectionRaw == 1) {
+                directionButton(
+                    label: "\(targetLanguageCode) → \(sourceLanguageCode)",
+                    selected: !isSourceToTarget
+                ) {
                     withAnimation(.easeInOut(duration: 0.18)) {
-                        set.translationDirectionRaw = 1
+                        set.translationDirectionRaw = TranslationDirection.englishToPolish.rawValue
                     }
                 }
                 Spacer(minLength: 0)
@@ -127,11 +145,11 @@ struct SetDetailView: View {
     private var wordsCard: some View {
         VStack(spacing: 0) {
             HStack {
-                Text(set.translationDirectionRaw == 0 ? "PL" : "EN")
+                Text(isSourceToTarget ? sourceLanguageCode : targetLanguageCode)
                     .font(.caption.weight(.medium))
                     .foregroundColor(.white.opacity(0.62))
                 Spacer()
-                Text(set.translationDirectionRaw == 0 ? "EN" : "PL")
+                Text(isSourceToTarget ? targetLanguageCode : sourceLanguageCode)
                     .font(.caption.weight(.medium))
                     .foregroundColor(.white.opacity(0.62))
             }
@@ -141,13 +159,13 @@ struct SetDetailView: View {
             LazyVStack(spacing: 0) {
                 ForEach(set.words) { w in
                     HStack(spacing: 12) {
-                        Text(set.translationDirectionRaw == 0 ? w.polish : w.english)
+                        Text(isSourceToTarget ? w.polish : w.english)
                             .foregroundColor(.white.opacity(0.95))
                             .lineLimit(2)
 
                         Spacer(minLength: 20)
 
-                        Text(set.translationDirectionRaw == 0 ? w.english : w.polish)
+                        Text(isSourceToTarget ? w.english : w.polish)
                             .foregroundColor(.white.opacity(0.86))
                             .lineLimit(2)
                             .multilineTextAlignment(.trailing)
