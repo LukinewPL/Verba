@@ -39,4 +39,4 @@ xcuserdata/
 *.csv
 
 # BUT DO NOT ignore language JSONs
-!WordWise/Resources/Languages/*.json
+!Verba/Resources/Languages/*.json

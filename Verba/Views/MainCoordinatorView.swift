@@ -117,7 +117,7 @@ struct MainCoordinatorView: View {
                         )
                 )
 
-            Text(lm.t("WordWise"))
+            Text(lm.t("Verba"))
                 .font(.system(size: 25, weight: .semibold, design: .default))
                 .tracking(0.2)
                 .lineLimit(1)

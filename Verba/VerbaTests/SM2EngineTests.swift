@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import WordWise
+@testable import Verba
 
 final class SM2EngineTests: XCTestCase {
     var service = SM2Service()

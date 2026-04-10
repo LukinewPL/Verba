@@ -1,4 +1,4 @@
-# 📚 WordWise
+# 📚 Verba
 
 ![Swift 6](https://img.shields.io/badge/Swift-6.0-orange) 
 ![macOS 15+](https://img.shields.io/badge/macOS-15+-blue) 
@@ -26,7 +26,7 @@
 
 ## 🔥 How Streaks Work
 
-WordWise is designed to help you build a consistent learning habit:
+Verba is designed to help you build a consistent learning habit:
 
 1. **Daily Goal**: Complete at least one study session every day to increment your streak.
 2. **Persistence**: Your streak increases by 1 for each consecutive day you use the app.
@@ -37,7 +37,7 @@ WordWise is designed to help you build a consistent learning habit:
 
 ## 🛠 Architecture & Design Patterns
 
-WordWise follows a highly modular, professional architecture based on modern Swift practices:
+Verba follows a highly modular, professional architecture based on modern Swift practices:
 
 - **MVVM (Model-View-ViewModel)**: Decouples UI from business logic using the `@Observable` framework.
 - **Repository Pattern**: Abstrates data access through `WordRepository`, making the app independent of the underlying persistence layer (SwiftData).
@@ -62,9 +62,9 @@ WordWise follows a highly modular, professional architecture based on modern Swi
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/lukinew/WordWise.git
+   git clone https://github.com/LukinewPL/Verba.git
    ```
-2. **Open the project**: Open `WordWise.xcodeproj` in Xcode 16+.
+2. **Open the project**: Open `Verba.xcodeproj` in Xcode 16+.
 3. **Select Destination**: Choose "My Mac" as the target.
 4. **Run**: Press `Cmd + R` to build and run the application.
 
@@ -72,9 +72,9 @@ WordWise follows a highly modular, professional architecture based on modern Swi
 
 ## 🌍 How to Add a New Language
 
-1. Create a new JSON file in `WordWise/Resources/Languages/` (e.g., `de.json`).
+1. Create a new JSON file in `Verba/Resources/Languages/` (e.g., `de.json`).
 2. Follow the existing structure (see `en.json`).
-3. Add the file to the **WordWise** target in Xcode.
+3. Add the file to the **Verba** target in Xcode.
 4. Ensure it's included in the "Copy Bundle Resources" build phase.
 5. The language will appear automatically in the app settings!
 
@@ -82,7 +82,7 @@ WordWise follows a highly modular, professional architecture based on modern Swi
 
 ## ⚖️ License
 
-WordWise is licensed under the **Business Source License 1.1 (BSL-1.1)** until **January 1, 2029**.
+Verba is licensed under the **Business Source License 1.1 (BSL-1.1)** until **January 1, 2029**.
 
 - **You MAY**: Use the compiled application for free for personal use.
 - **You MAY NOT**: Copy, modify, redistribute, or use the source code for commercial purposes.

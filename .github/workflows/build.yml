@@ -20,8 +20,8 @@ jobs:
         MACOSX_DEPLOYMENT_TARGET: "14.0"
       run: |
         xcodebuild build \
-          -project WordWise.xcodeproj \
-          -scheme WordWise \
+          -project Verba.xcodeproj \
+          -scheme Verba \
           -destination 'platform=macOS,arch=arm64' \
           -configuration Debug
       
@@ -31,7 +31,7 @@ jobs:
         MACOSX_DEPLOYMENT_TARGET: "14.0"
       run: |
         xcodebuild test \
-          -project WordWise.xcodeproj \
-          -scheme WordWiseTests \
+          -project Verba.xcodeproj \
+          -scheme VerbaTests \
           -destination 'platform=macOS,arch=arm64' \
           -configuration Debug

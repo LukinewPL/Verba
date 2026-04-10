@@ -95,7 +95,7 @@ class ImportService {
         }
         
         if importedCount == 0 && !mergeExisting {
-            throw NSError(domain: "WordWise", code: 2, userInfo: [NSLocalizedDescriptionKey: "No valid new words found in file."])
+            throw NSError(domain: "Verba", code: 2, userInfo: [NSLocalizedDescriptionKey: "No valid new words found in file."])
         }
         try context.save()
     }
@@ -114,7 +114,7 @@ class ImportService {
         
         if parsedText == nil { parsedText = String(data: data, encoding: .isoLatin1) }
         guard let rawText = parsedText else {
-            throw NSError(domain: "WordWise", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot determine file encoding."])
+            throw NSError(domain: "Verba", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot determine file encoding."])
         }
         
         var rows: [[String]] = []

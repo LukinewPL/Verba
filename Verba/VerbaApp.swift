@@ -3,7 +3,7 @@ import SwiftData
 
 // MARK: - App
 
-@main struct WordWiseApp: App {
+@main struct VerbaApp: App {
     @State private var languageManager = LanguageManager.shared
     @State private var coordinator = AppCoordinator()
     

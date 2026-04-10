@@ -1,7 +1,7 @@
 import Foundation
 import SwiftData
 import XCTest
-@testable import WordWise
+@testable import Verba
 
 @MainActor
 final class ImportServiceTests: XCTestCase {

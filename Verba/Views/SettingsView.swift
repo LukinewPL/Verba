@@ -70,7 +70,7 @@ struct SettingsView: View {
                 Text(lm.t("settings"))
                     .font(.system(size: 34, weight: .medium, design: .default))
                     .foregroundColor(.white)
-                Text(lm.t("WordWise"))
+                Text(lm.t("Verba"))
                     .font(.headline)
                     .foregroundColor(.white.opacity(0.6))
             }

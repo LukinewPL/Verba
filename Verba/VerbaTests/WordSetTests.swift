@@ -1,5 +1,5 @@
 import XCTest
-@testable import WordWise
+@testable import Verba
 
 final class WordSetTests: XCTestCase {
     func testPromptTargetLogic() {

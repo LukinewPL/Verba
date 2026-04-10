@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-@testable import WordWise
+@testable import Verba
 
 class MockWordRepository: WordRepositoryProtocol {
     var sets: [WordSet] = []
