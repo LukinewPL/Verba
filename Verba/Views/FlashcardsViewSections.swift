@@ -13,10 +13,10 @@ struct FlashcardsProgressSection: View {
                 Spacer()
                 Text("\(vm.currentPosition) / \(vm.totalCount)")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundColor(.glassCyan)
+                    .foregroundColor(.glassTeal)
             }
             ProgressView(value: vm.progress)
-                .tint(.glassCyan)
+                .tint(.glassTeal)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 12)
@@ -55,7 +55,7 @@ struct FlashcardsMainCardSection: View {
                 FlashcardFace(
                     text: showingBack ? vm.backText : vm.frontText,
                     languageCode: showingBack ? vm.backLanguageCode : vm.frontLanguageCode,
-                    accent: showingBack ? .mint : .glassCyan,
+                    accent: showingBack ? .glassMint : .glassTeal,
                     cornerRadius: cardCornerRadius,
                     isBack: showingBack
                 )
@@ -83,14 +83,36 @@ struct FlashcardsMainCardSection: View {
 
 struct FlashcardsControlsSection: View {
     @Environment(LanguageManager.self) private var lm
+    let canGoBack: Bool
+    let onPrevious: () -> Void
     let onFlip: () -> Void
     let onNext: () -> Void
 
     var body: some View {
         VStack(spacing: 14) {
             HStack(spacing: 12) {
-                controlButton(title: lm.t("flip"), icon: "arrow.triangle.2.circlepath", tint: .glassCyan, action: onFlip)
-                controlButton(title: lm.t("next"), icon: "chevron.right", tint: .mint, action: onNext)
+                controlButton(
+                    title: lm.t("previous"),
+                    icon: "chevron.left",
+                    tint: .glassSky,
+                    shortcut: .leftArrow,
+                    isDisabled: !canGoBack,
+                    action: onPrevious
+                )
+                controlButton(
+                    title: lm.t("flip"),
+                    icon: "arrow.triangle.2.circlepath",
+                    tint: .glassCyan,
+                    shortcut: .space,
+                    action: onFlip
+                )
+                controlButton(
+                    title: lm.t("next"),
+                    icon: "chevron.right",
+                    tint: .glassMint,
+                    shortcut: .rightArrow,
+                    action: onNext
+                )
             }
             Text(lm.t("flashcards_swipe_hint"))
                 .font(.footnote)
@@ -99,7 +121,14 @@ struct FlashcardsControlsSection: View {
         .frame(maxWidth: 520)
     }
 
-    private func controlButton(title: String, icon: String, tint: Color, action: @escaping () -> Void) -> some View {
+    private func controlButton(
+        title: String,
+        icon: String,
+        tint: Color,
+        shortcut: KeyEquivalent,
+        isDisabled: Bool = false,
+        action: @escaping () -> Void
+    ) -> some View {
         Button(action: action) {
             HStack(spacing: 8) {
                 Image(systemName: icon)
@@ -117,6 +146,9 @@ struct FlashcardsControlsSection: View {
             )
         }
         .buttonStyle(.plain)
+        .keyboardShortcut(shortcut, modifiers: [])
+        .disabled(isDisabled)
+        .opacity(isDisabled ? 0.45 : 1)
     }
 }
 
@@ -128,11 +160,11 @@ struct FlashcardsCompletionSection: View {
         VStack(spacing: 24) {
             ZStack {
                 Circle()
-                    .fill(Color.glassCyan.opacity(0.15))
+                    .fill(Color.glassMint.opacity(0.15))
                     .frame(width: 124, height: 124)
                 Image(systemName: "checkmark.seal.fill")
                     .font(.system(size: 54))
-                    .foregroundColor(.glassCyan)
+                    .foregroundColor(.glassTeal)
             }
 
             VStack(spacing: 8) {
@@ -160,19 +192,19 @@ struct FlashcardFace: View {
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [Color(red: 0.13, green: 0.2, blue: 0.3), Color(red: 0.09, green: 0.16, blue: 0.24)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color(red: 0.08, green: 0.22, blue: 0.22), Color(red: 0.10, green: 0.28, blue: 0.26)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
                     )
-                )
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(accent.opacity(0.55), lineWidth: 1.2)
                 )
-                .shadow(color: .black.opacity(0.2), radius: 14, x: 0, y: 8)
+                .shadow(color: Color.glassShadow.opacity(0.2), radius: 14, x: 0, y: 8)
 
             VStack(alignment: .leading, spacing: 16) {
                 HStack {

@@ -18,13 +18,9 @@ struct TestModeButton: View {
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 9)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(
-                        isSelected
-                        ? LinearGradient(colors: [Color.glassCyan.opacity(0.45), Color.blue.opacity(0.35)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        : LinearGradient(colors: [Color.white.opacity(0.08), Color.white.opacity(0.04)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(isSelected ? LinearGradient(colors: [Color.glassMint.opacity(0.45), Color.glassSky.opacity(0.35)], startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(colors: [Color.white.opacity(0.08), Color.white.opacity(0.04)], startPoint: .topLeading, endPoint: .bottomTrailing))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(isSelected ? Color.glassCyan.opacity(0.45) : Color.white.opacity(0.12), lineWidth: 1)
@@ -43,7 +39,7 @@ struct TestStatChip: View {
         HStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(Color.glassCyan)
+                .foregroundStyle(Color.glassTeal)
             Text(label)
                 .font(.caption.weight(.semibold))
                 .foregroundColor(.white.opacity(0.88))

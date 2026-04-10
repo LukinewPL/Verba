@@ -55,7 +55,7 @@ struct StudySessionView: View {
                     Button(action: { triggerHint() }) {
                         Image(systemName: "lightbulb.fill")
                             .font(.title2)
-                            .foregroundColor(.yellow)
+                            .foregroundColor(.glassMint)
                             .padding()
                             .premiumGlass()
                     }
@@ -80,7 +80,13 @@ struct StudySessionView: View {
         .captureHintFrame(.root)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .coordinateSpace(name: hintCoordinateSpaceName)
-        .background(vm.feedback.opacity(0.3).ignoresSafeArea())
+        .background {
+            if vm.feedback != .clear {
+                DesignSystem.Feedback.gradient(isSuccess: vm.feedbackIsSuccess)
+                    .opacity(0.28)
+                    .ignoresSafeArea()
+            }
+        }
         .animation(.easeInOut(duration: 0.2), value: vm.feedback)
         .background(DesignSystem.Colors.background.ignoresSafeArea())
         .navigationBarBackButtonHidden(true)
@@ -137,7 +143,7 @@ struct StudySessionView: View {
                     .fill(Color.white.opacity(0.05))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(Color.yellow.opacity(0.25), lineWidth: 1)
+                            .stroke(Color.glassSky.opacity(0.32), lineWidth: 1)
                     )
 
                 if vm.shouldShowInlineHint && hintPhase == .inline {
@@ -205,7 +211,7 @@ struct StudySessionView: View {
             if vm.feedback == .red {
                 Text(vm.target)
                     .font(.system(size: 32, weight: .medium))
-                    .foregroundColor(.glassCyan)
+                    .foregroundColor(.green)
                     .transition(.opacity.combined(with: .scale(scale: 0.96)))
             }
         }

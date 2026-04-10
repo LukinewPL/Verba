@@ -6,6 +6,7 @@ struct SpeedRoundView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(WordRepository.self) private var repository
     @Environment(AppCoordinator.self) private var coordinator
+    @AppStorage("animationSpeed") private var animationSpeed: Double = 1.0
     @State private var vm: SpeedRoundViewModel
     @FocusState private var isFocused: Bool
     @Environment(\.dismiss) private var dismiss
@@ -21,7 +22,7 @@ struct SpeedRoundView: View {
         ZStack {
             speedBackground
 
-            Group {
+            ZStack {
                 if !vm.isStarted {
                     SpeedRoundStartSection(vm: vm) {
                         vm.startGame()
@@ -29,27 +30,35 @@ struct SpeedRoundView: View {
                             isFocused = true
                         }
                     }
+                    .transition(screenTransition(edge: .leading))
                 } else if vm.isFinished {
                     SpeedRoundFinishedSection(vm: vm) {
                         dismiss()
                     }
+                    .transition(screenTransition(edge: .trailing))
                 } else {
                     SpeedRoundGameSection(
                         vm: vm,
                         focusBinding: $isFocused,
                         onSubmitAnswer: checkAnswer
                     )
+                    .transition(screenTransition(edge: .bottom))
                 }
             }
             .frame(maxWidth: 900)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, 18)
             .padding(.vertical, 12)
+            .animation(transitionAnimation, value: vm.isStarted)
+            .animation(transitionAnimation, value: vm.isFinished)
         }
         .overlay {
-            vm.feedbackColor.opacity(0.24)
-                .ignoresSafeArea()
-                .allowsHitTesting(false)
+            if vm.feedbackColor != .clear {
+                DesignSystem.Feedback.gradient(isSuccess: vm.feedbackIsSuccess)
+                    .opacity(0.24)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+            }
         }
         .onReceive(timerPublisher) { _ in
             vm.tick()
@@ -100,20 +109,28 @@ struct SpeedRoundView: View {
         }
     }
 
+    private var transitionAnimation: SwiftUI.Animation? {
+        animationSpeed > 0 ? .spring(response: 0.42 / animationSpeed, dampingFraction: 0.84) : nil
+    }
+
+    private func screenTransition(edge: Edge) -> AnyTransition {
+        .asymmetric(
+            insertion: .move(edge: edge).combined(with: .opacity).combined(with: .scale(scale: 0.97)),
+            removal: .opacity.combined(with: .scale(scale: 0.98))
+        )
+    }
+
     private var speedBackground: some View {
         ZStack {
             LinearGradient(
-                colors: [
-                    Color(red: 0.03, green: 0.04, blue: 0.2),
-                    Color(red: 0.02, green: 0.03, blue: 0.17)
-                ],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.glassCyan.opacity(0.18), .clear],
+                colors: [Color.glassMint.opacity(0.16), .clear],
                 center: .top,
                 startRadius: 20,
                 endRadius: 500
@@ -121,7 +138,7 @@ struct SpeedRoundView: View {
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.blue.opacity(0.16), .clear],
+                colors: [Color.glassSky.opacity(0.14), .clear],
                 center: .bottomTrailing,
                 startRadius: 60,
                 endRadius: 620

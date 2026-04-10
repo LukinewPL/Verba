@@ -41,7 +41,7 @@ struct TestQuestionView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: "text.bubble.fill")
-                            .foregroundStyle(Color.glassCyan)
+                            .foregroundStyle(Color.glassTeal)
                         Text(lm.t("translation"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundColor(.white.opacity(0.62))
@@ -63,7 +63,7 @@ struct TestQuestionView: View {
                 if vm.isMultipleChoice {
                     VStack(spacing: 8) {
                         ForEach(Array(vm.mcOptions.enumerated()), id: \.offset) { index, option in
-                            Button(action: { vm.submitMC(option) }) {
+                            Button(action: { _ = vm.submitMultipleChoiceOption(at: index) }) {
                                 HStack(spacing: 12) {
                                     Text("\(index + 1).")
                                         .font(.headline.weight(.semibold))
@@ -90,6 +90,7 @@ struct TestQuestionView: View {
                             .scaleEffect(vm.selectedOption == option ? 1.02 : 1)
                             .animation(animationSpeed > 0 ? .spring(response: 0.28, dampingFraction: 0.82) : nil, value: vm.selectedOption)
                             .disabled(vm.selectedOption != nil)
+                            .keyboardShortcut(keyEquivalent(for: index), modifiers: [])
                         }
                     }
                     .frame(maxWidth: 820)
@@ -97,7 +98,7 @@ struct TestQuestionView: View {
                     HStack(spacing: 10) {
                         Image(systemName: "keyboard.fill")
                             .font(.title3.weight(.semibold))
-                            .foregroundStyle(Color.glassCyan)
+                            .foregroundStyle(Color.glassTeal)
 
                         TextField(lm.t("enter_answer"), text: $vm.answer)
                             .textFieldStyle(.plain)
@@ -112,17 +113,17 @@ struct TestQuestionView: View {
                     .glassPanel(cornerRadius: 16)
                     .frame(maxWidth: 820)
 
-                    if vm.showCorrectAnswer {
-                        HStack(spacing: 10) {
-                            Image(systemName: "exclamationmark.circle.fill")
-                                .foregroundStyle(.red)
-                            Text(vm.target)
-                                .font(.system(size: 22, weight: .medium, design: .default))
-                                .foregroundColor(.glassCyan)
-                        }
-                        .padding(.top, 4)
-                        .transition(.opacity.combined(with: .scale(scale: 0.95)))
-                        .animation(.easeInOut(duration: 0.2), value: vm.showCorrectAnswer)
+                if vm.showCorrectAnswer {
+                    HStack(spacing: 10) {
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .foregroundStyle(.red)
+                        Text(vm.target)
+                            .font(.system(size: 22, weight: .medium, design: .default))
+                            .foregroundColor(.green)
+                    }
+                    .padding(.top, 4)
+                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                    .animation(.easeInOut(duration: 0.2), value: vm.showCorrectAnswer)
                     }
                 }
             }
@@ -136,10 +137,10 @@ struct TestQuestionView: View {
     private func optionBackground(for option: String) -> LinearGradient {
         if let selected = vm.selectedOption {
             if option == vm.target {
-                return LinearGradient(colors: [Color.green.opacity(0.55), Color.green.opacity(0.32)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                return DesignSystem.Feedback.successGradient
             }
             if option == selected {
-                return LinearGradient(colors: [Color.red.opacity(0.6), Color.red.opacity(0.35)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                return DesignSystem.Feedback.failureGradient
             }
         }
 
@@ -148,6 +149,11 @@ struct TestQuestionView: View {
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
+    }
+
+    private func keyEquivalent(for index: Int) -> KeyEquivalent {
+        let number = min(max(index + 1, 1), 9)
+        return KeyEquivalent(Character(String(number)))
     }
 }
 
@@ -168,13 +174,13 @@ private struct TestProgressTrack: View {
                 Capsule()
                     .fill(
                         LinearGradient(
-                            colors: [Color.glassCyan, Color.blue.opacity(0.75)],
+                            colors: [Color.glassMint, Color.glassSky.opacity(0.75)],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
                     )
                     .frame(width: filled)
-                    .shadow(color: Color.glassCyan.opacity(0.35), radius: 8, x: 0, y: 2)
+                    .shadow(color: Color.glassTeal.opacity(0.35), radius: 8, x: 0, y: 2)
             }
         }
         .frame(height: 6)

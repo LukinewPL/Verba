@@ -12,6 +12,7 @@
     "speed_round": "Szybka runda",
     "test": "Test",
     "next": "Następna",
+    "previous": "Poprzednia",
     "import_file": "Importuj plik",
     "no_sets_yet": "Brak zestawów słówek",
     "import_error": "Błąd importu",
@@ -72,7 +73,7 @@
     "flip_columns": "Zamień kolumny",
     "import_language_detection_info": "Języki są wykrywane automatycznie na podstawie zawartości kolumn. W razie potrzeby możesz je zmienić ręcznie.",
     "import_direction": "Kierunek importu",
-    "flashcards_swipe_hint": "Przeciągnij kartę w bok, aby przejść dalej",
+    "flashcards_swipe_hint": "Przeciągnij kartę w bok lub użyj strzałek, a spacją ją obróć",
     "flashcards_completed_subtitle": "Znasz już wszystkie słówka z tego zestawu."
   }
 }

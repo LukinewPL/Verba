@@ -12,6 +12,7 @@
     "speed_round": "Speed Round",
     "test": "Test",
     "next": "Next",
+    "previous": "Previous",
     "import_file": "Import File",
     "no_sets_yet": "No word sets yet",
     "import_error": "Import Error",
@@ -72,7 +73,7 @@
     "flip_columns": "Flip columns",
     "import_language_detection_info": "Languages are detected automatically from the column content. You can adjust them manually if needed.",
     "import_direction": "Import direction",
-    "flashcards_swipe_hint": "Swipe the card sideways to go to the next one",
+    "flashcards_swipe_hint": "Swipe sideways or use the arrow keys, and press space to flip",
     "flashcards_completed_subtitle": "You already know all words from this set."
   }
 }

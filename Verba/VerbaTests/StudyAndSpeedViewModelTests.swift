@@ -163,3 +163,21 @@ final class StudySessionViewModelTests: XCTestCase {
         return vm
     }
 }
+
+final class SpeedRoundTimerProgressTests: XCTestCase {
+    func testClampsProgressToFullRingWhenTimeExceedsLimit() {
+        XCTAssertEqual(speedRoundTimerProgress(timeLeft: 999), 1, accuracy: 0.0001)
+    }
+
+    func testClampsProgressToEmptyRingWhenTimeIsNegative() {
+        XCTAssertEqual(speedRoundTimerProgress(timeLeft: -5), 0, accuracy: 0.0001)
+    }
+
+    func testReturnsExpectedFractionForRemainingTime() {
+        XCTAssertEqual(speedRoundTimerProgress(timeLeft: 55), 55.0 / 60.0, accuracy: 0.0001)
+    }
+
+    func testFormatsTimerLabelAsSingleCenteredString() {
+        XCTAssertEqual(speedRoundTimerLabel(timeLeft: 54), "54s")
+    }
+}

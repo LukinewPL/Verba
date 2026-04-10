@@ -77,7 +77,7 @@ struct SetCard: View {
                         Circle()
                             .trim(from: 0, to: progress)
                             .stroke(
-                                AngularGradient(colors: [.glassCyan, .blue, .glassCyan], center: .center),
+                                AngularGradient(colors: [.glassMint, .glassSky, .glassTeal], center: .center),
                                 style: StrokeStyle(lineWidth: 4, lineCap: .round)
                             )
                             .rotationEffect(.degrees(-90))
@@ -120,14 +120,14 @@ struct SetCard: View {
         HStack(spacing: 12) {
             Image(systemName: "rectangle.stack.fill")
                 .font(.title3)
-                .foregroundStyle(.cyan)
+                .foregroundStyle(Color.glassTeal)
             VStack(alignment: .leading, spacing: 2) {
                 Text(set.name)
                     .font(.headline)
                     .foregroundStyle(.white)
                 Text("\(set.words.count) \(lm.t("words"))")
                     .font(.caption)
-                    .foregroundStyle(.cyan.opacity(0.8))
+                    .foregroundStyle(Color.glassSky.opacity(0.8))
             }
         }
         .padding()
@@ -172,7 +172,7 @@ struct SetCard: View {
             VStack(spacing: 8) {
                 Image(systemName: icon)
                     .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(Color.glassCyan)
+                    .foregroundStyle(Color.glassTeal)
                 Text(title)
                     .font(.caption.weight(.medium))
                     .foregroundColor(.white)

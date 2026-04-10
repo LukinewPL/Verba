@@ -15,7 +15,7 @@ struct ImportConfirmationView: View {
                 VStack(alignment: .leading, spacing: 18) {
                     Text(config.name)
                         .font(.headline)
-                        .foregroundColor(.glassCyan)
+                        .foregroundColor(.glassTeal)
                     
                     Text(lm.t("import_language_detection_info"))
                         .font(.footnote)
@@ -32,7 +32,7 @@ struct ImportConfirmationView: View {
                         )
                         
                         Image(systemName: "arrow.left.and.right")
-                            .foregroundColor(.white.opacity(0.5))
+                            .foregroundColor(.glassSky.opacity(0.8))
                         
                         LanguageColumn(
                             title: lm.t("second_column"),
@@ -52,11 +52,11 @@ struct ImportConfirmationView: View {
                     )
                     
                     if let source = effectiveSourceLanguage, let target = effectiveTargetLanguage {
-                        HStack(spacing: 8) {
+                            HStack(spacing: 8) {
                             Text(lm.t("import_direction"))
                                 .foregroundColor(.white.opacity(0.65))
                             Text("\(localizedLanguageName(source)) → \(localizedLanguageName(target))")
-                                .foregroundColor(.glassCyan)
+                                .foregroundColor(.glassMint)
                                 .fontWeight(.semibold)
                         }
                         .font(.subheadline)
@@ -66,7 +66,7 @@ struct ImportConfirmationView: View {
                         get: { self.config?.swapColumns ?? false },
                         set: { self.config?.swapColumns = $0 }
                     ))
-                    .toggleStyle(SwitchToggleStyle(tint: .glassCyan))
+                    .toggleStyle(SwitchToggleStyle(tint: .glassTeal))
                     .foregroundColor(.white)
                 }
                 .padding()
@@ -131,11 +131,11 @@ struct LanguageColumn: View {
             if let l = lang {
                 Text("\(lm.t("detected")): \(Locale.current.localizedString(forLanguageCode: l) ?? l)")
                     .font(.subheadline.weight(.medium))
-                    .foregroundColor(.yellow.opacity(0.95))
+                    .foregroundColor(.glassMint)
             } else {
                 Text(lm.t("not_detected"))
                     .font(.subheadline)
-                    .foregroundColor(.orange.opacity(0.85))
+                    .foregroundColor(.glassSky)
             }
             
             Picker(lm.t("choose_language"), selection: Binding(
@@ -148,7 +148,7 @@ struct LanguageColumn: View {
                 }
             }
             .pickerStyle(.menu)
-            .tint(.glassCyan)
+            .tint(.glassTeal)
             
             Text("\"\(sample)\"")
                 .font(.footnote.italic())

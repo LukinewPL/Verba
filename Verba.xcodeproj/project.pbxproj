@@ -10,13 +10,8 @@
 		06F7631D998648E6986FBECB /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE294B2308842E688BD22E4 /* Folder.swift */; };
 		0B2E7312F18B41A8B727D230 /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1036204412B4C70A0146952 /* SetDetailView.swift */; };
 		31F97CF1FCE54AC0ACEDA486 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */; };
-			3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000001 /* SM2EngineTests.swift */; };
-			3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000003 /* ImportEngineTests.swift */; };
-			C10000000000000000000001 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000001 /* HomeViewModelTests.swift */; };
-			C10000000000000000000002 /* SetsLibraryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* SetsLibraryViewModelTests.swift */; };
-			C10000000000000000000003 /* StudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000003 /* StudySessionTests.swift */; };
-			C10000000000000000000004 /* WordSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000004 /* WordSetTests.swift */; };
-			C10000000000000000000005 /* MockWordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000005 /* MockWordRepository.swift */; };
+		3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000001 /* SM2EngineTests.swift */; };
+		3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF000003 /* ImportEngineTests.swift */; };
 		3C1234567890ABCDEF111002 /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF111001 /* en.json */; };
 		3C1234567890ABCDEF111004 /* pl.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF111003 /* pl.json */; };
 		3C1234567890ABCDEF222002 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1234567890ABCDEF222001 /* LanguageManager.swift */; };
@@ -35,20 +30,25 @@
 		9F1501F231E64B71A7CD5882 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C805D2E24D44C858CC4E2A7 /* Assets.xcassets */; };
 		A0000000000000000000003 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000002 /* AppCoordinator.swift */; };
 		A0000000000000000000006 /* WordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000005 /* WordRepository.swift */; };
-		A0000000000000000000008 /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000007 /* TestViewModel.swift */; };
+		A0000000000000000000008 /* Verba/ViewModels/TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000007 /* Verba/ViewModels/TestViewModel.swift */; };
 		A0000000000000000000010 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000009 /* HomeViewModel.swift */; };
 		A0000000000000000000012 /* SetsLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000011 /* SetsLibraryViewModel.swift */; };
 		A0000000000000000000014 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000013 /* ErrorHandler.swift */; };
 		A0000000000000000000016 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000015 /* DesignSystem.swift */; };
 		A0000000000000000000018 /* WordRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000017 /* WordRepositoryProtocol.swift */; };
-		A0000000000000000000020 /* StudySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000019 /* StudySessionViewModel.swift */; };
+		A0000000000000000000020 /* Verba/ViewModels/StudySessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000019 /* Verba/ViewModels/StudySessionViewModel.swift */; };
 		A0000000000000000000022 /* SpeedRoundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000021 /* SpeedRoundViewModel.swift */; };
 		A774F82EC3CA41DB936604F1 /* GlassEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */; };
 		B00000000000000000000011 /* Verba/Views/FlashcardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000001 /* Verba/Views/FlashcardsView.swift */; };
 		B00000000000000000000012 /* Verba/ViewModels/FlashcardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000002 /* Verba/ViewModels/FlashcardsViewModel.swift */; };
 		B00000000000000000000013 /* Verba/Views/ImportConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000003 /* Verba/Views/ImportConfirmationView.swift */; };
 		B00000000000000000000014 /* Verba/Models/ImportConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00000000000000000000004 /* Verba/Models/ImportConfiguration.swift */; };
-		B1F47017F3934F5DB27459CD /* StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C02EF87567476A92303ABC /* StudySessionView.swift */; };
+		B1F47017F3934F5DB27459CD /* Verba/Views/StudySessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C02EF87567476A92303ABC /* Verba/Views/StudySessionView.swift */; };
+		C10000000000000000000001 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000001 /* HomeViewModelTests.swift */; };
+		C10000000000000000000002 /* SetsLibraryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000002 /* SetsLibraryViewModelTests.swift */; };
+		C10000000000000000000003 /* StudySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000003 /* StudySessionTests.swift */; };
+		C10000000000000000000004 /* WordSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000004 /* WordSetTests.swift */; };
+		C10000000000000000000005 /* Mocks/MockWordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000000000000000000005 /* Mocks/MockWordRepository.swift */; };
 		C30000000000000000000002 /* AnswerNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30000000000000000000001 /* AnswerNormalizer.swift */; };
 		C30000000000000000000004 /* TestAdvanceScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30000000000000000000003 /* TestAdvanceScheduler.swift */; };
 		C30000000000000000000006 /* StudySessionEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30000000000000000000005 /* StudySessionEffects.swift */; };
@@ -62,7 +62,7 @@
 		C60000000000000000000006 /* TestQuestionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60000000000000000000005 /* TestQuestionSectionView.swift */; };
 		C60000000000000000000008 /* TestSharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60000000000000000000007 /* TestSharedComponents.swift */; };
 		CB0B7312F18B41A8B727D230 /* SpeedRoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */; };
-		DB0B7312F18B41A8B727D230 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */; };
+		DB0B7312F18B41A8B727D230 /* Verba/Views/TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0B7CF1FCE54AC0ACEDA486 /* Verba/Views/TestView.swift */; };
 		DD2343E937E84120BF4A1678 /* SetsLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */; };
 		FA0B7312F18B41A8B727D230 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
@@ -80,9 +80,9 @@
 /* Begin PBXFileReference section */
 		0031E50228CE4AE5AC1EDE58 /* VerbaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbaApp.swift; sourceTree = "<group>"; };
 		0AE294B2308842E688BD22E4 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-			3C1234567890ABCDEF000001 /* SM2EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SM2EngineTests.swift; sourceTree = "<group>"; };
-			3C1234567890ABCDEF000003 /* ImportEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportEngineTests.swift; sourceTree = "<group>"; };
-			3C1234567890ABCDEF000005 /* VerbaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerbaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C1234567890ABCDEF000001 /* SM2EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SM2EngineTests.swift; sourceTree = "<group>"; };
+		3C1234567890ABCDEF000003 /* ImportEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportEngineTests.swift; sourceTree = "<group>"; };
+		3C1234567890ABCDEF000005 /* VerbaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerbaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C1234567890ABCDEF111001 /* en.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		3C1234567890ABCDEF111003 /* pl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pl.json; sourceTree = "<group>"; };
 		3C1234567890ABCDEF222001 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
@@ -96,48 +96,48 @@
 		70F29549DCA349EEB2C47EBA /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		A0000000000000000000002 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		A0000000000000000000005 /* WordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordRepository.swift; sourceTree = "<group>"; };
-		A0000000000000000000007 /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/ViewModels/TestViewModel.swift; sourceTree = SOURCE_ROOT; };
+		A0000000000000000000007 /* Verba/ViewModels/TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/ViewModels/TestViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A0000000000000000000009 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A0000000000000000000011 /* SetsLibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibraryViewModel.swift; sourceTree = "<group>"; };
 		A0000000000000000000013 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		A0000000000000000000015 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		A0000000000000000000017 /* WordRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordRepositoryProtocol.swift; sourceTree = "<group>"; };
-		A0000000000000000000019 /* StudySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/ViewModels/StudySessionViewModel.swift; sourceTree = SOURCE_ROOT; };
+		A0000000000000000000019 /* Verba/ViewModels/StudySessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/ViewModels/StudySessionViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A0000000000000000000021 /* SpeedRoundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundViewModel.swift; sourceTree = "<group>"; };
 		B00000000000000000000001 /* Verba/Views/FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Views/FlashcardsView.swift; sourceTree = SOURCE_ROOT; };
 		B00000000000000000000002 /* Verba/ViewModels/FlashcardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/ViewModels/FlashcardsViewModel.swift; sourceTree = SOURCE_ROOT; };
 		B00000000000000000000003 /* Verba/Views/ImportConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Views/ImportConfirmationView.swift; sourceTree = SOURCE_ROOT; };
 		B00000000000000000000004 /* Verba/Models/ImportConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Models/ImportConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		B06358FC08BC4532AE2B5B24 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		B4C02EF87567476A92303ABC /* StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Views/StudySessionView.swift; sourceTree = SOURCE_ROOT; };
+		B4C02EF87567476A92303ABC /* Verba/Views/StudySessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Views/StudySessionView.swift; sourceTree = SOURCE_ROOT; };
 		B51D5AD7962A49B5AA566D0A /* AudioFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFeedback.swift; sourceTree = "<group>"; };
 		BCDC50B2E8694E29860CFBBF /* HeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapView.swift; sourceTree = "<group>"; };
-			CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundView.swift; sourceTree = "<group>"; };
+		C20000000000000000000001 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		C20000000000000000000002 /* SetsLibraryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibraryViewModelTests.swift; sourceTree = "<group>"; };
+		C20000000000000000000003 /* StudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionTests.swift; sourceTree = "<group>"; };
+		C20000000000000000000004 /* WordSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSetTests.swift; sourceTree = "<group>"; };
+		C20000000000000000000005 /* Mocks/MockWordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks/MockWordRepository.swift; sourceTree = "<group>"; };
 		C30000000000000000000001 /* AnswerNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerNormalizer.swift; sourceTree = "<group>"; };
 		C30000000000000000000003 /* TestAdvanceScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAdvanceScheduler.swift; sourceTree = "<group>"; };
 		C30000000000000000000005 /* StudySessionEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionEffects.swift; sourceTree = "<group>"; };
 		C40000000000000000000003 /* SpeedRoundViewSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundViewSections.swift; sourceTree = "<group>"; };
 		C40000000000000000000005 /* SetsLibrarySections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibrarySections.swift; sourceTree = "<group>"; };
 		C40000000000000000000007 /* FlashcardsViewSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsViewSections.swift; sourceTree = "<group>"; };
-			C20000000000000000000001 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
-			C20000000000000000000002 /* SetsLibraryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsLibraryViewModelTests.swift; sourceTree = "<group>"; };
-			C20000000000000000000003 /* StudySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySessionTests.swift; sourceTree = "<group>"; };
-			C20000000000000000000004 /* WordSetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSetTests.swift; sourceTree = "<group>"; };
-			C20000000000000000000005 /* MockWordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks/MockWordRepository.swift; sourceTree = "<group>"; };
 		C50000000000000000000001 /* StudyAndSpeedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyAndSpeedViewModelTests.swift; sourceTree = "<group>"; };
 		C50000000000000000000003 /* FlashcardsAndTestViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsAndTestViewModelTests.swift; sourceTree = "<group>"; };
 		C60000000000000000000001 /* TestSetupSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSetupSectionView.swift; sourceTree = "<group>"; };
 		C60000000000000000000003 /* TestResultsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultsSectionView.swift; sourceTree = "<group>"; };
 		C60000000000000000000005 /* TestQuestionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQuestionSectionView.swift; sourceTree = "<group>"; };
 		C60000000000000000000007 /* TestSharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSharedComponents.swift; sourceTree = "<group>"; };
-			DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Views/TestView.swift; sourceTree = SOURCE_ROOT; };
+		CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRoundView.swift; sourceTree = "<group>"; };
+		DA0B7CF1FCE54AC0ACEDA486 /* Verba/Views/TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verba/Views/TestView.swift; sourceTree = SOURCE_ROOT; };
 		E0BEFFE2CA0C4EACA7FDEABC /* ImportEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportEngine.swift; sourceTree = "<group>"; };
 		E1036204412B4C70A0146952 /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
 		E2A425BF7F114C71ABCDA7EE /* SM2Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SM2Engine.swift; sourceTree = "<group>"; };
 		E6FDAF8EF0164AD88F9A76F3 /* GlassEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassEffect.swift; sourceTree = "<group>"; };
 		EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-			F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+LiquidGlass.swift"; sourceTree = "<group>"; };
-			F8A641072F6F3C850022F040 /* Verba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verba.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F80E4F9B91C84FB092BAFA75 /* Color+LiquidGlass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+LiquidGlass.swift"; sourceTree = "<group>"; };
+		F8A641072F6F3C850022F040 /* Verba.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verba.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,22 +178,22 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-			3C1234567890ABCDEF00000D /* VerbaTests */ = {
-				isa = PBXGroup;
-				children = (
-					3C1234567890ABCDEF000001 /* SM2EngineTests.swift */,
-					3C1234567890ABCDEF000003 /* ImportEngineTests.swift */,
-					C50000000000000000000001 /* StudyAndSpeedViewModelTests.swift */,
-					C50000000000000000000003 /* FlashcardsAndTestViewModelTests.swift */,
-					C20000000000000000000001 /* HomeViewModelTests.swift */,
-					C20000000000000000000002 /* SetsLibraryViewModelTests.swift */,
-					C20000000000000000000003 /* StudySessionTests.swift */,
-					C20000000000000000000004 /* WordSetTests.swift */,
-					C20000000000000000000005 /* MockWordRepository.swift */,
-				);
-				path = Verba/VerbaTests;
-				sourceTree = "<group>";
-			};
+		3C1234567890ABCDEF00000D /* Verba/VerbaTests */ = {
+			isa = PBXGroup;
+			children = (
+				3C1234567890ABCDEF000001 /* SM2EngineTests.swift */,
+				3C1234567890ABCDEF000003 /* ImportEngineTests.swift */,
+				C50000000000000000000001 /* StudyAndSpeedViewModelTests.swift */,
+				C50000000000000000000003 /* FlashcardsAndTestViewModelTests.swift */,
+				C20000000000000000000001 /* HomeViewModelTests.swift */,
+				C20000000000000000000002 /* SetsLibraryViewModelTests.swift */,
+				C20000000000000000000003 /* StudySessionTests.swift */,
+				C20000000000000000000004 /* WordSetTests.swift */,
+				C20000000000000000000005 /* Mocks/MockWordRepository.swift */,
+			);
+			path = Verba/VerbaTests;
+			sourceTree = "<group>";
+		};
 		3C1234567890ABCDEF111005 /* Languages */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,11 +239,11 @@
 		9D3B5337FF1F45F0A69CDA6F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				A0000000000000000000007 /* TestViewModel.swift */,
+				A0000000000000000000007 /* Verba/ViewModels/TestViewModel.swift */,
 				C30000000000000000000003 /* TestAdvanceScheduler.swift */,
 				A0000000000000000000009 /* HomeViewModel.swift */,
 				A0000000000000000000011 /* SetsLibraryViewModel.swift */,
-				A0000000000000000000019 /* StudySessionViewModel.swift */,
+				A0000000000000000000019 /* Verba/ViewModels/StudySessionViewModel.swift */,
 				A0000000000000000000021 /* SpeedRoundViewModel.swift */,
 				B00000000000000000000002 /* Verba/ViewModels/FlashcardsViewModel.swift */,
 			);
@@ -277,11 +277,11 @@
 				4BF4EAE6B6E04D0FA3F1EEDF /* SetsLibraryView.swift */,
 				C40000000000000000000005 /* SetsLibrarySections.swift */,
 				EA0B7CF1FCE54AC0ACEDA486 /* SettingsView.swift */,
-				B4C02EF87567476A92303ABC /* StudySessionView.swift */,
+				B4C02EF87567476A92303ABC /* Verba/Views/StudySessionView.swift */,
 				C30000000000000000000005 /* StudySessionEffects.swift */,
 				CA0B7CF1FCE54AC0ACEDA486 /* SpeedRoundView.swift */,
 				C40000000000000000000003 /* SpeedRoundViewSections.swift */,
-				DA0B7CF1FCE54AC0ACEDA486 /* TestView.swift */,
+				DA0B7CF1FCE54AC0ACEDA486 /* Verba/Views/TestView.swift */,
 				C60000000000000000000001 /* TestSetupSectionView.swift */,
 				C60000000000000000000003 /* TestResultsSectionView.swift */,
 				C60000000000000000000005 /* TestQuestionSectionView.swift */,
@@ -297,15 +297,15 @@
 			isa = PBXGroup;
 			children = (
 				F8A641092F6F3C850022F040 /* Verba */,
-				3C1234567890ABCDEF00000D /* VerbaTests */,
+				3C1234567890ABCDEF00000D /* Verba/VerbaTests */,
 				F8A641082F6F3C850022F040 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
 		F8A641082F6F3C850022F040 /* Products */ = {
 			isa = PBXGroup;
-				children = (
-					F8A641072F6F3C850022F040 /* Verba.app */,
+			children = (
+				F8A641072F6F3C850022F040 /* Verba.app */,
 				3C1234567890ABCDEF000005 /* VerbaTests.xctest */,
 			);
 			name = Products;
@@ -364,8 +364,8 @@
 			name = Verba;
 			packageProductDependencies = (
 			);
-				productName = Verba;
-				productReference = F8A641072F6F3C850022F040 /* Verba.app */;
+			productName = Verba;
+			productReference = F8A641072F6F3C850022F040 /* Verba.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -424,35 +424,35 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-			3C1234567890ABCDEF000007 /* Sources */ = {
-				isa = PBXSourcesBuildPhase;
-				buildActionMask = 2147483647;
-				files = (
-					3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */,
-					3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */,
-					C50000000000000000000002 /* StudyAndSpeedViewModelTests.swift in Sources */,
-					C50000000000000000000004 /* FlashcardsAndTestViewModelTests.swift in Sources */,
-					C10000000000000000000001 /* HomeViewModelTests.swift in Sources */,
-					C10000000000000000000002 /* SetsLibraryViewModelTests.swift in Sources */,
-					C10000000000000000000003 /* StudySessionTests.swift in Sources */,
-					C10000000000000000000004 /* WordSetTests.swift in Sources */,
-					C10000000000000000000005 /* MockWordRepository.swift in Sources */,
-				);
-				runOnlyForDeploymentPostprocessing = 0;
-			};
+		3C1234567890ABCDEF000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C1234567890ABCDEF000002 /* SM2EngineTests.swift in Sources */,
+				3C1234567890ABCDEF000004 /* ImportEngineTests.swift in Sources */,
+				C50000000000000000000002 /* StudyAndSpeedViewModelTests.swift in Sources */,
+				C50000000000000000000004 /* FlashcardsAndTestViewModelTests.swift in Sources */,
+				C10000000000000000000001 /* HomeViewModelTests.swift in Sources */,
+				C10000000000000000000002 /* SetsLibraryViewModelTests.swift in Sources */,
+				C10000000000000000000003 /* StudySessionTests.swift in Sources */,
+				C10000000000000000000004 /* WordSetTests.swift in Sources */,
+				C10000000000000000000005 /* Mocks/MockWordRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8A641032F6F3C850022F040 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A0000000000000000000003 /* AppCoordinator.swift in Sources */,
 				A0000000000000000000006 /* WordRepository.swift in Sources */,
-				A0000000000000000000008 /* TestViewModel.swift in Sources */,
+				A0000000000000000000008 /* Verba/ViewModels/TestViewModel.swift in Sources */,
 				A0000000000000000000010 /* HomeViewModel.swift in Sources */,
 				A0000000000000000000012 /* SetsLibraryViewModel.swift in Sources */,
 				A0000000000000000000014 /* ErrorHandler.swift in Sources */,
 				A0000000000000000000016 /* DesignSystem.swift in Sources */,
 				A0000000000000000000018 /* WordRepositoryProtocol.swift in Sources */,
-				A0000000000000000000020 /* StudySessionViewModel.swift in Sources */,
+				A0000000000000000000020 /* Verba/ViewModels/StudySessionViewModel.swift in Sources */,
 				A0000000000000000000022 /* SpeedRoundViewModel.swift in Sources */,
 				06F7631D998648E6986FBECB /* Folder.swift in Sources */,
 				98508A1F98F04BB9A730F309 /* ImportEngine.swift in Sources */,
@@ -473,11 +473,11 @@
 				DD2343E937E84120BF4A1678 /* SetsLibraryView.swift in Sources */,
 				C40000000000000000000006 /* SetsLibrarySections.swift in Sources */,
 				FA0B7312F18B41A8B727D230 /* SettingsView.swift in Sources */,
-				B1F47017F3934F5DB27459CD /* StudySessionView.swift in Sources */,
+				B1F47017F3934F5DB27459CD /* Verba/Views/StudySessionView.swift in Sources */,
 				C30000000000000000000006 /* StudySessionEffects.swift in Sources */,
 				CB0B7312F18B41A8B727D230 /* SpeedRoundView.swift in Sources */,
 				C40000000000000000000004 /* SpeedRoundViewSections.swift in Sources */,
-				DB0B7312F18B41A8B727D230 /* TestView.swift in Sources */,
+				DB0B7312F18B41A8B727D230 /* Verba/Views/TestView.swift in Sources */,
 				C60000000000000000000002 /* TestSetupSectionView.swift in Sources */,
 				C60000000000000000000004 /* TestResultsSectionView.swift in Sources */,
 				C60000000000000000000006 /* TestQuestionSectionView.swift in Sources */,
@@ -676,10 +676,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-					MARKETING_VERSION = 1.0;
-					PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.Verba.dev;
-					PRODUCT_NAME = "$(TARGET_NAME)";
-					REGISTER_APP_GROUPS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumiq.Verba.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -708,7 +708,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.novaapp.Verba;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lumiq.Verba;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

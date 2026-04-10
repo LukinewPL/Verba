@@ -7,6 +7,7 @@ import Observation
     var queue: [Word] = []
     var current: Word?
     var isFlipped: Bool = false
+    private var history: [Word] = []
     
     init(set: WordSet) {
         self.set = set
@@ -15,17 +16,30 @@ import Observation
     
     func reset() {
         queue = set.words.shuffled()
+        history = []
         isFlipped = false
-        nextWord()
+        advanceToNextWord(recordCurrent: false)
     }
     
     func nextWord() {
-        if queue.isEmpty {
-            current = nil
-        } else {
-            current = queue.removeFirst()
-            isFlipped = false
+        advanceToNextWord(recordCurrent: true)
+    }
+
+    func goToNextWord() {
+        nextWord()
+    }
+
+    @discardableResult
+    func goToPreviousWord() -> Bool {
+        guard let previous = history.popLast() else { return false }
+
+        if let current {
+            queue.insert(current, at: 0)
         }
+
+        current = previous
+        isFlipped = false
+        return true
     }
     
     func flip() {
@@ -51,7 +65,7 @@ import Observation
     var currentPosition: Int {
         guard totalCount > 0 else { return 0 }
         if current == nil { return totalCount }
-        return max(1, totalCount - queue.count)
+        return min(totalCount, history.count + 1)
     }
     
     var progress: Double {
@@ -65,5 +79,22 @@ import Observation
     
     var backLanguageCode: String {
         self.set.translationDirection == .polishToEnglish ? "en" : "pl"
+    }
+
+    var canGoBack: Bool {
+        !history.isEmpty
+    }
+
+    private func advanceToNextWord(recordCurrent: Bool) {
+        if recordCurrent, let current {
+            history.append(current)
+        }
+
+        if queue.isEmpty {
+            current = nil
+        } else {
+            current = queue.removeFirst()
+            isFlipped = false
+        }
     }
 }

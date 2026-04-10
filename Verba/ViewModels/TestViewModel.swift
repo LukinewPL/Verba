@@ -14,6 +14,7 @@ import Observation
     var answer = ""
     var mcOptions: [String] = []
     var feedbackColor: Color = .clear
+    var feedbackIsSuccess = false
     var wrongAnswers: [(String, String)] = []
     var selectedOption: String? = nil
     var wordQualities: [UUID: Int] = [:]
@@ -60,6 +61,7 @@ import Observation
         wrongAnswers = []
         selectedOption = nil
         feedbackColor = .clear
+        feedbackIsSuccess = false
         showCorrectAnswer = false
         wordQualities = [:]
     }
@@ -120,15 +122,27 @@ import Observation
         if isMatchingAnswer(option, target: set.target(for: current)) {
             score += 1
             feedbackColor = .green
+            feedbackIsSuccess = true
             audioFeedback.playCorrect()
             wordQualities[current.id] = 4
         } else {
             feedbackColor = .red
+            feedbackIsSuccess = false
             audioFeedback.playWrong()
             wrongAnswers.append((prompt, target))
             wordQualities[current.id] = 1
         }
         nextStep()
+    }
+
+    @discardableResult
+    func submitMultipleChoiceOption(at index: Int) -> Bool {
+        guard isMultipleChoice else { return false }
+        guard selectedOption == nil else { return false }
+        guard mcOptions.indices.contains(index) else { return false }
+
+        submitMC(mcOptions[index])
+        return true
     }
 
     func submitOpen() {
@@ -138,10 +152,12 @@ import Observation
         if isMatchingAnswer(answer, target: set.target(for: current)) {
             score += 1
             feedbackColor = .green
+            feedbackIsSuccess = true
             audioFeedback.playCorrect()
             wordQualities[current.id] = 4
         } else {
             feedbackColor = .red
+            feedbackIsSuccess = false
             audioFeedback.playWrong()
             wrongAnswers.append((prompt, target))
             wordQualities[current.id] = 1

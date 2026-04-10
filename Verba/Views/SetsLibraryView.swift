@@ -139,17 +139,14 @@ struct SetsLibraryView: View {
     private var libraryBackground: some View {
         ZStack {
             LinearGradient(
-                colors: [
-                    Color(red: 0.03, green: 0.04, blue: 0.2),
-                    Color(red: 0.02, green: 0.05, blue: 0.18)
-                ],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.glassCyan.opacity(0.16), .clear],
+                colors: [Color.glassMint.opacity(0.18), .clear],
                 center: .topTrailing,
                 startRadius: 20,
                 endRadius: 560
@@ -157,7 +154,7 @@ struct SetsLibraryView: View {
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.blue.opacity(0.14), .clear],
+                colors: [Color.glassSky.opacity(0.14), .clear],
                 center: .bottomLeading,
                 startRadius: 80,
                 endRadius: 660

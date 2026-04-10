@@ -12,7 +12,7 @@ struct TestResultsView: View {
             VStack(spacing: 10) {
                 Image(systemName: percentage >= 0.7 ? "trophy.fill" : "checkmark.seal.fill")
                     .font(.system(size: 36, weight: .medium))
-                    .foregroundStyle(percentage >= 0.7 ? .yellow : .glassCyan)
+                    .foregroundStyle(percentage >= 0.7 ? DesignSystem.Feedback.successGradient : DesignSystem.Feedback.failureGradient)
 
                 Text(lm.t("test_results"))
                     .font(.system(size: 30, weight: .medium, design: .default))
@@ -23,17 +23,17 @@ struct TestResultsView: View {
                     .foregroundColor(.white.opacity(0.72))
             }
             .padding(16)
-            .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
+            .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassSky.opacity(0.2))
 
             Text("\(Int(percentage * 100))%")
                 .font(.system(size: 70, weight: .medium, design: .default))
-                .foregroundColor(percentage >= 0.7 ? .green : (percentage >= 0.5 ? .orange : .red))
+                .foregroundStyle(percentage >= 0.7 ? DesignSystem.Feedback.successGradient : DesignSystem.Feedback.failureGradient)
 
             if !vm.wrongAnswers.isEmpty {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(lm.t("review_wrong"))
                         .font(.headline)
-                        .foregroundColor(.glassCyan)
+                        .foregroundColor(.glassTeal)
 
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 10) {
@@ -43,7 +43,7 @@ struct TestResultsView: View {
                                         .foregroundColor(.white)
                                     Spacer()
                                     Text(vm.wrongAnswers[index].1)
-                                        .foregroundColor(.glassCyan)
+                                        .foregroundColor(.red)
                                         .bold()
                                 }
                                 .padding(.horizontal, 14)

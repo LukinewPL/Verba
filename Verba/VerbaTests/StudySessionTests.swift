@@ -68,6 +68,14 @@ final class AppCoordinatorTests: XCTestCase {
     }
 }
 
+final class MainCoordinatorLayoutTests: XCTestCase {
+    func testSidebarUsesFixedWidthMetrics() {
+        XCTAssertEqual(MainCoordinatorLayoutMetrics.sidebar.min, 280)
+        XCTAssertEqual(MainCoordinatorLayoutMetrics.sidebar.ideal, 280)
+        XCTAssertEqual(MainCoordinatorLayoutMetrics.sidebar.max, 280)
+    }
+}
+
 @MainActor
 final class SpeedRoundViewModelTests: XCTestCase {
     func testStartGameResetsStateAndActivatesGame() {

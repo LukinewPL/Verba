@@ -64,7 +64,7 @@ struct WrongAnswerVapor: View {
                 .font(.title.weight(.semibold))
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [Color.white.opacity(0.98), Color(red: 0.78, green: 0.92, blue: 1.0).opacity(0.62)],
+                        colors: [Color.white.opacity(0.98), Color.glassMint.opacity(0.66), Color.glassSky.opacity(0.56)],
                         startPoint: .top,
                         endPoint: .bottom
                     )
@@ -87,7 +87,7 @@ struct WrongAnswerVapor: View {
                         RadialGradient(
                             colors: [
                                 Color.white.opacity(0.92),
-                                Color(red: 0.74, green: 0.88, blue: 1.0).opacity(0.45),
+                                Color.glassSky.opacity(0.42),
                                 Color.white.opacity(0.01)
                             ],
                             center: .center,
@@ -113,7 +113,7 @@ struct WrongAnswerVapor: View {
                 let height = CGFloat(16 + seed(index, salt: 109) * 18)
 
                 Capsule(style: .continuous)
-                    .fill(Color.white.opacity(0.7))
+                    .fill(Color.white.opacity(0.72))
                     .frame(width: width, height: height)
                     .blur(radius: 2)
                     .offset(
@@ -236,11 +236,11 @@ struct GoldenHintLetter: View {
     let strongGlow: Bool
 
     var body: some View {
-        let goldenGradient = LinearGradient(
+        let glowGradient = LinearGradient(
             colors: [
-                Color(red: 1.0, green: 0.98, blue: 0.85),
-                Color(red: 1.0, green: 0.86, blue: 0.42),
-                Color(red: 0.95, green: 0.68, blue: 0.2)
+                Color.white,
+                Color.glassMint,
+                Color.glassSky
             ],
             startPoint: .top,
             endPoint: .bottom
@@ -248,9 +248,9 @@ struct GoldenHintLetter: View {
 
         Text(letter)
             .font(.system(size: fontSize, weight: .medium, design: .default))
-            .foregroundStyle(goldenGradient)
-            .shadow(color: Color.yellow.opacity(strongGlow ? 0.95 : 0.5), radius: strongGlow ? 30 : 10, x: 0, y: 0)
-            .shadow(color: Color.orange.opacity(strongGlow ? 0.6 : 0.25), radius: strongGlow ? 60 : 16, x: 0, y: 0)
+            .foregroundStyle(glowGradient)
+            .shadow(color: Color.glassMint.opacity(strongGlow ? 0.78 : 0.42), radius: strongGlow ? 28 : 10, x: 0, y: 0)
+            .shadow(color: Color.glassSky.opacity(strongGlow ? 0.56 : 0.22), radius: strongGlow ? 54 : 16, x: 0, y: 0)
             .overlay(
                 Text(letter)
                     .font(.system(size: fontSize, weight: .medium, design: .default))
@@ -276,7 +276,7 @@ struct GoldenParticleBurst: View {
                     let delay = Double(index) * 0.0035
 
                     Circle()
-                        .fill(index.isMultiple(of: 2) ? Color.yellow.opacity(0.98) : Color.orange.opacity(0.9))
+                        .fill(index.isMultiple(of: 2) ? Color.glassMint.opacity(0.96) : Color.glassSky.opacity(0.9))
                         .frame(width: size, height: size)
                         .offset(
                             x: CGFloat(cos(angle)) * (expanded ? farRadius : nearRadius),
@@ -297,7 +297,7 @@ struct GoldenParticleBurst: View {
                     let delay = seed(index, salt: 181) * 0.28
 
                     Circle()
-                        .fill(index.isMultiple(of: 3) ? Color.yellow.opacity(0.92) : Color.orange.opacity(0.72))
+                        .fill(index.isMultiple(of: 3) ? Color.glassSky.opacity(0.9) : Color.glassMint.opacity(0.76))
                         .frame(width: size, height: size)
                         .position(
                             x: x + (expanded ? driftX : 0),
@@ -315,7 +315,7 @@ struct GoldenParticleBurst: View {
                     let delay = seed(index, salt: 307) * 0.32
 
                     Circle()
-                        .fill(Color.yellow.opacity(0.14))
+                        .fill(Color.glassPearl.opacity(0.2))
                         .frame(width: glowSize, height: glowSize)
                         .blur(radius: 2.4)
                         .position(x: x, y: y)

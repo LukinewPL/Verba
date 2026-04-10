@@ -80,7 +80,7 @@ struct SetDetailView: View {
                 Circle()
                     .trim(from: 0, to: progress)
                     .stroke(
-                        AngularGradient(colors: [.glassCyan, .blue, .glassCyan], center: .center),
+                        AngularGradient(colors: [.glassMint, .glassSky, .glassTeal], center: .center),
                         style: StrokeStyle(lineWidth: 6, lineCap: .round)
                     )
                     .rotationEffect(.degrees(-90))
@@ -172,7 +172,7 @@ struct SetDetailView: View {
 
                         if w.isMastered {
                             Image(systemName: "star.fill")
-                                .foregroundStyle(.yellow)
+                                .foregroundStyle(Color.glassMint)
                         }
                     }
                     .font(.system(size: 19, weight: .medium, design: .default))
@@ -220,16 +220,16 @@ struct SetDetailView: View {
                 .foregroundColor(.white)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 7)
-                .background(
+                    .background(
                     Capsule()
                         .fill(
                             selected
-                            ? LinearGradient(colors: [Color.glassCyan.opacity(0.5), Color.blue.opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                            : LinearGradient(colors: [Color.white.opacity(0.08), Color.white.opacity(0.03)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                            ? LinearGradient(colors: [Color.glassMint.opacity(0.5), Color.glassSky.opacity(0.4)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        : LinearGradient(colors: [Color.white.opacity(0.08), Color.white.opacity(0.03)], startPoint: .topLeading, endPoint: .bottomTrailing)
                         )
                         .overlay(
                             Capsule()
-                                .stroke(selected ? Color.glassCyan.opacity(0.48) : Color.white.opacity(0.16), lineWidth: 1)
+                                .stroke(selected ? Color.glassTeal.opacity(0.48) : Color.white.opacity(0.16), lineWidth: 1)
                         )
                 )
         }
@@ -237,12 +237,12 @@ struct SetDetailView: View {
     }
 
     private func statPill(icon: String, text: String) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: icon)
-                .foregroundStyle(Color.glassCyan)
-            Text(text)
-                .foregroundColor(.white.opacity(0.84))
-        }
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .foregroundStyle(Color.glassTeal)
+                Text(text)
+                    .foregroundColor(.white.opacity(0.84))
+            }
         .font(.caption.weight(.medium))
         .padding(.horizontal, 8)
         .padding(.vertical, 5)
@@ -256,17 +256,14 @@ struct SetDetailView: View {
     private var detailBackground: some View {
         ZStack {
             LinearGradient(
-                colors: [
-                    Color(red: 0.03, green: 0.04, blue: 0.2),
-                    Color(red: 0.02, green: 0.03, blue: 0.17)
-                ],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.glassCyan.opacity(0.16), .clear],
+                colors: [Color.glassMint.opacity(0.18), .clear],
                 center: .topTrailing,
                 startRadius: 50,
                 endRadius: 520
@@ -274,7 +271,7 @@ struct SetDetailView: View {
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.blue.opacity(0.14), .clear],
+                colors: [Color.glassSky.opacity(0.14), .clear],
                 center: .bottomLeading,
                 startRadius: 80,
                 endRadius: 620

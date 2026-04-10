@@ -12,10 +12,10 @@ struct TestSetupView: View {
                 HStack(spacing: 10) {
                     ZStack {
                         Circle()
-                            .fill(Color.glassCyan.opacity(0.14))
+                            .fill(Color.glassMint.opacity(0.14))
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 26, weight: .medium))
-                            .foregroundStyle(.white, Color.glassCyan)
+                            .foregroundStyle(.white, Color.glassTeal)
                     }
                     .frame(width: 46, height: 46)
 
@@ -34,7 +34,7 @@ struct TestSetupView: View {
                     TestStatChip(icon: "text.book.closed.fill", label: "\(set.words.count) \(lm.t("words"))")
                 }
                 .padding(14)
-                .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2))
+                .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassTeal.opacity(0.2))
 
                 VStack(spacing: 12) {
                     VStack(alignment: .leading, spacing: 10) {
@@ -45,18 +45,18 @@ struct TestSetupView: View {
                             Spacer()
                             Text("\(Int(vm.questionCount))")
                                 .font(.system(size: 16, weight: .medium, design: .default))
-                                .foregroundStyle(Color.glassCyan)
+                                .foregroundStyle(Color.glassTeal)
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
                                 .background(
                                     Capsule()
-                                        .fill(Color.glassCyan.opacity(0.2))
-                                        .overlay(Capsule().stroke(Color.glassCyan.opacity(0.45), lineWidth: 1))
+                                        .fill(Color.glassMint.opacity(0.2))
+                                        .overlay(Capsule().stroke(Color.glassSky.opacity(0.45), lineWidth: 1))
                                 )
                         }
 
                         Slider(value: $vm.questionCount, in: 5...50, step: 5)
-                            .tint(.glassCyan)
+                            .tint(.glassTeal)
 
                         HStack {
                             Text("5")
@@ -108,7 +108,7 @@ struct TestSetupView: View {
                     .frame(height: 52)
                     .background(
                         LinearGradient(
-                            colors: [Color.glassCyan.opacity(0.95), Color.blue.opacity(0.85)],
+                            colors: [Color.glassMint.opacity(0.95), Color.glassSky.opacity(0.85)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -118,7 +118,7 @@ struct TestSetupView: View {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
                             .stroke(Color.white.opacity(0.26), lineWidth: 1)
                     )
-                    .shadow(color: Color.glassCyan.opacity(0.24), radius: 12, x: 0, y: 7)
+                    .shadow(color: Color.glassTeal.opacity(0.24), radius: 12, x: 0, y: 7)
                 }
                 .buttonStyle(.plain)
                 .pressAnimation()

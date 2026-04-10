@@ -1,5 +1,15 @@
 import SwiftUI
 
+struct NavigationColumnMetrics {
+    let min: CGFloat
+    let ideal: CGFloat
+    let max: CGFloat
+}
+
+enum MainCoordinatorLayoutMetrics {
+    static let sidebar = NavigationColumnMetrics(min: 280, ideal: 280, max: 280)
+}
+
 // MARK: - View
 
 struct MainCoordinatorView: View {
@@ -14,6 +24,11 @@ struct MainCoordinatorView: View {
 
         return NavigationSplitView(columnVisibility: $sidebarVisibility) {
             sidebarContent
+                .navigationSplitViewColumnWidth(
+                    min: MainCoordinatorLayoutMetrics.sidebar.min,
+                    ideal: MainCoordinatorLayoutMetrics.sidebar.ideal,
+                    max: MainCoordinatorLayoutMetrics.sidebar.max
+                )
         } detail: {
             detailContent
         }
@@ -76,7 +91,7 @@ struct MainCoordinatorView: View {
     private var detailContent: some View {
         ZStack {
             LinearGradient(
-                colors: [.deepNavy, .glassBack],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -104,17 +119,14 @@ struct MainCoordinatorView: View {
 
     private var sidebarHeader: some View {
         HStack(alignment: .center, spacing: 12) {
-            Image(systemName: "text.book.closed.fill")
-                .font(.system(size: 20, weight: .medium))
-                .foregroundStyle(Color.glassCyan)
+            Image("AppLogo")
+                .resizable()
+                .scaledToFit()
                 .frame(width: 42, height: 42)
-                .background(
+                .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+                .overlay(
                     RoundedRectangle(cornerRadius: 13, style: .continuous)
-                        .fill(Color.glassCyan.opacity(0.16))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 13, style: .continuous)
-                                .stroke(Color.glassCyan.opacity(0.4), lineWidth: 1)
-                        )
+                        .stroke(Color.white.opacity(0.12), lineWidth: 1)
                 )
 
             Text(lm.t("Verba"))
@@ -127,7 +139,7 @@ struct MainCoordinatorView: View {
             Spacer()
         }
         .padding(14)
-        .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassCyan.opacity(0.2), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 20, shadowY: 10)
+        .glassPanel(cornerRadius: 20, edgeHighlight: Color.glassTeal.opacity(0.2), gradientTopOpacity: 0.1, gradientBottomOpacity: 0.05, borderOpacity: 0.18, shadowOpacity: 0.24, shadowRadius: 20, shadowY: 10)
     }
 
     private func sidebarTabButton(tab: AppCoordinator.Tab, title: String, icon: String) -> some View {
@@ -168,11 +180,7 @@ struct MainCoordinatorView: View {
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
                             .fill(
                                 isSelected
-                                ? LinearGradient(
-                                    colors: [Color.glassCyan.opacity(0.24), Color.blue.opacity(0.2)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
+                                ? LinearGradient(colors: [Color.glassMint.opacity(0.24), Color.glassSky.opacity(0.2)], startPoint: .topLeading, endPoint: .bottomTrailing)
                                 : LinearGradient(
                                     colors: [Color.white.opacity(0.08), Color.white.opacity(0.03)],
                                     startPoint: .topLeading,
@@ -223,17 +231,14 @@ struct MainCoordinatorView: View {
     private var sidebarBackground: some View {
         ZStack {
             LinearGradient(
-                colors: [
-                    Color(red: 0.03, green: 0.06, blue: 0.2),
-                    Color(red: 0.02, green: 0.11, blue: 0.18)
-                ],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.glassCyan.opacity(0.16), .clear],
+                colors: [Color.glassMint.opacity(0.18), .clear],
                 center: .topTrailing,
                 startRadius: 20,
                 endRadius: 420
@@ -241,7 +246,7 @@ struct MainCoordinatorView: View {
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.blue.opacity(0.16), .clear],
+                colors: [Color.glassSky.opacity(0.16), .clear],
                 center: .bottomLeading,
                 startRadius: 50,
                 endRadius: 500

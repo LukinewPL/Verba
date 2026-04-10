@@ -2,6 +2,57 @@ import XCTest
 @testable import Verba
 
 @MainActor
+final class FlashcardsNavigationViewModelTests: XCTestCase {
+    func testGoToPreviousRestoresLastViewedCard() {
+        let set = WordSet(name: "cards", words: [
+            Word(polish: "jeden", english: "one"),
+            Word(polish: "dwa", english: "two"),
+            Word(polish: "trzy", english: "three")
+        ])
+        let vm = FlashcardsViewModel(set: set)
+        let firstPrompt = vm.frontText
+
+        vm.goToNextWord()
+        let secondPrompt = vm.frontText
+        vm.goToNextWord()
+
+        let didGoBack = vm.goToPreviousWord()
+
+        XCTAssertTrue(didGoBack)
+        XCTAssertEqual(vm.frontText, secondPrompt)
+        XCTAssertNotEqual(vm.frontText, firstPrompt)
+    }
+
+    func testGoToNextAfterGoingBackReturnsToDeferredCard() {
+        let set = WordSet(name: "cards", words: [
+            Word(polish: "jeden", english: "one"),
+            Word(polish: "dwa", english: "two"),
+            Word(polish: "trzy", english: "three")
+        ])
+        let vm = FlashcardsViewModel(set: set)
+
+        vm.goToNextWord()
+        vm.goToNextWord()
+        let thirdPrompt = vm.frontText
+        _ = vm.goToPreviousWord()
+
+        vm.goToNextWord()
+
+        XCTAssertEqual(vm.frontText, thirdPrompt)
+    }
+
+    func testGoToPreviousReturnsFalseOnFirstCard() {
+        let vm = FlashcardsViewModel(set: WordSet(name: "cards", words: [
+            Word(polish: "jeden", english: "one")
+        ]))
+
+        let didGoBack = vm.goToPreviousWord()
+
+        XCTAssertFalse(didGoBack)
+    }
+}
+
+@MainActor
 final class TestViewModelTests: XCTestCase {
     func testStartTestWithNoWordsFinishesImmediately() {
         let vm = makeSUT(words: [])
@@ -62,6 +113,43 @@ final class TestViewModelTests: XCTestCase {
         XCTAssertEqual(vm.score, 0)
         XCTAssertEqual(vm.wrongAnswers.count, 1)
         XCTAssertTrue(vm.isFinished)
+    }
+
+    func testSubmitMultipleChoiceOptionAtValidIndexUsesMatchingOption() {
+        let set = WordSet(name: "test", words: [
+            Word(polish: "pies", english: "dog"),
+            Word(polish: "kot", english: "cat"),
+            Word(polish: "dom", english: "house"),
+            Word(polish: "auto", english: "car")
+        ])
+        let vm = TestViewModel(set: set, scheduler: ControlledTestAdvanceScheduler())
+        vm.startTest()
+
+        guard let correctIndex = vm.mcOptions.firstIndex(of: vm.target) else {
+            return XCTFail("Expected correct option to be present")
+        }
+
+        let didSubmit = vm.submitMultipleChoiceOption(at: correctIndex)
+
+        XCTAssertTrue(didSubmit)
+        XCTAssertEqual(vm.score, 1)
+        XCTAssertEqual(vm.selectedOption, vm.target)
+    }
+
+    func testSubmitMultipleChoiceOptionAtInvalidIndexDoesNothing() {
+        let vm = makeSUT(words: [
+            ("pies", "dog"),
+            ("kot", "cat"),
+            ("dom", "house"),
+            ("auto", "car")
+        ], scheduler: ControlledTestAdvanceScheduler())
+        vm.startTest()
+
+        let didSubmit = vm.submitMultipleChoiceOption(at: 9)
+
+        XCTAssertFalse(didSubmit)
+        XCTAssertEqual(vm.score, 0)
+        XCTAssertNil(vm.selectedOption)
     }
 
     func testSubmitOpenWrongAddsWrongAnswer() {

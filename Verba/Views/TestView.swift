@@ -29,9 +29,12 @@ struct TestView: View {
                 .padding(.vertical, 12)
         }
         .overlay {
-            vm.feedbackColor.opacity(0.24)
-                .ignoresSafeArea()
-                .allowsHitTesting(false)
+            if vm.feedbackColor != .clear {
+                DesignSystem.Feedback.gradient(isSuccess: vm.feedbackIsSuccess)
+                    .opacity(0.24)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+            }
         }
         .onAppear {
             coordinator.enterFocusedMode()
@@ -108,17 +111,14 @@ struct TestView: View {
     private var testBackground: some View {
         ZStack {
             LinearGradient(
-                colors: [
-                    Color(red: 0.03, green: 0.04, blue: 0.2),
-                    Color(red: 0.02, green: 0.03, blue: 0.17)
-                ],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.glassCyan.opacity(0.2), .clear],
+                colors: [Color.glassMint.opacity(0.18), .clear],
                 center: .topTrailing,
                 startRadius: 30,
                 endRadius: 520
@@ -126,7 +126,7 @@ struct TestView: View {
             .ignoresSafeArea()
 
             RadialGradient(
-                colors: [Color.blue.opacity(0.18), .clear],
+                colors: [Color.glassSky.opacity(0.16), .clear],
                 center: .bottomLeading,
                 startRadius: 40,
                 endRadius: 600

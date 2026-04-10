@@ -17,13 +17,13 @@ struct HomeView: View {
 
                     ViewThatFits(in: .horizontal) {
                         HStack(spacing: 12) {
-                            statCard(icon: "flame.fill", value: vm.streak, label: lm.t("streak"), iconColor: vm.streak > 0 ? .orange : .white.opacity(0.4))
-                            statCard(icon: "checkmark.circle.fill", value: vm.todayWords, label: lm.t("words_today"), iconColor: .glassCyan)
+                            statCard(icon: "flame.fill", value: vm.streak, label: lm.t("streak"), iconColor: vm.streak > 0 ? .glassMint : .white.opacity(0.4))
+                            statCard(icon: "checkmark.circle.fill", value: vm.todayWords, label: lm.t("words_today"), iconColor: .glassTeal)
                         }
 
                         VStack(spacing: 10) {
-                            statCard(icon: "flame.fill", value: vm.streak, label: lm.t("streak"), iconColor: vm.streak > 0 ? .orange : .white.opacity(0.4))
-                            statCard(icon: "checkmark.circle.fill", value: vm.todayWords, label: lm.t("words_today"), iconColor: .glassCyan)
+                            statCard(icon: "flame.fill", value: vm.streak, label: lm.t("streak"), iconColor: vm.streak > 0 ? .glassMint : .white.opacity(0.4))
+                            statCard(icon: "checkmark.circle.fill", value: vm.todayWords, label: lm.t("words_today"), iconColor: .glassTeal)
                         }
                     }
 
@@ -65,7 +65,7 @@ struct HomeView: View {
 
             HStack(spacing: 8) {
                 Image(systemName: "calendar")
-                    .foregroundStyle(Color.glassCyan)
+                    .foregroundStyle(Color.glassTeal)
                 Text(Date.now.formatted(date: .abbreviated, time: .omitted))
                     .font(.subheadline.weight(.semibold))
                     .foregroundColor(.white.opacity(0.8))
@@ -146,23 +146,20 @@ struct HomeView: View {
     private var homeBackground: some View {
         ZStack {
             LinearGradient(
-                colors: [
-                    Color(red: 0.03, green: 0.04, blue: 0.2),
-                    Color(red: 0.02, green: 0.03, blue: 0.17)
-                ],
+                colors: [Color(red: 0.04, green: 0.12, blue: 0.15), Color.glassBack],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
 
             Circle()
-                .fill(Color.glassCyan.opacity(0.16))
+                .fill(Color.glassMint.opacity(0.16))
                 .frame(width: 420)
                 .offset(x: animateCircles ? 160 : -40, y: animateCircles ? -140 : 100)
                 .blur(radius: 80)
 
             Circle()
-                .fill(Color.blue.opacity(0.14))
+                .fill(Color.glassSky.opacity(0.14))
                 .frame(width: 360)
                 .offset(x: animateCircles ? -180 : 100, y: animateCircles ? 150 : -100)
                 .blur(radius: 80)

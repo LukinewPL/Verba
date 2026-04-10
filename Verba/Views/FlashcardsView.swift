@@ -3,6 +3,7 @@ import SwiftUI
 struct FlashcardsView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(AppCoordinator.self) private var coordinator
+    @AppStorage("animationSpeed") private var animationSpeed: Double = 1.0
     @State private var vm: FlashcardsViewModel
     @Environment(\.dismiss) private var dismiss
 
@@ -50,7 +51,12 @@ struct FlashcardsView: View {
                 }
 
                 if vm.current != nil {
-                    FlashcardsControlsSection(onFlip: flipCard, onNext: { skipToNext(direction: -1) })
+                    FlashcardsControlsSection(
+                        canGoBack: vm.canGoBack,
+                        onPrevious: { skipToPrevious(direction: -1) },
+                        onFlip: flipCard,
+                        onNext: { skipToNext(direction: 1) }
+                    )
                 }
             }
             .padding(.horizontal, 20)
@@ -98,6 +104,9 @@ struct FlashcardsView: View {
         dragOffset = .zero
         rotation = 0
         showingBack = false
+        isFlipping = false
+        isAdvancing = false
+        cardOpacity = 1
     }
 
     private func handleCardDragEnd(_ gesture: DragGesture.Value) {
@@ -110,7 +119,7 @@ struct FlashcardsView: View {
         if abs(effectiveX) >= commitThreshold {
             skipToNext(direction: effectiveX > 0 ? 1 : -1)
         } else {
-            withAnimation(.easeOut(duration: 0.12)) {
+            withAnimation(.easeOut(duration: adjustedDuration(0.12))) {
                 dragOffset = .zero
             }
         }
@@ -120,17 +129,17 @@ struct FlashcardsView: View {
         guard !isFlipping, vm.current != nil else { return }
         isFlipping = true
 
-        withAnimation(.easeIn(duration: 0.11)) {
+        withAnimation(.easeIn(duration: adjustedDuration(0.11))) {
             rotation = 90
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.11) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + adjustedDuration(0.11)) {
             showingBack.toggle()
             rotation = -90
-            withAnimation(.easeOut(duration: 0.13)) {
+            withAnimation(.easeOut(duration: adjustedDuration(0.13))) {
                 rotation = 0
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.13) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + adjustedDuration(0.13)) {
                 isFlipping = false
             }
         }
@@ -140,27 +149,57 @@ struct FlashcardsView: View {
         guard vm.current != nil, !isAdvancing else { return }
         isAdvancing = true
 
-        withAnimation(.easeIn(duration: 0.16)) {
+        withAnimation(.easeIn(duration: adjustedDuration(0.16))) {
             dragOffset = CGSize(width: direction * 760, height: 90)
             cardOpacity = 0
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
-            vm.nextWord()
-            showingBack = false
-            rotation = 0
-            isFlipping = false
-            dragOffset = CGSize(width: -direction * 120, height: -12)
-            cardOpacity = 0
-
-            withAnimation(.easeOut(duration: 0.14)) {
-                dragOffset = .zero
-                cardOpacity = 1
-            }
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.14) {
-                isAdvancing = false
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + adjustedDuration(0.16)) {
+            vm.goToNextWord()
+            completeCardTransition(oppositeDirection: -direction)
         }
+    }
+
+    private func skipToPrevious(direction: CGFloat) {
+        guard vm.current != nil, !isAdvancing else { return }
+        guard vm.goToPreviousWord() else { return }
+        isAdvancing = true
+
+        dragOffset = CGSize(width: direction * 120, height: -12)
+        cardOpacity = 0
+        showingBack = false
+        rotation = 0
+        isFlipping = false
+
+        withAnimation(.easeOut(duration: adjustedDuration(0.18))) {
+            dragOffset = .zero
+            cardOpacity = 1
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + adjustedDuration(0.18)) {
+            isAdvancing = false
+        }
+    }
+
+    private func completeCardTransition(oppositeDirection: CGFloat) {
+        showingBack = false
+        rotation = 0
+        isFlipping = false
+        dragOffset = CGSize(width: oppositeDirection * 120, height: -12)
+        cardOpacity = 0
+
+        withAnimation(.easeOut(duration: adjustedDuration(0.14))) {
+            dragOffset = .zero
+            cardOpacity = 1
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + adjustedDuration(0.14)) {
+            isAdvancing = false
+        }
+    }
+
+    private func adjustedDuration(_ base: Double) -> Double {
+        guard animationSpeed > 0 else { return 0.01 }
+        return base / animationSpeed
     }
 }

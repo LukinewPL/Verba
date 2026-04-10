@@ -8,6 +8,7 @@ import Observation
     var current: Word?
     var answer: String = ""
     var feedback: Color = .clear
+    var feedbackIsSuccess = false
     var attemptedCount = 0
     var correctCount = 0
     var hasSaved = false
@@ -44,6 +45,7 @@ import Observation
         correctCount = 0
         hasSaved = false
         feedback = .clear
+        feedbackIsSuccess = false
         answer = ""
         hint = ""
         usedPromptAnswers = [:]
@@ -66,6 +68,7 @@ import Observation
                 correctCount += 1
             }
             feedback = .green
+            feedbackIsSuccess = true
             audioFeedback.playCorrect()
             if let w = current {
                 if usedHint {
@@ -78,6 +81,7 @@ import Observation
             onSuccess()
         } else {
             feedback = .red
+            feedbackIsSuccess = false
             audioFeedback.playWrong()
             if let w = current {
                 sm2Service.rate(w, quality: 1)

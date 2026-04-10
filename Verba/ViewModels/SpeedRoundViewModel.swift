@@ -13,6 +13,7 @@ import Observation
     var isActive = false
     var isFinished = false
     var feedbackColor: Color = .clear
+    var feedbackIsSuccess = false
     var showWrongAnswer = false
     var hasSaved = false
     var isStarted = false
@@ -52,6 +53,7 @@ import Observation
         hasSaved = false
         showWrongAnswer = false
         feedbackColor = .clear
+        feedbackIsSuccess = false
         showRecordBlast = false
         nextWord()
     }
@@ -95,6 +97,7 @@ import Observation
             correctCount += 1
             sm2Service.rate(current, quality: 4)
             feedbackColor = .green
+            feedbackIsSuccess = true
             audioFeedback.playCorrect()
             answer = ""
             showWrongAnswer = false
@@ -102,6 +105,7 @@ import Observation
         } else {
             sm2Service.rate(current, quality: 1)
             feedbackColor = .red
+            feedbackIsSuccess = false
             audioFeedback.playWrong()
             showWrongAnswer = true
             onFailure()

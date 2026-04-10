@@ -6,10 +6,10 @@ struct GlassEffect: ViewModifier {
             .padding()
             .background(.regularMaterial)
             .environment(\.colorScheme, .dark)
-            .background(Color.blue.opacity(0.1))
+            .background(Color.glassSky.opacity(0.2))
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(LinearGradient(colors: [.white.opacity(0.4), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1))
-            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(LinearGradient(colors: [.white.opacity(0.72), Color.glassMint.opacity(0.28), Color.glassSky.opacity(0.18), .clear], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1))
+            .shadow(color: Color.glassShadow.opacity(0.2), radius: 10, x: 0, y: 5)
     }
 }
 struct PressAnimation: ButtonStyle {
@@ -26,10 +26,10 @@ extension View {
 
     func glassPanel(
         cornerRadius: CGFloat = 18,
-        edgeHighlight: Color = Color.glassCyan.opacity(0.16),
-        gradientTopOpacity: Double = 0.1,
-        gradientBottomOpacity: Double = 0.04,
-        borderOpacity: Double = 0.14,
+        edgeHighlight: Color = Color.glassTeal.opacity(0.2),
+        gradientTopOpacity: Double = 0.12,
+        gradientBottomOpacity: Double = 0.05,
+        borderOpacity: Double = 0.16,
         shadowOpacity: Double = 0.22,
         shadowRadius: CGFloat = 14,
         shadowY: CGFloat = 8
