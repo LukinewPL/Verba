@@ -28,6 +28,7 @@ import Observation
     private let scheduler: any TestAdvanceScheduling
     private var dismissAction: (() -> Void)?
     private var pendingAdvanceWorkItem: DispatchWorkItem?
+    private var testWords: [Word] = []
 
     init(
         set: WordSet,
@@ -57,6 +58,7 @@ import Observation
         score = 0
         answer = ""
         queue = []
+        testWords = []
         mcOptions = []
         wrongAnswers = []
         selectedOption = nil
@@ -85,7 +87,8 @@ import Observation
     func startTest() {
         pendingAdvanceWorkItem?.cancel()
         pendingAdvanceWorkItem = nil
-        queue = Array(set.words.shuffled().prefix(Int(questionCount)))
+        testWords = sm2Service.buildReviewQueue(from: set.words)
+        queue = Array(testWords.shuffled().prefix(Int(questionCount)))
         guard !queue.isEmpty else {
             finishTest()
             return
@@ -104,7 +107,7 @@ import Observation
         guard let curr = current else { finishTest(); return }
         if isMultipleChoice {
             let correct = target
-            var others = set.words
+            var others = testWords
                 .filter { $0.id != curr.id }
                 .map { set.target(for: $0) }
             others = Array(Set(others))

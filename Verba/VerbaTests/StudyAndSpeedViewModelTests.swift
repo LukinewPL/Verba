@@ -3,6 +3,41 @@ import XCTest
 
 @MainActor
 final class StudySessionViewModelTests: XCTestCase {
+    func testResetSessionPrioritizesDueReviewedWords() {
+        let due = Word(polish: "pies", english: "dog")
+        due.lastReviewed = Date().addingTimeInterval(-3_600)
+        due.nextReview = Date().addingTimeInterval(-300)
+
+        let future = Word(polish: "kot", english: "cat")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "ptak", english: "bird")
+
+        let set = WordSet(name: "session", words: [due, future, newWord])
+        let vm = StudySessionViewModel(set: set)
+
+        vm.resetSession()
+
+        XCTAssertEqual(vm.current?.id, due.id)
+        XCTAssertTrue(vm.queue.isEmpty)
+    }
+
+    func testResetSessionFallsBackToNewWordsWhenNoDueReviews() {
+        let future = Word(polish: "kot", english: "cat")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "ptak", english: "bird")
+        let set = WordSet(name: "session", words: [future, newWord])
+        let vm = StudySessionViewModel(set: set)
+
+        vm.resetSession()
+
+        XCTAssertEqual(vm.current?.id, newWord.id)
+        XCTAssertTrue(vm.queue.isEmpty)
+    }
+
     func testResetSessionInitializesCurrentWordAndCounters() {
         let vm = makeVM(words: [("pies", "dog"), ("kot", "cat")])
 

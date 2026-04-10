@@ -1,5 +1,18 @@
 import Foundation
 class SM2Service {
+    func buildReviewQueue(from words: [Word], now: Date = Date()) -> [Word] {
+        let dueReviewedWords = words
+            .filter { isDueReviewWord($0, now: now) }
+            .shuffled()
+        if !dueReviewedWords.isEmpty {
+            return dueReviewedWords
+        }
+
+        return words
+            .filter { isNewWord($0) }
+            .shuffled()
+    }
+
     func rate(_ word: Word, quality: Int) {
         let clampedQuality = min(5, max(0, quality))
 
@@ -26,5 +39,14 @@ class SM2Service {
         
         word.isMastered = word.repetitions >= 5
         word.nextReview = Calendar.current.date(byAdding: .day, value: word.interval, to: Date()) ?? Date()
+    }
+
+    private func isDueReviewWord(_ word: Word, now: Date) -> Bool {
+        guard word.lastReviewed != nil else { return false }
+        return word.nextReview <= now
+    }
+
+    private func isNewWord(_ word: Word) -> Bool {
+        word.lastReviewed == nil
     }
 }

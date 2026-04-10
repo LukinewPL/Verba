@@ -24,6 +24,7 @@ import Observation
     private let sm2Service: SM2Service
     private let normalizer: any AnswerNormalizing
     private let audioFeedback: any AudioFeedbackPlaying
+    private var roundWords: [Word] = []
 
     init(
         set: WordSet,
@@ -42,7 +43,8 @@ import Observation
     }
 
     func startGame() {
-        queue = set.words.shuffled()
+        roundWords = sm2Service.buildReviewQueue(from: set.words)
+        queue = roundWords
         answer = ""
         correctCount = 0
         attemptedCount = 0
@@ -59,7 +61,11 @@ import Observation
     }
 
     func nextWord() {
-        if queue.isEmpty { queue = set.words.shuffled() }
+        guard !roundWords.isEmpty else {
+            current = nil
+            return
+        }
+        if queue.isEmpty { queue = roundWords.shuffled() }
         current = queue.isEmpty ? nil : queue.removeFirst()
     }
 

@@ -78,6 +78,40 @@ final class MainCoordinatorLayoutTests: XCTestCase {
 
 @MainActor
 final class SpeedRoundViewModelTests: XCTestCase {
+    func testStartGameUsesDueReviewedWordsWhenAvailable() {
+        let due = Word(polish: "pies", english: "dog")
+        due.lastReviewed = Date().addingTimeInterval(-3_600)
+        due.nextReview = Date().addingTimeInterval(-300)
+
+        let future = Word(polish: "kot", english: "cat")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "ptak", english: "bird")
+        let set = WordSet(name: "speed", words: [due, future, newWord])
+        let vm = SpeedRoundViewModel(set: set)
+
+        vm.startGame()
+
+        XCTAssertEqual(vm.current?.id, due.id)
+        XCTAssertTrue(vm.queue.isEmpty)
+    }
+
+    func testStartGameFallsBackToNewWordsWhenNoDueReviewedWordsExist() {
+        let future = Word(polish: "kot", english: "cat")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "ptak", english: "bird")
+        let set = WordSet(name: "speed", words: [future, newWord])
+        let vm = SpeedRoundViewModel(set: set)
+
+        vm.startGame()
+
+        XCTAssertEqual(vm.current?.id, newWord.id)
+        XCTAssertTrue(vm.queue.isEmpty)
+    }
+
     func testStartGameResetsStateAndActivatesGame() {
         let vm = makeVM(words: [("pies", "dog"), ("kot", "cat")])
         vm.correctCount = 9

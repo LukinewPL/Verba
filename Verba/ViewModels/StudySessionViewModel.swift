@@ -40,7 +40,7 @@ import Observation
     }
     
     func resetSession() {
-        queue = set.words.shuffled()
+        queue = sm2Service.buildReviewQueue(from: set.words)
         attemptedCount = 0
         correctCount = 0
         hasSaved = false

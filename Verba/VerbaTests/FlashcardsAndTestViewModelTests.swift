@@ -3,6 +3,34 @@ import XCTest
 
 @MainActor
 final class FlashcardsNavigationViewModelTests: XCTestCase {
+    func testResetUsesOnlyDueReviewedWordsWhenAvailable() {
+        let due = Word(polish: "jeden", english: "one")
+        due.lastReviewed = Date().addingTimeInterval(-3_600)
+        due.nextReview = Date().addingTimeInterval(-300)
+
+        let future = Word(polish: "dwa", english: "two")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "trzy", english: "three")
+        let vm = FlashcardsViewModel(set: WordSet(name: "cards", words: [due, future, newWord]))
+
+        XCTAssertEqual(vm.current?.id, due.id)
+        XCTAssertTrue(vm.queue.isEmpty)
+    }
+
+    func testResetFallsBackToNewWordsWhenNoDueReviewedWordsExist() {
+        let future = Word(polish: "dwa", english: "two")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "trzy", english: "three")
+        let vm = FlashcardsViewModel(set: WordSet(name: "cards", words: [future, newWord]))
+
+        XCTAssertEqual(vm.current?.id, newWord.id)
+        XCTAssertTrue(vm.queue.isEmpty)
+    }
+
     func testGoToPreviousRestoresLastViewedCard() {
         let set = WordSet(name: "cards", words: [
             Word(polish: "jeden", english: "one"),
@@ -54,6 +82,38 @@ final class FlashcardsNavigationViewModelTests: XCTestCase {
 
 @MainActor
 final class TestViewModelTests: XCTestCase {
+    func testStartTestUsesDueReviewedWordsWhenAvailable() {
+        let due = Word(polish: "pies", english: "dog")
+        due.lastReviewed = Date().addingTimeInterval(-3_600)
+        due.nextReview = Date().addingTimeInterval(-300)
+
+        let future = Word(polish: "kot", english: "cat")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "ptak", english: "bird")
+        let set = WordSet(name: "test", words: [due, future, newWord])
+        let vm = TestViewModel(set: set, scheduler: ImmediateTestAdvanceScheduler())
+
+        vm.startTest()
+
+        XCTAssertEqual(vm.queue.map(\.id), [due.id])
+    }
+
+    func testStartTestFallsBackToNewWordsWhenNoDueReviewedWordsExist() {
+        let future = Word(polish: "kot", english: "cat")
+        future.lastReviewed = Date().addingTimeInterval(-3_600)
+        future.nextReview = Date().addingTimeInterval(3_600)
+
+        let newWord = Word(polish: "ptak", english: "bird")
+        let set = WordSet(name: "test", words: [future, newWord])
+        let vm = TestViewModel(set: set, scheduler: ImmediateTestAdvanceScheduler())
+
+        vm.startTest()
+
+        XCTAssertEqual(vm.queue.map(\.id), [newWord.id])
+    }
+
     func testStartTestWithNoWordsFinishesImmediately() {
         let vm = makeSUT(words: [])
 

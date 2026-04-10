@@ -8,14 +8,18 @@ import Observation
     var current: Word?
     var isFlipped: Bool = false
     private var history: [Word] = []
+    private var deckWords: [Word] = []
+    private let sm2Service: SM2Service
     
-    init(set: WordSet) {
+    init(set: WordSet, sm2Service: SM2Service? = nil) {
         self.set = set
+        self.sm2Service = sm2Service ?? SM2Service()
         reset()
     }
     
     func reset() {
-        queue = set.words.shuffled()
+        deckWords = sm2Service.buildReviewQueue(from: set.words)
+        queue = deckWords
         history = []
         isFlipped = false
         advanceToNextWord(recordCurrent: false)
@@ -59,7 +63,7 @@ import Observation
     }
     
     var totalCount: Int {
-        self.set.words.count
+        deckWords.count
     }
     
     var currentPosition: Int {
