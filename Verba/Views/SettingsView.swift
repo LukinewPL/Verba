@@ -3,9 +3,8 @@ import SwiftData
 
 struct SettingsView: View {
     @Environment(LanguageManager.self) private var lm
-    @Environment(\.modelContext) private var ctx
+    @Environment(WordRepository.self) private var repository
     @AppStorage("animationSpeed") var animationSpeed: Double = 1.0
-    @State private var errorHandler = ErrorHandler.shared
     @State private var showResetAlert = false
 
     private let legendColumns = [
@@ -310,13 +309,6 @@ struct SettingsView: View {
     }
 
     private func resetAll() {
-        do {
-            try ctx.delete(model: WordSet.self)
-            try ctx.delete(model: StudySession.self)
-            try ctx.delete(model: Word.self)
-            try ctx.save()
-        } catch {
-            errorHandler.handle(error)
-        }
+        repository.resetAllData()
     }
 }

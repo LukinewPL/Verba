@@ -56,6 +56,18 @@ import Observation
     func getParsedRows(url: URL) throws -> (name: String, rows: [[String]]) {
         try ImportService().getParsedRows(from: url)
     }
+
+    func resetAllData() {
+        do {
+            try modelContext.delete(model: Folder.self)
+            try modelContext.delete(model: WordSet.self)
+            try modelContext.delete(model: StudySession.self)
+            try modelContext.delete(model: Word.self)
+            try modelContext.save()
+        } catch {
+            ErrorHandler.shared.handle(error)
+        }
+    }
     
     func save() {
         do {

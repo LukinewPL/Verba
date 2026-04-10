@@ -13,6 +13,7 @@ class MockWordRepository: WordRepositoryProtocol {
     var importInvocations: [(url: URL, swapColumns: Bool, lang1: String?, lang2: String?)] = []
     var parsedRowsResult: (name: String, rows: [[String]])?
     var parsedRowsError: Error?
+    var resetAllDataCalled = false
 
     func fetchAllSets() -> [WordSet] { sets }
     func insertSet(_ set: WordSet) { sets.append(set) }
@@ -41,6 +42,13 @@ class MockWordRepository: WordRepositoryProtocol {
             return parsedRowsResult
         }
         return (url.deletingPathExtension().lastPathComponent, [])
+    }
+
+    func resetAllData() {
+        resetAllDataCalled = true
+        sets.removeAll()
+        folders.removeAll()
+        sessions.removeAll()
     }
 
     func save() {

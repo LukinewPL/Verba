@@ -274,4 +274,26 @@ final class WordRepositoryTests: XCTestCase {
         XCTAssertEqual(sessions.count, 2)
         XCTAssertEqual(sessions.first?.id, newer.id)
     }
+
+    func testResetAllDataRemovesSetsSessionsWordsAndFolders() {
+        let folder = Folder(name: "Folder A")
+        let set = WordSet(name: "Set A")
+        let word = Word(polish: "pies", english: "dog")
+        word.set = set
+        set.words = [word]
+        set.folder = folder
+        folder.sets = [set]
+        let session = StudySession(wordSetID: set.id)
+
+        repository.insertFolder(folder)
+        repository.insertSet(set)
+        repository.insertSession(session)
+        repository.save()
+
+        repository.resetAllData()
+
+        XCTAssertTrue(repository.fetchFolders().isEmpty)
+        XCTAssertTrue(repository.fetchAllSets().isEmpty)
+        XCTAssertTrue(repository.fetchAllSessions().isEmpty)
+    }
 }
