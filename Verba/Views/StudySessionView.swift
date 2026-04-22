@@ -34,6 +34,7 @@ struct StudySessionView: View {
     @State private var hintTasks: [Task<Void, Never>] = []
     @State private var answerTasks: [Task<Void, Never>] = []
     @State private var appearFocusTask: Task<Void, Never>?
+    @State private var showRestartPrompt = false
 
     init(set: WordSet) {
         _vm = State(initialValue: StudySessionViewModel(set: set))
@@ -42,7 +43,9 @@ struct StudySessionView: View {
     var body: some View {
         VStack {
             Spacer()
-            if vm.current != nil {
+            if showRestartPrompt {
+                restartPromptSection
+            } else if vm.current != nil {
                 Text(vm.prompt)
                     .font(.system(size: 64, weight: .medium, design: .default))
                     .foregroundColor(.white)
@@ -111,11 +114,7 @@ struct StudySessionView: View {
         }
         .onAppear {
             coordinator.enterFocusedMode()
-            vm.setup(repository: repository)
-            appearFocusTask?.cancel()
-            appearFocusTask = schedule(after: 0.5) {
-                isFocused = true
-            }
+            prepareInitialState()
         }
         .onChange(of: vm.hint) { _, newValue in
             if newValue.isEmpty {
@@ -217,6 +216,37 @@ struct StudySessionView: View {
         }
         .frame(height: 58)
         .padding(.top, 10)
+    }
+
+    private var restartPromptSection: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: 56))
+                .foregroundColor(.glassMint)
+
+            Text(lm.t("study_restart_title"))
+                .font(.title2.weight(.semibold))
+                .foregroundColor(.white)
+                .multilineTextAlignment(.center)
+
+            Text(lm.t("study_restart_message"))
+                .font(.body)
+                .foregroundColor(.white.opacity(0.78))
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: 520)
+
+            HStack(spacing: 10) {
+                Button(lm.t("study_restart_cancel")) {
+                    dismiss()
+                }
+                .buttonStyle(GlassButtonStyle())
+
+                Button(lm.t("study_restart_confirm")) {
+                    startFromBeginning()
+                }
+                .buttonStyle(GlassButtonStyle())
+            }
+        }
     }
 
     private var hintAnimationOverlay: some View {
@@ -349,7 +379,7 @@ struct StudySessionView: View {
                     vm.answer = ""
                     vm.nextWord()
                     vm.feedback = .clear
-                    isFocused = true
+                    handlePostAnswerAdvance()
                 }
             },
             onFailure: {
@@ -359,10 +389,44 @@ struct StudySessionView: View {
                 scheduleAnswer(after: 1.5) {
                     vm.nextWord()
                     vm.feedback = .clear
-                    isFocused = true
+                    handlePostAnswerAdvance()
                 }
             }
         )
+    }
+
+    private func prepareInitialState() {
+        vm.setup(repository: repository)
+        if vm.hasFullyLearnedSet {
+            showRestartPrompt = true
+            return
+        }
+        showRestartPrompt = false
+        vm.startSession()
+        focusAnswerField()
+    }
+
+    private func startFromBeginning() {
+        vm.restartLearningFromBeginning()
+        showRestartPrompt = false
+        focusAnswerField()
+    }
+
+    private func handlePostAnswerAdvance() {
+        if vm.current == nil && vm.hasFullyLearnedSet {
+            showRestartPrompt = true
+            isFocused = false
+            return
+        }
+        showRestartPrompt = false
+        isFocused = true
+    }
+
+    private func focusAnswerField() {
+        appearFocusTask?.cancel()
+        appearFocusTask = schedule(after: 0.5) {
+            isFocused = true
+        }
     }
 
     private func triggerWrongVapor(from text: String) {

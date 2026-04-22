@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 struct SetsLibraryView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(WordRepository.self) private var repository
+    @Environment(AppCoordinator.self) private var coordinator
     @State private var vm = SetsLibraryViewModel()
 
     var body: some View {
@@ -70,6 +71,9 @@ struct SetsLibraryView: View {
         .toolbarTitleDisplayMode(.inline)
         .onAppear {
             vm.setup(repository: repository)
+        }
+        .onChange(of: coordinator.path) { _, _ in
+            vm.refresh()
         }
     }
 

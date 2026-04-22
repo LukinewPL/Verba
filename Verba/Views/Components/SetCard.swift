@@ -11,17 +11,22 @@ struct SetCard: View {
     @State private var showRenameAlert = false
     @State private var newName = ""
     @Query(sort: \Folder.name) private var folders: [Folder]
+    @Query private var allWords: [Word]
 
-    private var masteredCount: Int {
-        get { set.words.filter { $0.isMastered }.count }
+    private var wordsInSet: [Word] {
+        allWords.filter { $0.set?.id == set.id }
+    }
+
+    private var completedCount: Int {
+        get { wordsInSet.filter(\.isCompletedInStudy).count }
     }
 
     private var totalCount: Int {
-        get { set.words.count }
+        get { wordsInSet.count }
     }
 
     private var progress: Double {
-        get { Double(masteredCount) / Double(max(1, totalCount)) }
+        get { Double(completedCount) / Double(max(1, totalCount)) }
     }
 
     var body: some View {
@@ -125,7 +130,7 @@ struct SetCard: View {
                 Text(set.name)
                     .font(.headline)
                     .foregroundStyle(.white)
-                Text("\(set.words.count) \(lm.t("words"))")
+                Text("\(totalCount) \(lm.t("words"))")
                     .font(.caption)
                     .foregroundStyle(Color.glassSky.opacity(0.8))
             }

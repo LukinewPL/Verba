@@ -3,7 +3,7 @@ import XCTest
 
 @MainActor
 final class FlashcardsNavigationViewModelTests: XCTestCase {
-    func testResetUsesOnlyDueReviewedWordsWhenAvailable() {
+    func testResetIncludesAllSetWordsWhenDueReviewedWordsExist() {
         let due = Word(polish: "jeden", english: "one")
         due.lastReviewed = Date().addingTimeInterval(-3_600)
         due.nextReview = Date().addingTimeInterval(-300)
@@ -15,11 +15,13 @@ final class FlashcardsNavigationViewModelTests: XCTestCase {
         let newWord = Word(polish: "trzy", english: "three")
         let vm = FlashcardsViewModel(set: WordSet(name: "cards", words: [due, future, newWord]))
 
-        XCTAssertEqual(vm.current?.id, due.id)
-        XCTAssertTrue(vm.queue.isEmpty)
+        let shownWordIDs = shownWordIDs(from: vm)
+
+        XCTAssertEqual(shownWordIDs.count, 3)
+        XCTAssertEqual(Set(shownWordIDs), Set([due.id, future.id, newWord.id]))
     }
 
-    func testResetFallsBackToNewWordsWhenNoDueReviewedWordsExist() {
+    func testResetIncludesAllSetWordsWhenNoDueReviewedWordsExist() {
         let future = Word(polish: "dwa", english: "two")
         future.lastReviewed = Date().addingTimeInterval(-3_600)
         future.nextReview = Date().addingTimeInterval(3_600)
@@ -27,8 +29,10 @@ final class FlashcardsNavigationViewModelTests: XCTestCase {
         let newWord = Word(polish: "trzy", english: "three")
         let vm = FlashcardsViewModel(set: WordSet(name: "cards", words: [future, newWord]))
 
-        XCTAssertEqual(vm.current?.id, newWord.id)
-        XCTAssertTrue(vm.queue.isEmpty)
+        let shownWordIDs = shownWordIDs(from: vm)
+
+        XCTAssertEqual(shownWordIDs.count, 2)
+        XCTAssertEqual(Set(shownWordIDs), Set([future.id, newWord.id]))
     }
 
     func testGoToPreviousRestoresLastViewedCard() {
@@ -77,6 +81,15 @@ final class FlashcardsNavigationViewModelTests: XCTestCase {
         let didGoBack = vm.goToPreviousWord()
 
         XCTAssertFalse(didGoBack)
+    }
+
+    private func shownWordIDs(from vm: FlashcardsViewModel) -> [UUID] {
+        var ids: [UUID] = []
+        while let current = vm.current {
+            ids.append(current.id)
+            vm.goToNextWord()
+        }
+        return ids
     }
 }
 

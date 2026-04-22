@@ -40,6 +40,14 @@ final class WordSetTests: XCTestCase {
         XCTAssertEqual(set.targetLanguage, "pl")
         XCTAssertEqual(set.translationDirection, .englishToPolish)
     }
+
+    func testIsCompletedInStudyRequiresSuccessfulAnswerWithoutHint() {
+        let word = Word(polish: "pies", english: "dog")
+
+        XCTAssertFalse(word.isCompletedInStudy)
+        word.isStudyCompleted = true
+        XCTAssertTrue(word.isCompletedInStudy)
+    }
 }
 
 @MainActor
@@ -72,6 +80,17 @@ final class FlashcardsViewModelTests: XCTestCase {
         vm.nextWord()
 
         XCTAssertNil(vm.current)
+    }
+
+    func testNextWordMarksCurrentWordAsReviewed() {
+        let word = Word(polish: "pies", english: "dog")
+        let set = WordSet(name: "flash", words: [word])
+        let vm = FlashcardsViewModel(set: set)
+
+        XCTAssertNil(word.lastReviewed)
+        vm.nextWord()
+
+        XCTAssertNotNil(word.lastReviewed)
     }
 
     func testProgressReflectsCurrentPosition() {

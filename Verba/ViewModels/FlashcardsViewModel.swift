@@ -9,16 +9,14 @@ import Observation
     var isFlipped: Bool = false
     private var history: [Word] = []
     private var deckWords: [Word] = []
-    private let sm2Service: SM2Service
     
-    init(set: WordSet, sm2Service: SM2Service? = nil) {
+    init(set: WordSet) {
         self.set = set
-        self.sm2Service = sm2Service ?? SM2Service()
         reset()
     }
     
     func reset() {
-        deckWords = sm2Service.buildReviewQueue(from: set.words)
+        deckWords = set.words.shuffled()
         queue = deckWords
         history = []
         isFlipped = false
@@ -91,6 +89,7 @@ import Observation
 
     private func advanceToNextWord(recordCurrent: Bool) {
         if recordCurrent, let current {
+            markWordAsReviewed(current)
             history.append(current)
         }
 
@@ -99,6 +98,15 @@ import Observation
         } else {
             current = queue.removeFirst()
             isFlipped = false
+        }
+    }
+
+    private func markWordAsReviewed(_ word: Word) {
+        guard word.lastReviewed == nil else { return }
+        let now = Date()
+        word.lastReviewed = now
+        if word.nextReview < now {
+            word.nextReview = now
         }
     }
 }

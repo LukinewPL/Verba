@@ -1,17 +1,35 @@
 import SwiftUI
+import SwiftData
 
 struct SetDetailView: View {
     @Environment(LanguageManager.self) private var lm
     @Environment(AppCoordinator.self) private var coordinator
     @Environment(\.dismiss) private var dismiss
     @Bindable var set: WordSet
+    @Query private var allWords: [Word]
 
-    private var masteredCount: Int {
-        get { set.words.filter(\.isMastered).count }
+    private var wordsInSet: [Word] {
+        allWords.filter { $0.set?.id == set.id }
+    }
+
+    private var indexedWords: [(offset: Int, word: Word)] {
+        wordsInSet.enumerated().map { (offset: $0.offset, word: $0.element) }
+    }
+
+    private var completedCount: Int {
+        get { wordsInSet.filter(\.isCompletedInStudy).count }
+    }
+
+    private var totalCount: Int {
+        get { wordsInSet.count }
     }
 
     private var progress: Double {
-        get { Double(masteredCount) / Double(max(1, set.words.count)) }
+        get { Double(completedCount) / Double(max(1, totalCount)) }
+    }
+
+    private func isCompleted(_ word: Word) -> Bool {
+        word.isCompletedInStudy
     }
 
     private var isSourceToTarget: Bool {
@@ -67,8 +85,8 @@ struct SetDetailView: View {
                     .lineLimit(2)
 
                 HStack(spacing: 8) {
-                    statPill(icon: "text.book.closed.fill", text: "\(set.words.count) \(lm.t("words"))")
-                    statPill(icon: "star.fill", text: "\(masteredCount)")
+                    statPill(icon: "text.book.closed.fill", text: "\(totalCount) \(lm.t("words"))")
+                    statPill(icon: "checkmark.circle.fill", text: "\(completedCount)")
                 }
             }
 
@@ -157,30 +175,31 @@ struct SetDetailView: View {
             .padding(.vertical, 8)
 
             LazyVStack(spacing: 0) {
-                ForEach(set.words) { w in
+                ForEach(indexedWords, id: \.word.id) { row in
                     HStack(spacing: 12) {
-                        Text(isSourceToTarget ? w.polish : w.english)
+                        Text(isSourceToTarget ? row.word.polish : row.word.english)
                             .foregroundColor(.white.opacity(0.95))
                             .lineLimit(2)
 
                         Spacer(minLength: 20)
 
-                        Text(isSourceToTarget ? w.english : w.polish)
+                        Text(isSourceToTarget ? row.word.english : row.word.polish)
                             .foregroundColor(.white.opacity(0.86))
                             .lineLimit(2)
                             .multilineTextAlignment(.trailing)
 
-                        if w.isMastered {
-                            Image(systemName: "star.fill")
-                                .foregroundStyle(Color.glassMint)
-                        }
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(Color.glassMint)
+                            .opacity(isCompleted(row.word) ? 1 : 0)
                     }
                     .font(.system(size: 19, weight: .medium, design: .default))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 7)
 
-                    Divider()
-                        .overlay(Color.white.opacity(0.1))
+                    if row.offset < indexedWords.count - 1 {
+                        Divider()
+                            .overlay(Color.white.opacity(0.1))
+                    }
                 }
             }
         }

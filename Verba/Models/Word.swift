@@ -12,10 +12,15 @@ import Foundation
     var nextReview: Date = Date()
     var lastReviewed: Date?
     var difficultyRating: Int = 0
+    var isStudyCompleted: Bool = false
     var set: WordSet?
     
     init(polish: String, english: String) {
         self.polish = polish
         self.english = english
+    }
+
+    var isCompletedInStudy: Bool {
+        isStudyCompleted
     }
 }

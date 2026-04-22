@@ -75,6 +75,10 @@
     "import_language_detection_info": "Języki są wykrywane automatycznie na podstawie zawartości kolumn. W razie potrzeby możesz je zmienić ręcznie.",
     "import_direction": "Kierunek importu",
     "flashcards_swipe_hint": "Przeciągnij kartę w bok lub użyj strzałek, a spacją ją obróć",
-    "flashcards_completed_subtitle": "Znasz już wszystkie słówka z tego zestawu."
+    "flashcards_completed_subtitle": "Znasz już wszystkie słówka z tego zestawu.",
+    "study_restart_title": "Masz już opanowane wszystkie słówka",
+    "study_restart_message": "Czy chcesz rozpocząć naukę tego zestawu od początku?",
+    "study_restart_confirm": "Rozpocznij od początku",
+    "study_restart_cancel": "Zakończ"
   }
 }

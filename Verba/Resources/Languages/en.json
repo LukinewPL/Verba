@@ -75,6 +75,10 @@
     "import_language_detection_info": "Languages are detected automatically from the column content. You can adjust them manually if needed.",
     "import_direction": "Import direction",
     "flashcards_swipe_hint": "Swipe sideways or use the arrow keys, and press space to flip",
-    "flashcards_completed_subtitle": "You already know all words from this set."
+    "flashcards_completed_subtitle": "You already know all words from this set.",
+    "study_restart_title": "You have mastered all words",
+    "study_restart_message": "Do you want to restart learning this set from the beginning?",
+    "study_restart_confirm": "Restart from beginning",
+    "study_restart_cancel": "Finish"
   }
 }

@@ -20,7 +20,7 @@ final class StudySessionViewModelTests: XCTestCase {
         vm.resetSession()
 
         XCTAssertEqual(vm.current?.id, due.id)
-        XCTAssertTrue(vm.queue.isEmpty)
+        XCTAssertEqual(vm.queue.map(\.id), [newWord.id])
     }
 
     func testResetSessionFallsBackToNewWordsWhenNoDueReviews() {
@@ -36,6 +36,24 @@ final class StudySessionViewModelTests: XCTestCase {
 
         XCTAssertEqual(vm.current?.id, newWord.id)
         XCTAssertTrue(vm.queue.isEmpty)
+    }
+
+    func testResetSessionIncludesNewWordsWhenDueReviewsExist() {
+        let due = Word(polish: "pies", english: "dog")
+        due.lastReviewed = Date().addingTimeInterval(-3_600)
+        due.nextReview = Date().addingTimeInterval(-300)
+
+        let newWordOne = Word(polish: "kot", english: "cat")
+        let newWordTwo = Word(polish: "ptak", english: "bird")
+
+        let set = WordSet(name: "session", words: [due, newWordOne, newWordTwo])
+        let vm = StudySessionViewModel(set: set)
+
+        vm.resetSession()
+
+        let activeIDs = Set(([vm.current].compactMap { $0?.id }) + vm.queue.map(\.id))
+        XCTAssertEqual(activeIDs, Set([due.id, newWordOne.id, newWordTwo.id]))
+        XCTAssertEqual(vm.current?.id, due.id)
     }
 
     func testResetSessionInitializesCurrentWordAndCounters() {
@@ -65,6 +83,7 @@ final class StudySessionViewModelTests: XCTestCase {
         XCTAssertEqual(vm.correctCount, 1)
         XCTAssertEqual(vm.attemptedCount, 1)
         XCTAssertEqual(vm.queue.count, 0)
+        XCTAssertTrue(vm.current?.isStudyCompleted == true)
     }
 
     func testCorrectAnswerWithHintRequeuesWordAndDoesNotIncreaseScore() {
@@ -79,6 +98,7 @@ final class StudySessionViewModelTests: XCTestCase {
         XCTAssertEqual(vm.correctCount, 0)
         XCTAssertEqual(vm.attemptedCount, 1)
         XCTAssertEqual(vm.queue.count, 1)
+        XCTAssertFalse(vm.current?.isStudyCompleted == true)
 
         vm.nextWord()
         XCTAssertEqual(vm.prompt, "pies")
@@ -95,6 +115,7 @@ final class StudySessionViewModelTests: XCTestCase {
         XCTAssertEqual(vm.correctCount, 0)
         XCTAssertEqual(vm.attemptedCount, 1)
         XCTAssertEqual(vm.queue.count, 1)
+        XCTAssertFalse(vm.current?.isStudyCompleted == true)
     }
 
     func testProvideHintSetsTargetFirstLetter() {
@@ -189,6 +210,68 @@ final class StudySessionViewModelTests: XCTestCase {
         XCTAssertEqual(repository.sessions.count, 1)
         XCTAssertEqual(repository.sessions.first?.wordsStudied, 3)
         XCTAssertEqual(repository.sessions.first?.correctAnswers, 2)
+    }
+
+    func testCheckAnswerPersistsWordProgress() {
+        let repository = MockWordRepository()
+        let vm = makeVM(words: [("pies", "dog")])
+        vm.setup(repository: repository)
+        vm.answer = "dog"
+
+        vm.checkAnswer(onSuccess: {}, onFailure: {})
+
+        XCTAssertTrue(repository.saveCalled)
+        XCTAssertEqual(repository.saveCallCount, 1)
+    }
+
+    func testHasFullyLearnedSetIsTrueOnlyWhenAllWordsAreCompletedInStudy() {
+        let completed = Word(polish: "pies", english: "dog")
+        completed.isStudyCompleted = true
+        let pending = Word(polish: "kot", english: "cat")
+
+        let vmPartial = StudySessionViewModel(set: WordSet(name: "session", words: [completed, pending]))
+        XCTAssertFalse(vmPartial.hasFullyLearnedSet)
+
+        pending.isStudyCompleted = true
+        let vmFull = StudySessionViewModel(set: WordSet(name: "session", words: [completed, pending]))
+        XCTAssertTrue(vmFull.hasFullyLearnedSet)
+    }
+
+    func testRestartLearningFromBeginningClearsLearningStateForAllWords() {
+        let first = Word(polish: "pies", english: "dog")
+        first.isMastered = true
+        first.repetitions = 7
+        first.interval = 21
+        first.easeFactor = 2.9
+        first.lastReviewed = Date().addingTimeInterval(-86_400)
+        first.nextReview = Date().addingTimeInterval(86_400)
+        first.difficultyRating = 4
+
+        let second = Word(polish: "kot", english: "cat")
+        second.isMastered = true
+        second.repetitions = 5
+        second.lastReviewed = Date().addingTimeInterval(-3_600)
+        second.nextReview = Date().addingTimeInterval(3_600)
+        second.difficultyRating = 5
+
+        let set = WordSet(name: "session", words: [first, second])
+        let vm = StudySessionViewModel(set: set)
+
+        vm.restartLearningFromBeginning()
+
+        for word in set.words {
+            XCTAssertFalse(word.isMastered)
+            XCTAssertEqual(word.repetitions, 0)
+            XCTAssertEqual(word.interval, 1)
+            XCTAssertEqual(word.easeFactor, 2.5, accuracy: 0.0001)
+            XCTAssertNil(word.lastReviewed)
+            XCTAssertEqual(word.difficultyRating, 0)
+            XCTAssertFalse(word.isStudyCompleted)
+        }
+
+        XCTAssertNotNil(vm.current)
+        let activeIDs = Set(([vm.current].compactMap { $0?.id }) + vm.queue.map(\.id))
+        XCTAssertEqual(activeIDs, Set(set.words.map(\.id)))
     }
 
     private func makeVM(words: [(String, String)]) -> StudySessionViewModel {

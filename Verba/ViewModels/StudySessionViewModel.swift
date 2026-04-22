@@ -36,11 +36,14 @@ import Observation
     
     func setup(repository: any WordRepositoryProtocol) {
         self.repository = repository
+    }
+
+    func startSession() {
         resetSession()
     }
     
     func resetSession() {
-        queue = sm2Service.buildReviewQueue(from: set.words)
+        queue = buildStudyQueue(from: set.words)
         attemptedCount = 0
         correctCount = 0
         hasSaved = false
@@ -76,7 +79,9 @@ import Observation
                     queue.append(w)
                 } else {
                     sm2Service.rate(w, quality: 4)
+                    w.isStudyCompleted = true
                 }
+                repository?.save()
             }
             onSuccess()
         } else {
@@ -86,6 +91,7 @@ import Observation
             if let w = current {
                 sm2Service.rate(w, quality: 1)
                 queue.append(w)
+                repository?.save()
             }
             onFailure()
         }
@@ -144,6 +150,10 @@ import Observation
         guard let first = trimmed.first else { return "" }
         return String(first)
     }
+
+    var hasFullyLearnedSet: Bool {
+        !set.words.isEmpty && set.words.allSatisfy(\.isCompletedInStudy)
+    }
     
     var hasTypedFirstTargetLetter: Bool {
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -154,6 +164,14 @@ import Observation
     
     var shouldShowInlineHint: Bool {
         !hint.isEmpty && feedback == .clear
+    }
+
+    func restartLearningFromBeginning() {
+        for word in set.words {
+            resetLearningProgress(for: word)
+        }
+        repository?.save()
+        resetSession()
     }
     
     private var hintCandidate: String {
@@ -203,6 +221,32 @@ import Observation
             
             promptAnswerPool[promptKey, default: []].formUnion(variants)
         }
+    }
+
+    private func buildStudyQueue(from words: [Word], now: Date = Date()) -> [Word] {
+        let dueReviewed = words
+            .filter { $0.lastReviewed != nil && $0.nextReview <= now }
+            .shuffled()
+        let newWords = words
+            .filter { $0.lastReviewed == nil }
+            .shuffled()
+
+        if !dueReviewed.isEmpty || !newWords.isEmpty {
+            return dueReviewed + newWords
+        }
+
+        return words.shuffled()
+    }
+
+    private func resetLearningProgress(for word: Word) {
+        word.isMastered = false
+        word.easeFactor = 2.5
+        word.interval = 1
+        word.repetitions = 0
+        word.nextReview = Date()
+        word.lastReviewed = nil
+        word.difficultyRating = 0
+        word.isStudyCompleted = false
     }
     
 }
